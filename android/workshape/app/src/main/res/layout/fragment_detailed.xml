@@ -1,0 +1,170 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              tools:context="com.lrubstudio.workshape.InOutFragment"
+              android:orientation="vertical"
+              android:gravity="center_horizontal">
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/textView99"
+                android:text="@string/qr_code"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editQRCode"
+                android:inputType="text"
+                style="@style/EditTextForTableRow" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/textView100"
+                android:text="@string/fournisseur"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editFournisseur"
+                android:inputType="text"
+                style="@style/EditTextForTableRow" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/textView101"
+                android:text="@string/ref_fourn"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editRefFournisseur"
+                android:inputType="text"
+                style="@style/EditTextForTableRow"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/textView106"
+                android:text="@string/date_d_arrivee"
+                style="@style/TextViewForTableRow"
+                />
+
+            <EditText
+                android:id="@+id/editDateArrivee"
+                android:inputType="datetime"
+                style="@style/EditTextForTableRow"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/textView107"
+                android:text="@string/transport_frigo"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editTransportFrigo"
+                android:inputType="text"
+                style="@style/EditTextForTableRow"/>
+
+        </TableRow>
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="40px" />
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/textView102"
+                android:text="@string/longueur_initiale"
+                style="@style/TextViewForTableRowSmall" />
+
+            <EditText
+                android:id="@+id/editLongueurInitiale"
+                style="@style/EditTextForTableRow"
+                android:inputType="numberDecimal"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/textView103"
+                android:text="@string/largeur"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editLargeur"
+                android:inputType="numberDecimal"
+                style="@style/EditTextForTableRow"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/textView104"
+                android:text="@string/grammage"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editGrammage"
+                android:inputType="text"
+                style="@style/EditTextForTableRow"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/textView105"
+                android:text="@string/type_de_tissus"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editTypeDeTissus"
+                android:inputType="text"
+                style="@style/EditTextForTableRow"/>
+
+        </TableRow>
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="40px" />
+
+    </TableLayout>
+
+</LinearLayout>

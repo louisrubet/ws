@@ -1,0 +1,8 @@
+android/workshape/*.iml
+android/workshape/.gradle
+android/workshape/local.properties
+android/workshape/.idea/workspace.xml
+android/workshape/gradle.properties
+/android/workshape/.idea/libraries
+/android/workshape/app/build
+/android/workshape/zxing-android-embedded/build
