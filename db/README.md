@@ -15,7 +15,9 @@ Faire une installation par défaut, c'est-à-dire
   - Instance nommée SQLExpress, ID d'instance SQLEXPRESS
 - Configuration du serveur
   - Moteur de base de donnée SQL Server: NT Service\MSSQL$SQLEXPRESS, type de démarrage automatique
-  - SQL Server Browser: NT AUTHORITY\LOCAL SERVICE, type de démarrage désactivé
+  - Comptes de service:
+    - SQL Server Database Engine: NT AUTHORITY\SERVICE RÉSEAU, type de démarrage automatique
+    - SQL Server Browser: NT AUTHORITY\LOCAL SERVICE, type de démarrage désactivé
 - Configuration du moteuer de base de données
   - Mode d'authentification mixte
 
