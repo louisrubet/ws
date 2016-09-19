@@ -18,7 +18,7 @@ import java.util.Properties;
 public class DbRequest extends AsyncTask<String, Integer, Map>
 {
     // debug
-    private static final Boolean DBG = true;
+    private static final Boolean DBG = false;
     private static int dbgCount = 0;
 
     // errors
@@ -28,8 +28,8 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
     public static final int DBERR_READ = 3;
 
     // constants
-    private final String driverClass = "com.mysql.jdbc.Driver";
-    private final String connectionHeader = "jdbc:mysql://";
+    private final String driverClass = "net.sourceforge.jtds.jdbc.Driver";
+    private final String connectionHeader = "jdbc:jtds:sqlserver://";
 
     // connection internals
     private Connection connection;
@@ -64,13 +64,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
         }
         else
         {
-            // TODO faire un connect systematique ?
-            // connect if not done
-            if (!is_connected)
-                is_connected = connect();
-
-            //
-            if (is_connected)
+            if (connect())
             {
                 try
                 {
@@ -131,6 +125,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
 
     private boolean connect()
     {
+        boolean is_connected;
         if (DBG)
         {
             is_connected = true;
@@ -142,10 +137,11 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
                 Class.forName(driverClass);
                 Properties theProperties = new Properties();
 
-                theProperties.setProperty("user", ConfigurationActivity.configuration.user);
-                theProperties.setProperty("password", ConfigurationActivity.configuration.password);
-                theProperties.setProperty("connectTimeout", ConfigurationActivity.configuration.connectionTimeoutMs);
-                connection = DriverManager.getConnection(connectionHeader + ConfigurationActivity.configuration.serverIp + ":" + ConfigurationActivity.configuration.serverPort + "/" + ConfigurationActivity.configuration.database, theProperties);
+                connection = DriverManager.getConnection(connectionHeader + ConfigurationActivity.configuration.serverIp
+                        + ";databaseName=" + ConfigurationActivity.configuration.database
+                        + ";user=" + ConfigurationActivity.configuration.user
+                        + ";password=" + ConfigurationActivity.configuration.password
+                        + ";loginTimeout=" + ConfigurationActivity.configuration.connectionTimeoutS, theProperties);
                 is_connected = true;
             }
             catch (Exception e)

@@ -28,7 +28,7 @@ public class ConfigurationActivity extends AppCompatActivity
         String database;
         String user;
         String password;
-        String connectionTimeoutMs;
+        String connectionTimeoutS;
         String conf_password;
     }
 
@@ -63,7 +63,7 @@ public class ConfigurationActivity extends AppCompatActivity
                     configuration.database = sharedPref.getString(context.getString(R.string.database_name), "workshapedb");
                     configuration.user = sharedPref.getString(context.getString(R.string.database_user), "workshape");
                     configuration.password = sharedPref.getString(context.getString(R.string.database_password), "qqoap8ck");
-                    configuration.connectionTimeoutMs = sharedPref.getString(context.getString(R.string.database_timeout), "4000");
+                    configuration.connectionTimeoutS = sharedPref.getString(context.getString(R.string.database_timeout), "5");
                     configuration.conf_password = sharedPref.getString(context.getString(R.string.conf_password), "");
                 }
                 catch(Exception e)
@@ -81,7 +81,7 @@ public class ConfigurationActivity extends AppCompatActivity
     {
         String[] entries = new String[] {configuration.serverIp, configuration.serverPort,
                 configuration.database, configuration.user,
-                configuration.password, configuration.connectionTimeoutMs,
+                configuration.password, configuration.connectionTimeoutS,
                 configuration.conf_password};
 
         super.onCreate(savedInstanceState);
@@ -157,8 +157,8 @@ public class ConfigurationActivity extends AppCompatActivity
                 configuration.password = ((EditText)findViewById(R.id.editDatabasePassword)).getText().toString();
                 editor.putString(context.getString(R.string.database_password), configuration.password);
 
-                configuration.connectionTimeoutMs = ((EditText)findViewById(R.id.editDatabaseTimeout)).getText().toString();
-                editor.putString(context.getString(R.string.database_timeout), configuration.connectionTimeoutMs);
+                configuration.connectionTimeoutS = ((EditText)findViewById(R.id.editDatabaseTimeout)).getText().toString();
+                editor.putString(context.getString(R.string.database_timeout), configuration.connectionTimeoutS);
 
                 configuration.conf_password = ((EditText)findViewById(R.id.editConfigurationPassword)).getText().toString();
                 editor.putString(context.getString(R.string.conf_password), configuration.conf_password);
