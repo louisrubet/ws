@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -27,21 +28,64 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
     public static final int DBERR_WRITE = 2;
     public static final int DBERR_READ = 3;
 
-    // constants
-    private final String driverClass = "net.sourceforge.jtds.jdbc.Driver";
-    private final String connectionHeader = "jdbc:jtds:sqlserver://";
-
     // connection internals
     private Connection connection;
-    private boolean is_connected = false;
     private int lastError = DBERR_OK;
+    private String lastErrorString;
+
+    // default
+    public DbRequest() { }
+
+    // to be overloaded
+    public String getDriverClass()
+    {
+        // jtds driver for SQLServer
+        // return new String("net.sourceforge.jtds.jdbc.Driver");
+        // jtds for mysql
+        return new String("net.sourceforge.jtds.jdbc.Driver");
+    }
+
+    public String getConnectionString()
+    {
+        // jtds driver for SQLServer
+        /* String connectionString = "jdbc:jtds:sqlserver://"
+                + ConfigurationActivity.configuration.serverIp
+                + ":" + ConfigurationActivity.configuration.serverPort
+                + "/" + ConfigurationActivity.configuration.database
+                + ";instance=SQLEXPRESS"
+                + ";user=" + ConfigurationActivity.configuration.user
+                + ";password=" + ConfigurationActivity.configuration.password
+                + ";loginTimeout=" + ConfigurationActivity.configuration.connectionTimeoutS
+                */
+        // jtds driver for mysql
+        String connectionString = "jdbc:mysql://"
+                + ConfigurationActivity.configuration.serverIp
+                + ":" + ConfigurationActivity.configuration.serverPort
+                + "/" + ConfigurationActivity.configuration.database;
+        return connectionString;
+    }
+
+    public Properties getConnectionProperty()
+    {
+        // exception must be caught by caller
+
+        // jtds driver for SQLServer
+        //return new Properties();
+
+        // jtds driver for mysql
+        Integer timeoutMs = Integer.parseInt(ConfigurationActivity.configuration.connectionTimeoutS) * 1000;
+        Properties prop = new Properties();
+        prop.setProperty("user", ConfigurationActivity.configuration.user);
+        prop.setProperty("password", ConfigurationActivity.configuration.password);
+        prop.setProperty("connectTimeout", String.valueOf(timeoutMs);
+    }
 
     // helper for callers
 
-    // define an interface for response to caller
+    // DbRequest external user MUST implement this interface
     public interface AsyncResponse
     {
-        void dbRequestFinished(Map result, int dbError);
+        void dbRequestFinished(Map result, int dbError, String dbErrorString);
     }
     public AsyncResponse delegate = null;
 
@@ -120,12 +164,13 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
 
     protected void onPostExecute(Map result)
     {
-        delegate.dbRequestFinished(result, lastError);
+        delegate.dbRequestFinished(result, lastError, lastErrorString);
     }
 
     private boolean connect()
     {
         boolean is_connected;
+
         if (DBG)
         {
             is_connected = true;
@@ -134,21 +179,22 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
         {
             try
             {
-                Class.forName(driverClass);
-                Properties theProperties = new Properties();
-
-                connection = DriverManager.getConnection(connectionHeader + ConfigurationActivity.configuration.serverIp
-                        + ";databaseName=" + ConfigurationActivity.configuration.database
-                        + ";user=" + ConfigurationActivity.configuration.user
-                        + ";password=" + ConfigurationActivity.configuration.password
-                        + ";loginTimeout=" + ConfigurationActivity.configuration.connectionTimeoutS, theProperties);
+                Class.forName(getDriverClass());
+                connection = DriverManager.getConnection(getConnectionString(), getConnectionProperty());
                 is_connected = true;
+            }
+            catch (SQLException e)
+            {
+                is_connected = false;
+                lastErrorString = e.toString();
             }
             catch (Exception e)
             {
                 is_connected = false;
+                lastErrorString = "";
             }
         }
+
         return is_connected;
     }
 }

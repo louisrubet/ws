@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
     }
 
     @Override
-    public void dbRequestFinished(Map result, int dbError)
+    public void dbRequestFinished(Map result, int dbError, String dbErrorString)
     {
         // stop the turning thing
         findViewById(R.id.progressBar).setVisibility(View.GONE);
@@ -95,7 +95,10 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
             switch(dbError)
             {
                 case DbRequest.DBERR_CONNECTION_FAILED:
-                    error = getResources().getString(R.string.db_err_connection_failed);
+                    if (dbErrorString.isEmpty())
+                        error = getResources().getString(R.string.db_err_connection_failed);
+                    else
+                        error = dbErrorString;
                     break;
                 case DbRequest.DBERR_READ:
                     error = getResources().getString(R.string.db_err_read);
@@ -107,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                     error = getResources().getString(R.string.db_err_unknown);
                     break;
             }
-            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, error, Toast.LENGTH_LONG).show();
         }
     }
 
