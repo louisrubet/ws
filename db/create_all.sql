@@ -1,121 +1,77 @@
-USE [master]
-GO
-/****** Object:  Database [workshapedb]    Script Date: 09/16/2016 14:13:56 ******/
-CREATE DATABASE [workshapedb] ON  PRIMARY 
-( NAME = N'workshapedb', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\workshapedb.mdf' , SIZE = 5120KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
- LOG ON 
-( NAME = N'workshapedb_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\workshapedb_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
-GO
-ALTER DATABASE [workshapedb] SET COMPATIBILITY_LEVEL = 100
-GO
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [workshapedb].[dbo].[sp_fulltext_database] @action = 'enable'
-end
-GO
-ALTER DATABASE [workshapedb] SET ANSI_NULL_DEFAULT OFF
-GO
-ALTER DATABASE [workshapedb] SET ANSI_NULLS OFF
-GO
-ALTER DATABASE [workshapedb] SET ANSI_PADDING OFF
-GO
-ALTER DATABASE [workshapedb] SET ANSI_WARNINGS OFF
-GO
-ALTER DATABASE [workshapedb] SET ARITHABORT OFF
-GO
-ALTER DATABASE [workshapedb] SET AUTO_CLOSE OFF
-GO
-ALTER DATABASE [workshapedb] SET AUTO_CREATE_STATISTICS ON
-GO
-ALTER DATABASE [workshapedb] SET AUTO_SHRINK OFF
-GO
-ALTER DATABASE [workshapedb] SET AUTO_UPDATE_STATISTICS ON
-GO
-ALTER DATABASE [workshapedb] SET CURSOR_CLOSE_ON_COMMIT OFF
-GO
-ALTER DATABASE [workshapedb] SET CURSOR_DEFAULT  GLOBAL
-GO
-ALTER DATABASE [workshapedb] SET CONCAT_NULL_YIELDS_NULL OFF
-GO
-ALTER DATABASE [workshapedb] SET NUMERIC_ROUNDABORT OFF
-GO
-ALTER DATABASE [workshapedb] SET QUOTED_IDENTIFIER OFF
-GO
-ALTER DATABASE [workshapedb] SET RECURSIVE_TRIGGERS OFF
-GO
-ALTER DATABASE [workshapedb] SET  DISABLE_BROKER
-GO
-ALTER DATABASE [workshapedb] SET AUTO_UPDATE_STATISTICS_ASYNC OFF
-GO
-ALTER DATABASE [workshapedb] SET DATE_CORRELATION_OPTIMIZATION OFF
-GO
-ALTER DATABASE [workshapedb] SET TRUSTWORTHY OFF
-GO
-ALTER DATABASE [workshapedb] SET ALLOW_SNAPSHOT_ISOLATION OFF
-GO
-ALTER DATABASE [workshapedb] SET PARAMETERIZATION SIMPLE
-GO
-ALTER DATABASE [workshapedb] SET READ_COMMITTED_SNAPSHOT OFF
-GO
-ALTER DATABASE [workshapedb] SET HONOR_BROKER_PRIORITY OFF
-GO
-ALTER DATABASE [workshapedb] SET  READ_WRITE
-GO
-ALTER DATABASE [workshapedb] SET RECOVERY SIMPLE
-GO
-ALTER DATABASE [workshapedb] SET  MULTI_USER
-GO
-ALTER DATABASE [workshapedb] SET PAGE_VERIFY CHECKSUM
-GO
-ALTER DATABASE [workshapedb] SET DB_CHAINING OFF
-GO
-USE [workshapedb]
-GO
-/****** Object:  Table [dbo].[product]    Script Date: 09/16/2016 14:13:57 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[product](
-	[idproduct] [int] NOT NULL,
-	[reference] [nvarchar](50) NULL,
-	[product_qr] [nvarchar](200) NULL,
-	[fournisseur] [nvarchar](50) NULL,
-	[ref_fournisseur] [nvarchar](50) NULL,
-	[longueur_initiale] [numeric](12, 2) NULL,
-	[longueur_actuelle] [numeric](12, 2) NULL,
-	[largeur] [numeric](12, 2) NULL,
-	[grammage] [nvarchar](50) NULL,
-	[type_de_tissus] [nvarchar](50) NULL,
-	[date_arrivee] [datetime] NULL,
-	[transport_frigo] [nvarchar](50) NULL,
-	[note] [text] NULL,
- CONSTRAINT [PK_product] PRIMARY KEY CLUSTERED 
-(
-	[idproduct] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[event]    Script Date: 09/16/2016 14:13:57 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[event](
-	[idevent] [int] NOT NULL,
-	[idproduct] [int] NULL,
-	[name] [nvarchar](50) NULL,
-	[date_in] [datetime] NULL,
-	[date_out] [datetime] NULL,
- CONSTRAINT [PK_event] PRIMARY KEY CLUSTERED 
-(
-	[idevent] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  ForeignKey [FK_event_product]    Script Date: 09/16/2016 14:13:57 ******/
-ALTER TABLE [dbo].[event]  WITH CHECK ADD  CONSTRAINT [FK_event_product] FOREIGN KEY([idproduct])
-REFERENCES [dbo].[product] ([idproduct])
-GO
-ALTER TABLE [dbo].[event] CHECK CONSTRAINT [FK_event_product]
-GO
+CREATE DATABASE  IF NOT EXISTS `workshapedb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `workshapedb`;
+-- MySQL dump 10.13  Distrib 5.7.15, for Linux (x86_64)
+--
+-- Host: localhost    Database: workshapedb
+-- ------------------------------------------------------
+-- Server version	5.7.15-0ubuntu0.16.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `event`
+--
+
+DROP TABLE IF EXISTS `event`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `event` (
+  `idevent` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `date_in` datetime DEFAULT NULL,
+  `date_out` datetime DEFAULT NULL,
+  `fk_idproduct` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idevent`),
+  KEY `fk_idproduct` (`fk_idproduct`),
+  CONSTRAINT `fk_product` FOREIGN KEY (`fk_idproduct`) REFERENCES `product` (`idproduct`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `product`
+--
+
+DROP TABLE IF EXISTS `product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product` (
+  `idproduct` int(11) NOT NULL AUTO_INCREMENT,
+  `reference` varchar(50) DEFAULT NULL,
+  `qrcode` varchar(200) DEFAULT NULL,
+  `note` text,
+  `fournisseur` varchar(50) DEFAULT NULL,
+  `ref_fournisseur` varchar(50) DEFAULT NULL,
+  `longueur_initiale` decimal(10,2) DEFAULT NULL,
+  `longueur_actuelle` decimal(10,2) DEFAULT NULL,
+  `largeur` decimal(10,2) DEFAULT NULL,
+  `grammage` varchar(50) DEFAULT NULL,
+  `type_de_tissus` varchar(50) DEFAULT NULL,
+  `date_arrivee` datetime DEFAULT NULL,
+  `transport_frigo` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`idproduct`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping routines for database 'workshapedb'
+--
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-09-26 21:39:18

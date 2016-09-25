@@ -25,7 +25,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements DbRequest.AsyncResponse
 {
     // db request for one product and product reference
-    private static final String PRODUCT_REQUEST = "select * from product where product_qr=";
+    private static final String PRODUCT_REQUEST = "select * from product where qrcode=";
     private static String lastPieceReference = "";
 
     //

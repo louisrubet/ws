@@ -42,7 +42,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
         // jtds driver for SQLServer
         // return new String("net.sourceforge.jtds.jdbc.Driver");
         // jtds for mysql
-        return new String("net.sourceforge.jtds.jdbc.Driver");
+        return new String("com.mysql.jdbc.Driver");
     }
 
     public String getConnectionString()
@@ -77,7 +77,8 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
         Properties prop = new Properties();
         prop.setProperty("user", ConfigurationActivity.configuration.user);
         prop.setProperty("password", ConfigurationActivity.configuration.password);
-        prop.setProperty("connectTimeout", String.valueOf(timeoutMs);
+        prop.setProperty("connectTimeout", String.valueOf(timeoutMs));
+        return prop;
     }
 
     // helper for callers

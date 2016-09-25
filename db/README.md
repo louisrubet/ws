@@ -1,21 +1,58 @@
-# Installation sur site
+# Dev tools installation on kubuntu 16.04
 
-## PC Serveur Windows
+## MySQL 5.7.15
 
-### Logiciels requis
-- Microsoft® SQL Server® 2014 Express
-Choisir la version française 'with tools' ExpressAndTools 64BIT\SQLEXPRWT_x64_FRA.exe (879.8 MB)
-cf https://www.microsoft.com/fr-fr/download/details.aspx?id=42299
-- Minimal ADB and Fastboot v1.4, cf https://www.androidfilehost.com/?w=file-thanks&fid=24521665358595410&mid=108&download_id=m43k0nq1kt4le8tlcbuvqhqmt6&tid=1474720409&hc=2bba023c598d84d54bb4cca2294d028be172fd825874315a948e1f7aedaeed87
+mysql install and service control
 
-#### Installation de SQL Server Express 2014
-Faire une installation par défaut, c'est-à-dire
-- Configuration de l'instance
-  - Instance nommée SQLExpress, ID d'instance SQLEXPRESS
-  - Moteur de base de donnée SQL Server: type de démarrage automatique
-  - SQL Server Browser: type de démarrage désactivé
-- Configuration du moteuer de base de données
-  - Mode d'authentification mixte
+> cf http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
 
-### Installation de Minimal ADB and Fastboot v1.4
-- TODO
+>```bash
+# Installing MySQL with APT
+shell> sudo apt-get install mysql-server
+# Starting and Stopping the MySQL Server
+shell> sudo service mysql status
+shell> sudo service mysql stop
+shell> sudo service mysql start # start and restart
+```
+
+Reset a mysql password if needed
+
+>```bash
+shell> sudo su
+root> service mysql stop
+root> echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'NEW PWD';" > mypass.sql
+root> chown mysql:mysql /tmp/mypass.sql && chmod a+rwx /tmp/mypass.sql
+root> mysqld_safe --init-file=/tmp/mypass.sql &
+2016-09-25T15:59:28.709774Z mysqld_safe Logging to syslog.
+2016-09-25T15:59:28.712856Z mysqld_safe Logging to '/var/log/mysql/error.log'.
+2016-09-25T15:59:28.726690Z mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+root> rm /tmp/mypass.sql
+root> exit
+```
+
+Enter mysql interpretor
+>```bash
+shell> mysql -u root -p
+```
+
+Create user
+
+>```mysql
+mysql> CREATE USER 'workshape'@'localhost' IDENTIFIED BY 'workshape';
+Query OK, 0 rows affected (0,00 sec)
+mysql> CREATE USER 'workshape'@'%' IDENTIFIED BY 'workshape';
+Query OK, 0 rows affected (0,00 sec)
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'workshape'@'localhost' with grant option;
+Query OK, 0 rows affected (0,00 sec)
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'workshape'@'%' with grant option;
+Query OK, 0 rows affected (0,00 sec)
+mysql> flush privileges;
+Query OK, 0 rows affected (0,00 sec)
+```
+
+## MySQL Workbench 6.3.6
+
+mysql workbench install
+>```bash
+shell> sudo apt-get install mysql-workbench
+```
