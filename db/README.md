@@ -4,9 +4,8 @@
 
 mysql install and service control
 
-> cf http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
-
->```bash
+cf http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
+```bash
 # Installing MySQL with APT
 shell> sudo apt-get install mysql-server
 # Starting and Stopping the MySQL Server
@@ -16,8 +15,7 @@ shell> sudo service mysql start # start and restart
 ```
 
 Reset a mysql password if needed
-
->```bash
+```bash
 shell> sudo su
 root> service mysql stop
 root> echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'NEW PWD';" > mypass.sql
@@ -31,13 +29,13 @@ root> exit
 ```
 
 Enter mysql interpretor
->```bash
+```bash
 shell> mysql -u root -p
 ```
 
 Create user
 
->```mysql
+```mysql
 mysql> CREATE USER 'workshape'@'localhost' IDENTIFIED BY 'workshape';
 Query OK, 0 rows affected (0,00 sec)
 mysql> CREATE USER 'workshape'@'%' IDENTIFIED BY 'workshape';
@@ -53,6 +51,6 @@ Query OK, 0 rows affected (0,00 sec)
 ## MySQL Workbench 6.3.6
 
 mysql workbench install
->```bash
+```bash
 shell> sudo apt-get install mysql-workbench
 ```
