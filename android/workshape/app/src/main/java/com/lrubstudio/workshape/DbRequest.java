@@ -1,6 +1,7 @@
 package com.lrubstudio.workshape;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,8 +26,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
     // errors
     public static final int DBERR_OK = 0;
     public static final int DBERR_CONNECTION_FAILED = 1;
-    public static final int DBERR_WRITE = 2;
-    public static final int DBERR_READ = 3;
+    public static final int DBERR_REQUEST_ERROR = 2;
 
     // connection internals
     private Connection connection;
@@ -35,6 +35,14 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
 
     // default
     public DbRequest() { }
+    public DbRequest(AsyncResponse delegate)
+    {
+        this.delegate = delegate;
+    }
+
+    public AsyncResponse delegate = null;
+
+    //
 
     // to be overloaded
     public String getDriverClass()
@@ -47,16 +55,6 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
 
     public String getConnectionString()
     {
-        // jtds driver for SQLServer
-        /* String connectionString = "jdbc:jtds:sqlserver://"
-                + ConfigurationActivity.configuration.serverIp
-                + ":" + ConfigurationActivity.configuration.serverPort
-                + "/" + ConfigurationActivity.configuration.database
-                + ";instance=SQLEXPRESS"
-                + ";user=" + ConfigurationActivity.configuration.user
-                + ";password=" + ConfigurationActivity.configuration.password
-                + ";loginTimeout=" + ConfigurationActivity.configuration.connectionTimeoutS
-                */
         // jtds driver for mysql
         String connectionString = "jdbc:mysql://"
                 + ConfigurationActivity.configuration.serverIp
@@ -67,12 +65,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
 
     public Properties getConnectionProperty()
     {
-        // exception must be caught by caller
-
-        // jtds driver for SQLServer
-        //return new Properties();
-
-        // jtds driver for mysql
+         // jtds driver for mysql
         Integer timeoutMs = Integer.parseInt(ConfigurationActivity.configuration.connectionTimeoutS) * 1000;
         Properties prop = new Properties();
         prop.setProperty("user", ConfigurationActivity.configuration.user);
@@ -87,13 +80,6 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
     public interface AsyncResponse
     {
         void dbRequestFinished(Map result, int dbError, String dbErrorString);
-    }
-    public AsyncResponse delegate = null;
-
-    //
-    public DbRequest(AsyncResponse delegate)
-    {
-        this.delegate = delegate;
     }
 
     // AsyncTask extents
@@ -137,12 +123,13 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
                                     String columnName = rsmd.getColumnName(i);
                                     if (columnName.length() > 0)
                                         map.put(columnName, set.getString(i));
+                                    Log.e("DbRequest", "field:"+columnName+" : "+set.getString(i));
                                 }
                             }
                             lastError = DBERR_OK;
                         }
                         else
-                            lastError = DBERR_READ;
+                            lastError = DBERR_REQUEST_ERROR;
                     }
                     else
                         lastError = DBERR_CONNECTION_FAILED;
@@ -150,6 +137,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
                 catch (Exception e)
                 {
                     lastError = DBERR_CONNECTION_FAILED;
+                    lastErrorString = e.getMessage();
                 }
             }
             else
@@ -192,7 +180,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
             catch (Exception e)
             {
                 is_connected = false;
-                lastErrorString = "";
+                lastErrorString = e.toString();
             }
         }
 

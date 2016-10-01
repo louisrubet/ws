@@ -1,36 +1,45 @@
 <resources>
+    <!-- app wide -->
     <string name="app_name">Workshape</string>
     <string name="conf_file_key">com.lrustudio.workshape.WORKSHAPE_FILE_KEY</string>
+
+    <!-- activities -->
     <string name="activity_main_title">Workshape</string>
     <string name="activity_edit_title">Edition d\'une pièce</string>
+    <string name="activity_piece_out">Sortie de la pièce d\'un frigo</string>
+    <string name="activity_piece_in">Entrée de la pièce dans un frigo</string>
     <string name="activity_edit_detailed_title">Détail de la pièce</string>
     <string name="activity_add_title">Ajout d\'une pièce</string>
     <string name="activity_configuration_title">Configuration</string>
+
     <string name="scan_button">Scanner un produit</string>
     <string name="reference_hint">ou entrer une référence ici</string>
     <string name="turn_on_flashlight">Allumer le Flash</string>
     <string name="turn_off_flashlight">Eteindre le Flash</string>
-    <string name="mandatory_field">Obligatoire</string>
     <string name="reference">Référence</string>
     <string name="qr_code">QR code</string>
     <string name="fournisseur">Fournisseur</string>
     <string name="ref_fourn">Ref. fourn.</string>
     <string name="longueur_initiale">Longueur initiale (m)</string>
     <string name="longueur_actuelle">Longueur actuelle (m)</string>
+    <string name="longueur_consommee">Consommé (m)</string>
     <string name="largeur">Largeur (m)</string>
     <string name="grammage">Grammage</string>s
+    <string name="lieu_actuel">Lieu actuel</string>
+    <string name="lieu_depuis">Sorti depuis</string>
+    <string name="entrer_en">Pièce à entrer dans</string>
+    <string name="date_application">Date d\'application</string>
     <string name="type_de_tissus">Type de tissus</string>
     <string name="date_d_arrivee">Date d\'arrivée</string>
     <string name="transport_frigo">Transport frigo</string>
     <string name="decongele_le">Décongelé le</string>
     <string name="decongele">Décongelé</string>
-    <string name="hors_gel">Temps hors gel</string>
-    <string name="piece_sortie">La pièce est actuellement sortie</string>
+    <string name="temps_hors_gel_total">Temps total hors gel</string>
+    <string name="hors_gel">Temps passé hors gel</string>
+    <string name="piece_sortie">Pièce sortie</string>
     <string name="piece_entree">La pièce est actuellement dans le frigo</string>
-    <string name="db_err_unknown">Erreur de connection inconnue</string>
+    <string name="db_err_request">Erreur de la base de données</string>
     <string name="db_err_connection_failed">Erreur de connection à la base de données</string>
-    <string name="db_err_write">Erreur d\'écriture en base de données</string>
-    <string name="db_err_read">Erreur de lecture en base de données</string>
     <string name="conf_password_title">"Entrer le mot de passe</string>
     <string name="unknown_piece">"Pièce inconnue</string>
     <string name="enter">Entrer</string>
@@ -46,7 +55,12 @@
     <string name="conf_file_read_error">Configuration illisible - Réinstallez l\'application</string>
     <string name="conf_file_write_error">Impossible de sauver la configuration</string>
     <string name="conf_file_write_done">Configuration sauvegardée</string>
+    <string name="sauver_la_piece">Sauver la pièce</string>
+    <string name="buttonHistoCongel">Historique</string>
+    <string name="internal_problem">Problème interne du logiciel</string>
     <string name="sortir_la_piece">Sortir la pièce</string>
     <string name="entrer_la_piece">Entrer la pièce</string>
-    <string name="buttonHistoCongel">Historique</string>
+
+    <string name="should_be_decimal">Valeur numérique obligatoire</string>
+
 </resources>

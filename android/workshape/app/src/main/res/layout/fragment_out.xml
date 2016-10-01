@@ -1,0 +1,182 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              tools:context="com.lrubstudio.workshape.OutFragment"
+              android:orientation="vertical"
+              android:gravity="center_horizontal">
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_gravity="center_vertical|right">
+
+            <TextView
+                android:text="@string/qr_code"
+                android:id="@+id/textView20"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editOutQRCode"
+                android:inputType="text"
+                style="@style/EditTextForTableRow" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+            <TextView
+                android:text="@string/reference"
+                android:id="@+id/textView21"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editOutReference"
+                android:inputType="text"
+                style="@style/EditTextForTableRow" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+            <Space
+                android:layout_width="20px"
+                android:layout_height="80px" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+            <TextView
+                android:text="@string/lieu_actuel"
+                android:id="@+id/textView211"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editOutLieuActuel"
+                android:inputType="text"
+                style="@style/EditTextForTableRow" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+            <TextView
+                android:text="@string/lieu_depuis"
+                android:id="@+id/textView212"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editOutLieuDepuis"
+                android:inputType="text"
+                style="@style/EditTextForTableRow" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+            <Space
+                android:layout_width="20px"
+                android:layout_height="80px" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+            <Space
+                android:layout_width="20px"
+                android:layout_height="40px" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+            <TextView
+                android:text="@string/temps_hors_gel_total"
+                android:id="@+id/textView24"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editOutHorsGelTotal"
+                android:inputType="time"
+                style="@style/EditTextForTableRow" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+            <TextView
+                android:text="@string/longueur_initiale"
+                android:id="@+id/textView22"
+                style="@style/TextViewForTableRow"
+                android:textIsSelectable="true" />
+
+            <EditText
+                android:id="@+id/editOutLongueurInitiale"
+                android:inputType="none|numberDecimal"
+                style="@style/EditTextForTableRow" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+            <TextView
+                android:text="@string/longueur_actuelle"
+                android:id="@+id/textView23"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editOutLongueurActuelle"
+                android:inputType="none|numberDecimal"
+                style="@style/EditTextForTableRow" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="80px"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right">
+
+        <Button
+            android:text="@string/sortir_la_piece"
+            android:id="@+id/buttonActionOut"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            />
+    </LinearLayout>
+
+</LinearLayout>

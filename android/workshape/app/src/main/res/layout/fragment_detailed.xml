@@ -3,7 +3,7 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              tools:context="com.lrubstudio.workshape.InOutFragment"
+              tools:context="com.lrubstudio.workshape.OutFragment"
               android:orientation="vertical"
               android:gravity="center_horizontal">
 
@@ -23,6 +23,22 @@
 
             <EditText
                 android:id="@+id/editQRCode"
+                android:inputType="text"
+                style="@style/EditTextForTableRow" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/textView991"
+                android:text="@string/reference"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editReference"
                 android:inputType="text"
                 style="@style/EditTextForTableRow" />
 
@@ -104,7 +120,7 @@
             <TextView
                 android:id="@+id/textView102"
                 android:text="@string/longueur_initiale"
-                style="@style/TextViewForTableRowSmall" />
+                style="@style/TextViewForTableRow" />
 
             <EditText
                 android:id="@+id/editLongueurInitiale"
@@ -166,5 +182,20 @@
             android:layout_height="40px" />
 
     </TableLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right">
+
+        <Button
+            android:text="@string/sauver_la_piece"
+            android:id="@+id/buttonActionInOut"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:onClick="onClickActionSauver" />
+    </LinearLayout>
 
 </LinearLayout>

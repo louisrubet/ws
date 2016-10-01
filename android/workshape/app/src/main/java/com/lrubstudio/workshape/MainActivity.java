@@ -25,7 +25,6 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements DbRequest.AsyncResponse
 {
     // db request for one product and product reference
-    private static final String PRODUCT_REQUEST = "select * from product where qrcode=";
     private static String lastPieceReference = "";
 
     //
@@ -83,7 +82,10 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 // -> run edit activity
                 Intent intent = new Intent(this, EditAddActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("mode", EditAddActivity.MODE_EDIT);
+                if (lastRequestedPiece.get("lieu_actuel").equals("sortie"))
+                    bundle.putInt("mode", EditAddActivity.MODE_EDIT_IN);
+                else
+                    bundle.putInt("mode", EditAddActivity.MODE_EDIT_OUT);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -91,26 +93,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         else
         {
             // toast db error
-            String error;
-            switch(dbError)
-            {
-                case DbRequest.DBERR_CONNECTION_FAILED:
-                    if (dbErrorString.isEmpty())
-                        error = getResources().getString(R.string.db_err_connection_failed);
-                    else
-                        error = dbErrorString;
-                    break;
-                case DbRequest.DBERR_READ:
-                    error = getResources().getString(R.string.db_err_read);
-                    break;
-                case DbRequest.DBERR_WRITE:
-                    error = getResources().getString(R.string.db_err_write);
-                    break;
-                default:
-                    error = getResources().getString(R.string.db_err_unknown);
-                    break;
-            }
-            Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, dbErrorString, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -132,7 +115,9 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 // start the turning thing
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
                 // run asynchronous request
-                new DbRequest(this).execute(PRODUCT_REQUEST + "\"" + qr + "\"");
+                String request = getString(R.string.request_product);
+                request = request.replaceAll("#qr_code", qr);
+                new DbRequest(this).execute(request);
             }
         }
     }
@@ -239,8 +224,11 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
 
                 // make thing turn
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+
                 // run asynchronous request
-                new DbRequest(this).execute(PRODUCT_REQUEST + "\"" + result.getContents() + "\"");
+                String request = getString(R.string.request_product);
+                request = request.replaceAll("#qr_code", lastPieceReference);
+                new DbRequest(this).execute(request);
             }
         }
         else

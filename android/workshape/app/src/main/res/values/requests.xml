@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="request_product">select * from product_view where qr_code=\"#qr_code\"</string>
+    <string name="request_product_out">call product_out(\"#qr_code\",\"#date\")</string>
+    <string name="date_format_to_mysql">dd/MM/yyyy HH:mm:ss</string>
+    <string name="date_format_to_android">dd/MM/yyyy HH:mm:ss</string>
+    <string name="lieu_de_stockage">frigo</string>
+    <string name="lieu_de_sortie">sortie</string>
+</resources>
