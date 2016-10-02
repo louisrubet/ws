@@ -26,18 +26,17 @@
     <string name="largeur">Largeur (m)</string>
     <string name="grammage">Grammage</string>s
     <string name="lieu_actuel">Lieu actuel</string>
-    <string name="lieu_depuis">Sorti depuis</string>
+    <string name="lieu_depuis">Sortie depuis</string>
     <string name="entrer_en">Pièce à entrer dans</string>
     <string name="date_application">Date d\'application</string>
     <string name="type_de_tissus">Type de tissus</string>
     <string name="date_d_arrivee">Date d\'arrivée</string>
     <string name="transport_frigo">Transport frigo</string>
-    <string name="decongele_le">Décongelé le</string>
-    <string name="decongele">Décongelé</string>
-    <string name="temps_hors_gel_total">Temps total hors gel</string>
-    <string name="hors_gel">Temps passé hors gel</string>
+    <string name="decongele">Nb décongélation</string>
+    <string name="temps_hors_gel_total">Tot. hors gel (h:m)</string>
+    <string name="hors_gel">Passé hors gel (h:m)</string>
     <string name="piece_sortie">Pièce sortie</string>
-    <string name="piece_entree">La pièce est actuellement dans le frigo</string>
+    <string name="piece_entree">Pièce entrée</string>
     <string name="db_err_request">Erreur de la base de données</string>
     <string name="db_err_connection_failed">Erreur de connection à la base de données</string>
     <string name="conf_password_title">"Entrer le mot de passe</string>
@@ -62,5 +61,6 @@
     <string name="entrer_la_piece">Entrer la pièce</string>
 
     <string name="should_be_decimal">Valeur numérique obligatoire</string>
+    <string name="should_be_hhmm">Valeur hh:mm obligatoire</string>
 
 </resources>

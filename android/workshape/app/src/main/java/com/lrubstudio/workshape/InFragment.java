@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.sql.Time;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -66,18 +69,40 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
 
             // fill hors gel time duration
-            /*
-            SimpleDateFormat dateFormat = new SimpleDateFormat(view.getResources().getString(R.string.date_format_to_android));
-            String dateFrom = ((EditText)view.findViewById(R.id.editInLieuDepuis)).getText().toString();
             try
             {
-                Date date = dateFormat.parse(dateFrom);
+                // time diff
+                Date currentDate = new Date(System.currentTimeMillis());
+                SimpleDateFormat dateFormat = new SimpleDateFormat(view.getResources().getString(R.string.date_format_to_android));
+                String dateFrom = ((EditText)view.findViewById(R.id.editInLieuDepuis)).getText().toString();
+                Date dateLieu = dateFormat.parse(dateFrom);
+
+                long diffS = (currentDate.getTime() - dateLieu.getTime()) / 1000;
+                String diffString = view.getResources().getString(R.string.time_format_to_android);
+
+                // building hours
+                long hours = diffS / 3600;
+                String hoursString = new String();
+                if (hours < 10)
+                    hoursString += "0";
+                hoursString += String.valueOf(hours);
+                diffString = diffString.replaceAll("HH", hoursString);
+
+                // building minutes
+                long minutes = (diffS - 3600 * (diffS / 3600)) / 60;
+                String minutesString = new String();
+                if (minutes < 10)
+                    minutesString += "0";
+                minutesString += String.valueOf(minutes);
+                diffString = diffString.replaceAll("mm", minutesString);
+
+                // setting text
+                ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setText(diffString);
             }
             catch (Exception e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
-            }*/
+            }
         }
 
         return view;
@@ -86,18 +111,22 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
     @Override
     public void onClick(View view)
     {
-        /*
-        String qr_code=((EditText)getView().findViewById(R.id.editInQRCode)).getText().toString();
-        String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
-        String request = getActivity().getString(R.string.request_new_event);
-        request = request.replaceAll("#qr_code", qr_code);
-        request = request.replaceAll("#date", date);
-        new DbRequest(this).execute(request);
-        */
         // check entries
-        if (checkShouldBeDecimal(R.id.editInLongueurConsommee))
+        if (checkShouldBeDecimal(R.id.editInLongueurConsommee) && checkShouldBeHHmm(R.id.editInTempsHorsGel))
         {
+            // prepare request
+            String request = getActivity().getString(R.string.request_product_in);
 
+            String qr_code=((EditText)getView().findViewById(R.id.editInQRCode)).getText().toString();
+            String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
+            String longueurConsommee = ((EditText)getView().findViewById(R.id.editInLongueurConsommee)).getText().toString();
+            String temps_hors_gel = ((EditText)getView().findViewById(R.id.editInTempsHorsGel)).getText().toString();
+
+            request = request.replaceAll("#qr_code", qr_code);
+            request = request.replaceAll("#date", date);
+            request = request.replaceAll("#longueur_consommee", longueurConsommee);
+            request = request.replaceAll("#temps_hors_gel", temps_hors_gel);
+            new DbRequest(this).execute(request);
         }
     }
 
@@ -107,7 +136,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         if (dbError == DbRequest.DBERR_OK)
         {
             // toast ok !
-            Toast.makeText(getActivity(), getActivity().getString(R.string.piece_sortie), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getActivity().getString(R.string.piece_entree), Toast.LENGTH_LONG).show();
 
             // bye
             getActivity().finish();
@@ -137,6 +166,32 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             catch(Exception e)
             {
                 edit.setError(getResources().getString(R.string.should_be_decimal));
+                edit.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_error_24dp, 0);
+            }
+        }
+
+        return ret;
+    }
+
+    private boolean checkShouldBeHHmm(int resource)
+    {
+        boolean ret = false;
+        EditText edit = (EditText)getView().findViewById(resource);
+        if (edit != null)
+        {
+            String entry_string = edit.getText().toString();
+
+            try
+            {
+                DateFormat df = new SimpleDateFormat("HH:mm");
+                Date result =  df.parse(edit.getText().toString());
+                edit.setError(null);
+                edit.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                ret =true;
+            }
+            catch(Exception e)
+            {
+                edit.setError(getResources().getString(R.string.should_be_hhmm));
                 edit.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_error_24dp, 0);
             }
         }

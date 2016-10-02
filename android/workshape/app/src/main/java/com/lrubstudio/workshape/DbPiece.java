@@ -28,6 +28,7 @@ public class DbPiece
     public final String transport_frigo = "transport_frigo";
     public final String lieu_actuel = "lieu_actuel";
     public final String temps_hors_gel_total = "temps_hors_gel_total";
+    public final String nb_decongelation = "nb_decongelation";
 
     // db values (input field name, output value)
     private Map map;
@@ -60,6 +61,7 @@ public class DbPiece
             tmp_map.put("decongele", "4 fois");
             tmp_map.put("lieu_actuel", "frigo");
             tmp_map.put("temps_hors_gel_total", "02:30");
+            tmp_map.put("nb_decongelation", "3");
         }
         finally
         {
@@ -67,6 +69,36 @@ public class DbPiece
 
         return tmp_map;
     }
+
+    /*static public String db_time_to_string(String dbTime)
+    {
+        String androidTime = new String();
+        try
+        {
+            long diffS = (currentDate.getTime() - dateLieu.getTime()) / 1000;
+            String diffString = view.getResources().getString(R.string.time_format_to_android);
+
+            // building hours
+            long hours = diffS / 3600;
+            String hoursString = new String();
+            if (hours < 10)
+                hoursString += "0";
+            hoursString += String.valueOf(hours);
+            diffString = diffString.replaceAll("HH", hoursString);
+
+            // building minutes
+            long minutes = (diffS - 3600 * (diffS / 3600)) / 60;
+            String minutesString = new String();
+            if (minutes < 10)
+                minutesString += "0";
+            minutesString += String.valueOf(minutes);
+            diffString = diffString.replaceAll("mm", minutesString);
+        }
+        catch(Exception e)
+        {
+
+        }
+    }*/
 
     /*
 

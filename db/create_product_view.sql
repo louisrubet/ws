@@ -19,6 +19,7 @@ VIEW `product_view` AS
         `product`.`lieu_actuel` AS `lieu_actuel`,
         DATE_FORMAT(`product`.`lieu_depuis`, '%d/%m/%Y %T') AS `lieu_depuis`,
         `product`.`temps_hors_gel_total` AS `temps_hors_gel_total`,
+        `product`.`nb_decongelation` AS `nb_decongelation`,
         `product`.`note` AS `note`
     FROM
         `product`
