@@ -151,12 +151,6 @@
             android:layout_height="fill_parent"
             android:layout_width="fill_parent">
 
-        </TableRow>
-
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent">
-
             <Space
                 android:layout_width="20px"
                 android:layout_height="80px"/>
