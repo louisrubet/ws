@@ -57,7 +57,7 @@
             android:layout_width="fill_parent">
 
             <TextView
-                android:text="@string/lieu_depuis"
+                android:text="@string/lieu_depuis_in"
                 android:id="@+id/textView2123"
                 style="@style/TextViewForTableRow" />
 

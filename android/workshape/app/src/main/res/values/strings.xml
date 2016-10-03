@@ -31,7 +31,8 @@
     <string name="largeur">Largeur (m)</string>
     <string name="grammage">Grammage</string>s
     <string name="lieu_actuel">Lieu actuel</string>
-    <string name="lieu_depuis">Sortie depuis</string>
+    <string name="lieu_depuis_out">depuis</string>
+    <string name="lieu_depuis_in">Sortie depuis</string>
     <string name="entrer_en">Pièce à entrer dans</string>
     <string name="date_application">Date d\'application</string>
     <string name="type_de_tissus">Type de tissus</string>
