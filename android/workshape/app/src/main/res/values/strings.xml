@@ -3,7 +3,7 @@
     <string name="app_name">Workshape</string>
     <string name="conf_file_key">com.lrustudio.workshape.WORKSHAPE_FILE_KEY</string>
 
-    <!-- activities -->
+    <!-- all activities -->
     <string name="activity_main_title">Workshape</string>
     <string name="activity_edit_title">Edition d\'une pièce</string>
     <string name="activity_piece_out">Sortie de la pièce d\'un frigo</string>
@@ -12,10 +12,15 @@
     <string name="activity_add_title">Ajout d\'une pièce</string>
     <string name="activity_configuration_title">Configuration</string>
 
+    <!-- main and scanner activities
+    -->
     <string name="scan_button">Scanner un produit</string>
     <string name="reference_hint">ou entrer une référence ici</string>
     <string name="turn_on_flashlight">Allumer le Flash</string>
     <string name="turn_off_flashlight">Eteindre le Flash</string>
+
+    <!-- edit add activity
+    -->
     <string name="reference">Référence</string>
     <string name="qr_code">QR code</string>
     <string name="fournisseur">Fournisseur</string>
@@ -43,14 +48,6 @@
     <string name="unknown_piece">"Pièce inconnue</string>
     <string name="enter">Entrer</string>
     <string name="cancel">Annuler</string>
-    <string name="server_hostname">DB server host</string>
-    <string name="server_port">DB server port</string>
-    <string name="database_name">DB Nom</string>
-    <string name="database_user">DB User</string>
-    <string name="database_password">DB mot de passe</string>
-    <string name="database_timeout">DB timeout (s)</string>
-    <string name="conf_password">Mot de passe</string>
-    <string name="apply">Sauver et sortir</string>
     <string name="conf_file_read_error">Configuration illisible - Réinstallez l\'application</string>
     <string name="conf_file_write_error">Impossible de sauver la configuration</string>
     <string name="conf_file_write_done">Configuration sauvegardée</string>
@@ -59,8 +56,17 @@
     <string name="internal_problem">Problème interne du logiciel</string>
     <string name="sortir_la_piece">Sortir la pièce</string>
     <string name="entrer_la_piece">Entrer la pièce</string>
-
     <string name="should_be_decimal">Valeur numérique obligatoire</string>
     <string name="should_be_hhmm">Valeur hh:mm obligatoire</string>
+
+    <!-- configuration activity -->
+    <string name="server_hostname">DB server host</string>
+    <string name="server_port">DB server port</string>
+    <string name="database_name">DB Nom</string>
+    <string name="database_user">DB User</string>
+    <string name="database_password">DB mot de passe</string>
+    <string name="database_timeout">DB timeout (s)</string>
+    <string name="conf_password">Mot de passe</string>
+    <string name="apply">Sauver et sortir</string>
 
 </resources>
