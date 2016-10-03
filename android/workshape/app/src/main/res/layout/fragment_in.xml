@@ -9,8 +9,7 @@
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  xmlns:tools="http://schemas.android.com/tools"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content">
+                 style="@style/CommonTableLayout">
 
         <TableRow
             android:layout_height="fill_parent"
@@ -115,14 +114,7 @@
                 style="@style/EditTextForTableRow" />
         </TableRow>
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent">
-
-            <Space
-                android:layout_width="20px"
-                android:layout_height="80px"/>
-        </TableRow>
+        <Space style="@style/BigVerticalSpace"/>
 
         <TableRow
             android:layout_height="fill_parent"
@@ -156,13 +148,7 @@
 
         </TableRow>
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent">
-            <Space
-                android:layout_width="20px"
-                android:layout_height="80px" />
-        </TableRow>
+        <Space style="@style/BigVerticalSpace"/>
 
     </TableLayout>
 

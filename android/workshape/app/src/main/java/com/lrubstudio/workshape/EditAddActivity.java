@@ -44,6 +44,7 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
     // fragments in a pager
     CollectionPagerAdapter collectionPagerAdapter;
     ViewPager viewPager;
+    String newQrCode = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,7 +52,7 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editadd);
 
-        // activity mode
+        // activity mode and new qr code if any
         Bundle bundle = getIntent().getExtras();
         if(bundle != null)
         {
@@ -62,6 +63,8 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                 Toast.makeText(this, getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
                 finish();
             }
+
+            newQrCode = bundle.getString("newQrCode");
         }
 
         // pager
@@ -69,14 +72,6 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(collectionPagerAdapter);
         viewPager.addOnPageChangeListener(this);
-
-        // statusbar color
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
-        }
 
         // toolbar
         Toolbar myToolbar = (Toolbar)findViewById(R.id.my_toolbar);
@@ -207,8 +202,8 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                     case EditAddActivity.EDIT_PAGE_DETAILED:
                         return new DetailedFragment();
                     // other
-                    case EditAddActivity.EDIT_PAGE_PHOTO:
-                        return new DetailedFragment();
+                    //case EditAddActivity.EDIT_PAGE_PHOTO:
+                    //    return new DetailedFragment();
                     default:
                         break;
                 }
@@ -224,8 +219,8 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                     case EditAddActivity.EDIT_PAGE_DETAILED:
                         return new DetailedFragment();
                     // other
-                    case EditAddActivity.EDIT_PAGE_PHOTO:
-                        return new DetailedFragment();
+                    //case EditAddActivity.EDIT_PAGE_PHOTO:
+                    //    return new DetailedFragment();
                     default:
                         break;
                 }
@@ -236,10 +231,16 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                 {
                     // main fragment
                     case EditAddActivity.ADD_PAGE_DETAILED:
-                        return new DetailedFragment();
+                    {
+                        DetailedFragment detailed = new DetailedFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("newQrCode", parentActivity.newQrCode);
+                        detailed.setArguments(bundle);
+                        return detailed;
+                    }
                     // other
-                    case EditAddActivity.ADD_PAGE_PHOTO:
-                        return new DetailedFragment();
+                    //case EditAddActivity.ADD_PAGE_PHOTO:
+                    //    return new DetailedFragment();
                     default:
                         break;
                 }

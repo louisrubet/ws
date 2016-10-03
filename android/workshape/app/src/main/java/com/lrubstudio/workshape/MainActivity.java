@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -38,18 +40,26 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // statusbar color
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
-        }
-
         // toolbar
         Toolbar myToolbar = (Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         //myToolbar.setLogo(R.drawable.ic_action_barcode_2);
+
+        // hide floating button
+        ((FloatingActionButton)findViewById(R.id.fab)).hide();
+
+        // show edit button
+        findViewById(R.id.imageButton).setVisibility(View.VISIBLE);
+
+        // managing floating action add button
+        ((FloatingActionButton)findViewById(R.id.fab)).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                ((MainActivity)view.getContext()).onClickAdd(view);
+            }
+        });
 
         // round progressbar for db access
         findViewById(R.id.progressBar).setVisibility(View.GONE);
@@ -71,13 +81,24 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         {
             if (result == null)
             {
+                // show floating button
+                ((FloatingActionButton)findViewById(R.id.fab)).show();
+                // hide edit button
+                findViewById(R.id.imageButton).setVisibility(View.GONE);
+
                 // unknown piece -> show it
+                lastPieceReference = "";
                 Toast.makeText(this, getResources().getString(R.string.unknown_piece), Toast.LENGTH_SHORT).show();
             }
             else
             {
                 // keep values
                 lastRequestedPiece.setFromMap(result);
+
+                // hide floating button
+                ((FloatingActionButton)findViewById(R.id.fab)).hide();
+                // show edit button
+                findViewById(R.id.imageButton).setVisibility(View.VISIBLE);
 
                 // -> run edit activity
                 Intent intent = new Intent(this, EditAddActivity.class);
@@ -122,42 +143,29 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_activity, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case R.id.action_configuration:
-                onClickConfiguration(null);
-                return true;
-
-            case R.id.action_add:
-                onClickAdd(null);
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     public void onClickAdd(View view)
     {
-        // -> run edit activity (cause: add)
-        Intent intent = new Intent(this, EditAddActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt("mode", EditAddActivity.MODE_ADD);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        // hide floating button
+        ((FloatingActionButton)findViewById(R.id.fab)).hide();
+        // show edit button
+        findViewById(R.id.imageButton).setVisibility(View.VISIBLE);
+
+        // read new qr code
+        EditText edit = (EditText)findViewById(R.id.editText);
+        if (edit != null && edit.length() > 0)
+        {
+            String qr = edit.getText().toString();
+            if (qr.length() > 0)
+            {
+                // -> run edit activity (cause: add)
+                Intent intent = new Intent(this, EditAddActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("mode", EditAddActivity.MODE_ADD);
+                bundle.putString("newQrCode", qr);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        }
     }
 
     public void onClickConfiguration(View view)
@@ -235,6 +243,30 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         {
             // This is important, otherwise the result will not be passed to the fragment
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.action_configuration:
+                onClickConfiguration(null);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
         }
     }
 }

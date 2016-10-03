@@ -6,12 +6,6 @@
         android:id="@+id/action_configuration"
         android:icon="@drawable/ic_settings_black_36dp1"
         android:title="@string/activity_configuration_title"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/ic_add_black_24dp"
-        android:title="@string/activity_add_title"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
 
 </menu>

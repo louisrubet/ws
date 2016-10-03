@@ -13,23 +13,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EditAddActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ToolbarColoredBackArrow"
-        app:titleTextColor="@color/colorToolbarItem"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentTop="false"/>
+    <android.support.design.widget.AppBarLayout style="@style/AppBarLayout"
+                                                android:id="@+id/my_AppBarlayout">
+        <android.support.v7.widget.Toolbar style="@style/Toolbar"
+                                           android:id="@+id/my_toolbar">
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
                                        android:id="@+id/pager"
                                        android:layout_width="match_parent"
                                        android:layout_height="match_parent"
-                                       android:layout_below="@id/my_toolbar"/>
+                                       android:layout_below="@id/my_AppBarlayout"/>
 </RelativeLayout>

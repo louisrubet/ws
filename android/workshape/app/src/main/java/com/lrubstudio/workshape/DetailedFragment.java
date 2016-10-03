@@ -30,18 +30,40 @@ public class DetailedFragment extends Fragment
 
         if (view != null)
         {
-            // fill MMI views from db fields
-            int[] edits = new int [] {
-                    R.id.editQRCode, R.id.editReference, R.id.editFournisseur, R.id.editRefFournisseur,
-                    R.id.editDateArrivee, R.id.editTransportFrigo, R.id.editLongueurInitiale,
-                    R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus
-            };
-            String[] dbfields = new String [] {
-                    "qr_code", "reference", "fournisseur", "ref_fournisseur",
-                    "date_arrivee", "transport_frigo", "longueur_initiale",
-                    "largeur", "grammage", "type_de_tissus"
-            };
-            MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
+            String newQrCode;
+
+            // see if piece is added
+            Bundle bundle = this.getArguments();
+            if(bundle != null)
+            {
+                // yes, fill only QRCode
+                newQrCode = bundle.getString("newQrCode");
+                if (newQrCode != null && newQrCode.length()>0)
+                {
+                    ((EditText)view.findViewById(R.id.editQRCode)).setText(newQrCode);
+                }
+                else
+                {
+                    // bloody mystery
+                    Toast.makeText(view.getContext(), getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
+                    view = null;
+                }
+            }
+            else
+            {
+                // fill MMI views from db fields
+                int[] edits = new int [] {
+                        R.id.editQRCode, R.id.editReference, R.id.editFournisseur, R.id.editRefFournisseur,
+                        R.id.editDateArrivee, R.id.editTransportFrigo, R.id.editLongueurInitiale,
+                        R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus
+                };
+                String[] dbfields = new String [] {
+                        "qr_code", "reference", "fournisseur", "ref_fournisseur",
+                        "date_arrivee", "transport_frigo", "longueur_initiale",
+                        "largeur", "grammage", "type_de_tissus"
+                };
+                MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
+            }
         }
 
         return view;

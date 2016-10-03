@@ -45,7 +45,7 @@
     <string name="db_err_request">Erreur de la base de données</string>
     <string name="db_err_connection_failed">Erreur de connection à la base de données</string>
     <string name="conf_password_title">"Entrer le mot de passe</string>
-    <string name="unknown_piece">"Pièce inconnue</string>
+    <string name="unknown_piece">"Pièce inconnue\nAppuyer sur '+' pour l'ajouter</string>
     <string name="enter">Entrer</string>
     <string name="cancel">Annuler</string>
     <string name="conf_file_read_error">Configuration illisible - Réinstallez l\'application</string>

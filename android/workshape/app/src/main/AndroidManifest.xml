@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.lrubstudio.workshape"
           xmlns:android="http://schemas.android.com/apk/res/android">
+
     # for MySQL JDBC connections
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -9,7 +10,7 @@
         android:icon="@drawable/ic_action_barcode_2"
         android:label="@string/activity_main_title"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme">
 
         <!-- The main activity -->
         <activity android:name=".MainActivity">
