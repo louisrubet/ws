@@ -64,6 +64,28 @@ public class DbPiece
         return request;
     }
 
+    static public String buildRequestProductAdd(Context context, String qrCode, String date,
+                                                String reference, String fournisseur, String refFournisseur,
+                                                String longueurInitiale, String largeur, String grammage,
+                                                String typeDeTissus, String dateArrivee, String transportFrigo,
+                                                String lieuActuel)
+    {
+        String request = context.getString(R.string.request_product_add);
+        request = request.replaceAll("#qr_code", qrCode);
+        request = request.replaceAll("#date", date);
+        request = request.replaceAll("#reference", reference);
+        request = request.replaceAll("#fournisseur", fournisseur);
+        request = request.replaceAll("#ref_fournisseur", refFournisseur);
+        request = request.replaceAll("#longueur_initiale", longueurInitiale);
+        request = request.replaceAll("#largeur", largeur);
+        request = request.replaceAll("#grammage", grammage);
+        request = request.replaceAll("#type_de_tissus", typeDeTissus);
+        request = request.replaceAll("#date_arrivee", dateArrivee);
+        request = request.replaceAll("#transport_frigo", transportFrigo);
+        request = request.replaceAll("#lieu_actuel", lieuActuel);
+        return request;
+    }
+
     static public Map setDbgValues()
     {
         Map tmp_map = null;

@@ -43,6 +43,7 @@
     <string name="hors_gel">Passé hors gel (h:m)</string>
     <string name="piece_sortie">Pièce sortie</string>
     <string name="piece_entree">Pièce entrée</string>
+    <string name="piece_creee">Pièce créée</string>
     <string name="db_err_request">Erreur de la base de données</string>
     <string name="db_err_connection_failed">Erreur de connection à la base de données</string>
     <string name="conf_password_title">"Entrer le mot de passe</string>
