@@ -73,12 +73,10 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
     @Override
     public void onClick(View view)
     {
-        String qr_code=((EditText)getView().findViewById(R.id.editOutQRCode)).getText().toString();
+        // build then run request
+        String qrCode=((EditText)getView().findViewById(R.id.editOutQRCode)).getText().toString();
         String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
-        String request = getActivity().getString(R.string.request_product_out);
-        request = request.replaceAll("#qr_code", qr_code);
-        request = request.replaceAll("#date", date);
-        new DbRequest(this).execute(request);
+        new DbRequest(this).execute(DbPiece.buildRequestProductOut(getActivity(), qrCode, date));
     }
 
     @Override

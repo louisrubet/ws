@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 // -> run edit activity
                 Intent intent = new Intent(this, EditAddActivity.class);
                 Bundle bundle = new Bundle();
-                if (lastRequestedPiece.get("lieu_actuel").equals("sortie"))
+                if (lastRequestedPiece.isPieceOut())
                     bundle.putInt("mode", EditAddActivity.MODE_EDIT_IN);
                 else
                     bundle.putInt("mode", EditAddActivity.MODE_EDIT_OUT);
@@ -135,10 +135,9 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
             {
                 // start the turning thing
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
-                // run asynchronous request
-                String request = getString(R.string.request_product);
-                request = request.replaceAll("#qr_code", qr);
-                new DbRequest(this).execute(request);
+
+                // build request and run asynchronous request
+                new DbRequest(this).execute(DbPiece.buildRequestProductView(this, qr));
             }
         }
     }
@@ -234,9 +233,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
                 // run asynchronous request
-                String request = getString(R.string.request_product);
-                request = request.replaceAll("#qr_code", lastPieceReference);
-                new DbRequest(this).execute(request);
+                new DbRequest(this).execute(DbPiece.buildRequestProductView(this, lastPieceReference));
             }
         }
         else

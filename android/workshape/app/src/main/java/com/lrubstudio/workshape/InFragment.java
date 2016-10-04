@@ -114,19 +114,13 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         // check entries
         if (checkShouldBeDecimal(R.id.editInLongueurConsommee) && checkShouldBeHHmm(R.id.editInTempsHorsGel))
         {
-            // prepare request
-            String request = getActivity().getString(R.string.request_product_in);
-
-            String qr_code=((EditText)getView().findViewById(R.id.editInQRCode)).getText().toString();
+            // build and run request
+            String qrCode=((EditText)getView().findViewById(R.id.editInQRCode)).getText().toString();
             String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
             String longueurConsommee = ((EditText)getView().findViewById(R.id.editInLongueurConsommee)).getText().toString();
             String temps_hors_gel = ((EditText)getView().findViewById(R.id.editInTempsHorsGel)).getText().toString();
 
-            request = request.replaceAll("#qr_code", qr_code);
-            request = request.replaceAll("#date", date);
-            request = request.replaceAll("#longueur_consommee", longueurConsommee);
-            request = request.replaceAll("#temps_hors_gel", temps_hors_gel);
-            new DbRequest(this).execute(request);
+            new DbRequest(this).execute(DbPiece.buildRequestProductIn(getActivity(), qrCode, date, longueurConsommee, temps_hors_gel));
         }
     }
 

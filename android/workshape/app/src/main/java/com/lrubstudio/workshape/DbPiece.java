@@ -1,5 +1,6 @@
 package com.lrubstudio.workshape;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
 
@@ -32,10 +33,35 @@ public class DbPiece
 
     // db values (input field name, output value)
     private Map map;
-
     public void setFromMap(Map map)
     {
         this.map = map;
+    }
+
+    // build product requests
+    //
+    static public String buildRequestProductView(Context context, String qrCode)
+    {
+        String request = context.getString(R.string.request_product);
+        return request.replaceAll("#qr_code", qrCode);
+    }
+
+    static public String buildRequestProductIn(Context context, String qrCode, String date, String longueurConsommee, String temps_hors_gel)
+    {
+        String request = context.getString(R.string.request_product_in);
+        request = request.replaceAll("#qr_code", qrCode);
+        request = request.replaceAll("#date", date);
+        request = request.replaceAll("#longueur_consommee", longueurConsommee);
+        request = request.replaceAll("#temps_hors_gel", temps_hors_gel);
+        return request;
+    }
+
+    static public String buildRequestProductOut(Context context, String qrCode, String date)
+    {
+        String request = context.getString(R.string.request_product_out);
+        request = request.replaceAll("#qr_code", qrCode);
+        request = request.replaceAll("#date", date);
+        return request;
     }
 
     static public Map setDbgValues()
@@ -70,55 +96,13 @@ public class DbPiece
         return tmp_map;
     }
 
-    /*static public String db_time_to_string(String dbTime)
+    public boolean isPieceOut()
     {
-        String androidTime = new String();
-        try
-        {
-            long diffS = (currentDate.getTime() - dateLieu.getTime()) / 1000;
-            String diffString = view.getResources().getString(R.string.time_format_to_android);
-
-            // building hours
-            long hours = diffS / 3600;
-            String hoursString = new String();
-            if (hours < 10)
-                hoursString += "0";
-            hoursString += String.valueOf(hours);
-            diffString = diffString.replaceAll("HH", hoursString);
-
-            // building minutes
-            long minutes = (diffS - 3600 * (diffS / 3600)) / 60;
-            String minutesString = new String();
-            if (minutes < 10)
-                minutesString += "0";
-            minutesString += String.valueOf(minutes);
-            diffString = diffString.replaceAll("mm", minutesString);
-        }
-        catch(Exception e)
-        {
-
-        }
-    }*/
-
-    /*
-
-    static public String date_from_db_to_android(View baseView, String dbDate)
-    {
-        String dateFormat;
-        SimpleDateFormat dateFormat = new SimpleDateFormat(baseView.getResources().getString(R.string.date_format_to_android));
-        try
-        {
-            Date date = dateFormat.parse(dbDate);
-        }
-        catch (Exception e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        // piece is considered out if 'lieu_actuel' is null or empty
+        return get("lieu_actuel").isEmpty();
     }
-     */
 
-    void fillFragmentEditsFromFields(View fragment, int[] edits, String[] dbfields)
+    public void fillFragmentEditsFromFields(View fragment, int[] edits, String[] dbfields)
     {
         int text_id = 0;
         for (int id : edits)
