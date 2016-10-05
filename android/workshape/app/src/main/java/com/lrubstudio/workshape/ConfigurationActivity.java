@@ -34,7 +34,7 @@ public class ConfigurationActivity extends AppCompatActivity
     private int[] ids = {R.id.editServerHostname, R.id.editServerPort,
             R.id.editDatabaseName, R.id.editDatabaseUser,
             R.id.editDatabasePassword, R.id.editDatabaseTimeout,
-            R.id.editConfigurationPassword};
+            R.id.editLieuParDefaut, R.id.editConfigurationPassword};
 
     //
     public static void init_configuration(Context context_)
@@ -53,11 +53,11 @@ public class ConfigurationActivity extends AppCompatActivity
                 try
                 {
                     // TODO suppr valeurs par defaut
-                    configuration.serverIp = sharedPref.getString(context.getString(R.string.conf_server_hostname), "192.168.1.14");
+                    configuration.serverIp = sharedPref.getString(context.getString(R.string.conf_server_hostname), "192.168.1.13");
                     configuration.serverPort = sharedPref.getString(context.getString(R.string.conf_server_port), "3306");
                     configuration.database = sharedPref.getString(context.getString(R.string.conf_database_name), "workshapedb");
                     configuration.user = sharedPref.getString(context.getString(R.string.conf_database_user), "workshape");
-                    configuration.password = sharedPref.getString(context.getString(R.string.conf_database_password), "qqoap8ck");
+                    configuration.password = sharedPref.getString(context.getString(R.string.conf_database_password), "workshape");
                     configuration.connectionTimeoutS = sharedPref.getString(context.getString(R.string.conf_database_timeout), "5");
                     configuration.lieuParDefaut = sharedPref.getString(context.getString(R.string.conf_lieu_par_defaut), "frigo");
                     configuration.confPassword = sharedPref.getString(context.getString(R.string.conf_password), "");
@@ -78,7 +78,7 @@ public class ConfigurationActivity extends AppCompatActivity
         String[] entries = new String[] {configuration.serverIp, configuration.serverPort,
                 configuration.database, configuration.user,
                 configuration.password, configuration.connectionTimeoutS,
-                configuration.confPassword};
+                configuration.lieuParDefaut, configuration.confPassword};
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
@@ -150,6 +150,9 @@ public class ConfigurationActivity extends AppCompatActivity
 
                 configuration.confPassword = ((EditText)findViewById(R.id.editConfigurationPassword)).getText().toString();
                 editor.putString(context.getString(R.string.conf_password), configuration.confPassword);
+
+                configuration.lieuParDefaut = ((EditText)findViewById(R.id.editLieuParDefaut)).getText().toString();
+                editor.putString(context.getString(R.string.conf_lieu_par_defaut), configuration.lieuParDefaut);
 
                 editor.commit();
 
