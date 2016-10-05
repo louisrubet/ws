@@ -44,7 +44,7 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
     // fragments in a pager
     CollectionPagerAdapter collectionPagerAdapter;
     ViewPager viewPager;
-    String newQrCode = null;
+    boolean isAdd = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -63,8 +63,6 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                 Toast.makeText(this, getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
                 finish();
             }
-
-            newQrCode = bundle.getString("newQrCode");
         }
 
         // pager
@@ -83,6 +81,7 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
         switch(mode)
         {
             case MODE_ADD:
+                isAdd = true;
                 viewPager.setCurrentItem(ADD_DEFAULT_PAGE);
                 getSupportActionBar().setTitle(R.string.activity_add_title);
                 break;
@@ -238,7 +237,7 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                     {
                         DetailedFragment detailed = new DetailedFragment();
                         Bundle bundle = new Bundle();
-                        bundle.putString("newQrCode", parentActivity.newQrCode);
+                        bundle.putBoolean("newPiece", parentActivity.isAdd);
                         detailed.setArguments(bundle);
                         return detailed;
                     }

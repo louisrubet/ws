@@ -15,23 +15,25 @@ import java.util.Map;
 public class DbPiece
 {
     // db field names
-    public final String idproduct = "idproduct";
-    public final String reference = "reference";
-    public final String qr_code = "qr_code";
-    public final String fournisseur = "fournisseur";
-    public final String ref_fournisseur = "ref_fournisseur";
-    public final String longueur_initiale = "longueur_initiale";
-    public final String longueur_actuelle = "longueur_actuelle";
-    public final String largeur = "largeur";
-    public final String grammage = "grammage";
-    public final String type_de_tissus = "type_de_tissus";
-    public final String date_arrivee = "date_arrivee";
-    public final String transport_frigo = "transport_frigo";
-    public final String lieu_actuel = "lieu_actuel";
-    public final String temps_hors_gel_total = "temps_hors_gel_total";
-    public final String nb_decongelation = "nb_decongelation";
+    public static final String idproduct = "idproduct";
+    public static final String reference = "reference";
+    public static final String qrCode = "qr_code";
+    public static final String fournisseur = "fournisseur";
+    public static final String refFournisseur = "ref_fournisseur";
+    public static final String longueurInitiale = "longueur_initiale";
+    public static final String longueurActuelle = "longueur_actuelle";
+    public static final String largeur = "largeur";
+    public static final String grammage = "grammage";
+    public static final String typeDeTissus = "type_de_tissus";
+    public static final String dateArrivee = "date_arrivee";
+    public static final String transportFrigo = "transport_frigo";
+    public static final String lieuActuel = "lieu_actuel";
+    public static final String lieuDepuis = "lieu_depuis";
+    public static final String tempsHorsGelTotal = "temps_hors_gel_total";
+    public static final String note = "note";
 
     // db values (input field name, output value)
+    private String temporaryQrCode;
     private Map map;
     public void setFromMap(Map map)
     {
@@ -108,10 +110,11 @@ public class DbPiece
         return request;
     }
 
-    static public String buildRequestProductUpdateNote(Context context, String qrCode, String note)
+    static public String buildRequestProductUpdateNote(Context context, String qrCode, String date, String note)
     {
         String request = context.getString(R.string.request_product_update_note);
         request = request.replaceAll("#qr_code", qrCode);
+        request = request.replaceAll("#date", date);
         request = request.replaceAll("#note", note);
         return request;
     }
@@ -125,21 +128,21 @@ public class DbPiece
             tmp_map = new HashMap();
             tmp_map.put("idproduct", "123456");
             tmp_map.put("reference", "product ref");
-            tmp_map.put("qr_code", "abcd1234");
+            tmp_map.put("qrCode", "abcd1234");
             tmp_map.put("fournisseur", "Fournisseur");
-            tmp_map.put("ref_fournisseur", "Ref Fournisseur");
-            tmp_map.put("longueur_initiale", "25.00");
-            tmp_map.put("longueur_actuelle", "7.50");
+            tmp_map.put("refFournisseur", "Ref Fournisseur");
+            tmp_map.put("longueurInitiale", "25.00");
+            tmp_map.put("longueurActuelle", "7.50");
             tmp_map.put("largeur", "1.25");
             tmp_map.put("grammage", "1 kg / m2");
-            tmp_map.put("type_de_tissus", "Sergé");
-            tmp_map.put("date_arrivee", "1 janvier 2016");
-            tmp_map.put("transport_frigo", "Oui");
+            tmp_map.put("typeDeTissus", "Sergé");
+            tmp_map.put("dateArrivee", "1 janvier 2016");
+            tmp_map.put("transportFrigo", "Oui");
             tmp_map.put("decongelele", "2 juin 2016 11h00");
             tmp_map.put("decongele", "4 fois");
-            tmp_map.put("lieu_actuel", "frigo");
-            tmp_map.put("temps_hors_gel_total", "02:30");
-            tmp_map.put("nb_decongelation", "3");
+            tmp_map.put("lieuActuel", "frigo");
+            tmp_map.put("tempsHorsGelTotal", "02:30");
+            tmp_map.put("note", "Note sur la pièce");
         }
         finally
         {
@@ -150,8 +153,8 @@ public class DbPiece
 
     public boolean isPieceOut()
     {
-        // piece is considered out if 'lieu_actuel' is null or empty
-        return get("lieu_actuel").isEmpty();
+        // piece is considered out if 'lieuActuel' is null or empty
+        return get(DbPiece.lieuActuel).isEmpty();
     }
 
     public void fillFragmentEditsFromFields(View fragment, int[] edits, String[] dbfields)
@@ -185,5 +188,15 @@ public class DbPiece
         {
             return "";
         }
+    }
+
+    public String getTemporaryQrCode()
+    {
+        return temporaryQrCode;
+    }
+
+    public void setTemporaryQrCode(String temporaryQrCode)
+    {
+        this.temporaryQrCode = temporaryQrCode;
     }
 }

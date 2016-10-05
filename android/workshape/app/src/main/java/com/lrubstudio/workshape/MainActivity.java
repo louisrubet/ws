@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
 
                 // unknown piece -> show it
                 lastPieceReference = "";
+
+                // erase last qr code
+                MainActivity.getLastRequestedPiece().setTemporaryQrCode(lastPieceReference);
+
                 Toast.makeText(this, getResources().getString(R.string.unknown_piece), Toast.LENGTH_SHORT).show();
             }
             else
@@ -130,6 +134,9 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
             String qr = edit.getText().toString();
             if (qr.length() > 0)
             {
+                // keep this qr code
+                MainActivity.getLastRequestedPiece().setTemporaryQrCode(qr);
+
                 // start the turning thing
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
@@ -153,11 +160,13 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
             String qr = edit.getText().toString();
             if (qr.length() > 0)
             {
+                // keep this qr code
+                MainActivity.getLastRequestedPiece().setTemporaryQrCode(qr);
+
                 // -> run edit activity (cause: add)
                 Intent intent = new Intent(this, EditAddActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("mode", EditAddActivity.MODE_ADD);
-                bundle.putString("newQrCode", qr);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -225,6 +234,9 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 // keep reference and set it to edit
                 lastPieceReference = result.getContents();
                 ((EditText)findViewById(R.id.editText)).setText(lastPieceReference);
+
+                // keep this qr code
+                MainActivity.getLastRequestedPiece().setTemporaryQrCode(lastPieceReference);
 
                 // make thing turn
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);

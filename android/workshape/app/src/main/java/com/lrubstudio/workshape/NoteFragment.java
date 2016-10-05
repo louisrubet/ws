@@ -44,7 +44,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
         if (view != null)
         {
             // fill with db field
-            MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, new int [] { R.id.editNote }, new String [] { "note" } );
+            MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, new int [] { R.id.editNote }, new String [] { DbPiece.note } );
 
             // set save button invisible
             view.findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
@@ -80,9 +80,18 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
     public void onClick(View view)
     {
         // build and run request
-        String qrCode = ((EditText)getView().findViewById(R.id.editQRCode)).getText().toString();
-        String note = ((EditText)getView().findViewById(R.id.editNote)).getText().toString();
-        new DbRequest(this).execute(DbPiece.buildRequestProductUpdateNote(getActivity(), qrCode, note));
+        String qrCode = MainActivity.getLastRequestedPiece().getTemporaryQrCode();
+        if (qrCode.length() > 0)
+        {
+            String note = ((EditText)getView().findViewById(R.id.editNote)).getText().toString();
+            String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
+            new DbRequest(this).execute(DbPiece.buildRequestProductUpdateNote(getActivity(), qrCode, date, note));
+        }
+        else
+        {
+            // unknown qr code !
+            Toast.makeText(getActivity(), getActivity().getString(R.string.qrcode_inconnu), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -92,6 +101,9 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
         {
             // toast ok !
             Toast.makeText(getActivity(), getActivity().getString(R.string.note_sauvee), Toast.LENGTH_LONG).show();
+
+            // don't see button
+            getView().findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
         }
         else
         {

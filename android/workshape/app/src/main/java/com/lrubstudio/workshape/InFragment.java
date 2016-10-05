@@ -64,8 +64,8 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
                     R.id.editInQRCode, R.id.editInReference, R.id.editInLongueurInitiale,
                     R.id.editInLongueurActuelle, R.id.editInHorsGelTotal, R.id.editInLieuDepuis };
             String[] dbfields = new String [] {
-                    "qr_code", "reference", "longueur_initiale",
-                    "longueur_actuelle", "temps_hors_gel_total", "lieu_depuis" };
+                    DbPiece.qrCode, DbPiece.reference, DbPiece.longueurInitiale,
+                    DbPiece.longueurActuelle, DbPiece.tempsHorsGelTotal, DbPiece.lieuDepuis };
             MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
 
             // fill hors gel time duration
