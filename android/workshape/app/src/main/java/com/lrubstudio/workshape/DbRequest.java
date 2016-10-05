@@ -21,6 +21,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
 {
     // debug
     private static final Boolean DBG = false;
+    private static final Boolean DBG_FILL_MAP = false;
     private static int dbgCount = 0;
 
     // errors
@@ -91,7 +92,10 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
 
         if (DBG)
         {
-            map = DbPiece.setDbgValues();
+            if (DBG_FILL_MAP)
+            {
+                map = DbPiece.setDbgValues();
+            }
         }
         else
         {
