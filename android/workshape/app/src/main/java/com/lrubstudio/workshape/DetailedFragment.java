@@ -1,7 +1,5 @@
 package com.lrubstudio.workshape;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -75,7 +73,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
                 MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
 
                 // save button is invisible
-                view.findViewById(R.id.buttonActionInOut).setVisibility(View.GONE);
+                view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
 
                 // setup TextChangedListener handlers on each edit
                 for (int i = 0; i < edits.length; i++)
@@ -92,14 +90,17 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
                                 {
                                     String entry = ((EditText)getActivity().findViewById(id)).getText().toString();
                                     if (entry.equals(originalString))
-                                        view.findViewById(R.id.buttonActionInOut).setVisibility(View.GONE);
+                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
                                     else
-                                        view.findViewById(R.id.buttonActionInOut).setVisibility(View.VISIBLE);
+                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
                                 }
                             }
                     );
                 }
             }
+
+            // manage button
+            view.findViewById(R.id.buttonAddModify).setOnClickListener(this);
         }
 
         return view;
@@ -119,8 +120,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         String typeDeTissus = ((EditText)getView().findViewById(R.id.editTypeDeTissus)).getText().toString();
         String dateArrivee = ((EditText)getView().findViewById(R.id.editDateArrivee)).getText().toString();
         String transportFrigo = ((EditText)getView().findViewById(R.id.editTransportFrigo)).getText().toString();
-        //TODO ajouter lieu actuel par défaut
-        String lieuActuel = "frigo";
+        String lieuActuel = ConfigurationActivity.configuration.lieuParDefaut;
 
         // new piece: create it
         if (isNewPiece)

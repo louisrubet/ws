@@ -1,22 +1,16 @@
 package com.lrubstudio.workshape;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.Spannable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class ConfigurationActivity extends AppCompatActivity
@@ -29,7 +23,8 @@ public class ConfigurationActivity extends AppCompatActivity
         String user;
         String password;
         String connectionTimeoutS;
-        String conf_password;
+        String lieuParDefaut;
+        String confPassword;
     }
 
     public static Configuration configuration;
@@ -58,13 +53,14 @@ public class ConfigurationActivity extends AppCompatActivity
                 try
                 {
                     // TODO suppr valeurs par defaut
-                    configuration.serverIp = sharedPref.getString(context.getString(R.string.server_hostname), "192.168.1.14");
-                    configuration.serverPort = sharedPref.getString(context.getString(R.string.server_port), "3306");
-                    configuration.database = sharedPref.getString(context.getString(R.string.database_name), "workshapedb");
-                    configuration.user = sharedPref.getString(context.getString(R.string.database_user), "workshape");
-                    configuration.password = sharedPref.getString(context.getString(R.string.database_password), "qqoap8ck");
-                    configuration.connectionTimeoutS = sharedPref.getString(context.getString(R.string.database_timeout), "5");
-                    configuration.conf_password = sharedPref.getString(context.getString(R.string.conf_password), "");
+                    configuration.serverIp = sharedPref.getString(context.getString(R.string.conf_server_hostname), "192.168.1.14");
+                    configuration.serverPort = sharedPref.getString(context.getString(R.string.conf_server_port), "3306");
+                    configuration.database = sharedPref.getString(context.getString(R.string.conf_database_name), "workshapedb");
+                    configuration.user = sharedPref.getString(context.getString(R.string.conf_database_user), "workshape");
+                    configuration.password = sharedPref.getString(context.getString(R.string.conf_database_password), "qqoap8ck");
+                    configuration.connectionTimeoutS = sharedPref.getString(context.getString(R.string.conf_database_timeout), "5");
+                    configuration.lieuParDefaut = sharedPref.getString(context.getString(R.string.conf_lieu_par_defaut), "frigo");
+                    configuration.confPassword = sharedPref.getString(context.getString(R.string.conf_password), "");
                 }
                 catch(Exception e)
                 {
@@ -82,7 +78,7 @@ public class ConfigurationActivity extends AppCompatActivity
         String[] entries = new String[] {configuration.serverIp, configuration.serverPort,
                 configuration.database, configuration.user,
                 configuration.password, configuration.connectionTimeoutS,
-                configuration.conf_password};
+                configuration.confPassword};
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
@@ -135,25 +131,25 @@ public class ConfigurationActivity extends AppCompatActivity
                 SharedPreferences.Editor editor = sharedPref.edit();
 
                 configuration.serverIp = ((EditText)findViewById(R.id.editServerHostname)).getText().toString();
-                editor.putString(context.getString(R.string.server_hostname), configuration.serverIp);
+                editor.putString(context.getString(R.string.conf_server_hostname), configuration.serverIp);
 
                 configuration.serverPort = ((EditText)findViewById(R.id.editServerPort)).getText().toString();
-                editor.putString(context.getString(R.string.server_port), configuration.serverPort);
+                editor.putString(context.getString(R.string.conf_server_port), configuration.serverPort);
 
                 configuration.database = ((EditText)findViewById(R.id.editDatabaseName)).getText().toString();
-                editor.putString(context.getString(R.string.database_name), configuration.database);
+                editor.putString(context.getString(R.string.conf_database_name), configuration.database);
 
                 configuration.user = ((EditText)findViewById(R.id.editDatabaseUser)).getText().toString();
-                editor.putString(context.getString(R.string.database_user), configuration.user);
+                editor.putString(context.getString(R.string.conf_database_user), configuration.user);
 
                 configuration.password = ((EditText)findViewById(R.id.editDatabasePassword)).getText().toString();
-                editor.putString(context.getString(R.string.database_password), configuration.password);
+                editor.putString(context.getString(R.string.conf_database_password), configuration.password);
 
                 configuration.connectionTimeoutS = ((EditText)findViewById(R.id.editDatabaseTimeout)).getText().toString();
-                editor.putString(context.getString(R.string.database_timeout), configuration.connectionTimeoutS);
+                editor.putString(context.getString(R.string.conf_database_timeout), configuration.connectionTimeoutS);
 
-                configuration.conf_password = ((EditText)findViewById(R.id.editConfigurationPassword)).getText().toString();
-                editor.putString(context.getString(R.string.conf_password), configuration.conf_password);
+                configuration.confPassword = ((EditText)findViewById(R.id.editConfigurationPassword)).getText().toString();
+                editor.putString(context.getString(R.string.conf_password), configuration.confPassword);
 
                 editor.commit();
 

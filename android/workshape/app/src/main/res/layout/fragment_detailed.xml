@@ -186,7 +186,7 @@
 
         <Button style="@style/ValidationButton"
             android:text="@string/sauver_la_piece"
-            android:id="@+id/buttonActionInOut"
+            android:id="@+id/buttonAddModify"
             />
     </LinearLayout>
 

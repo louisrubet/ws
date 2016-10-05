@@ -62,13 +62,14 @@
     <string name="should_be_hhmm">Valeur hh:mm obligatoire</string>
 
     <!-- configuration activity -->
-    <string name="server_hostname">DB server host</string>
-    <string name="server_port">DB server port</string>
-    <string name="database_name">DB Nom</string>
-    <string name="database_user">DB User</string>
-    <string name="database_password">DB mot de passe</string>
-    <string name="database_timeout">DB timeout (s)</string>
-    <string name="conf_password">Mot de passe</string>
-    <string name="apply">Sauver et sortir</string>
+    <string name="conf_server_hostname">DB server host</string>
+    <string name="conf_server_port">DB server port</string>
+    <string name="conf_database_name">DB nom</string>
+    <string name="conf_database_user">DB user</string>
+    <string name="conf_database_password">DB mot de passe</string>
+    <string name="conf_database_timeout">DB timeout (s)</string>
+    <string name="conf_lieu_par_defaut">Lieu par défaut</string>
+    <string name="conf_password">Mot de passe conf</string>
+    <string name="conf_apply_button">Sauver et sortir</string>
 
 </resources>

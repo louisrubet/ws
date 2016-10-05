@@ -26,7 +26,7 @@
 
             <TextView
                 android:id="@+id/textView1000"
-                android:text="@string/server_hostname"
+                android:text="@string/conf_server_hostname"
                 style="@style/TextViewForTableRow" />
 
             <EditText
@@ -41,7 +41,7 @@
 
             <TextView
                 android:id="@+id/textView1001"
-                android:text="@string/server_port"
+                android:text="@string/conf_server_port"
                 style="@style/TextViewForTableRow" />
 
             <EditText
@@ -56,7 +56,7 @@
 
             <TextView
                 android:id="@+id/textView1002"
-                android:text="@string/database_name"
+                android:text="@string/conf_database_name"
                 style="@style/TextViewForTableRow" />
 
             <EditText
@@ -71,7 +71,7 @@
 
             <TextView
                 android:id="@+id/textView1003"
-                android:text="@string/database_user"
+                android:text="@string/conf_database_user"
                 style="@style/TextViewForTableRow" />
 
             <EditText
@@ -86,7 +86,7 @@
 
             <TextView
                 android:id="@+id/textView1004"
-                android:text="@string/database_password"
+                android:text="@string/conf_database_password"
                 style="@style/TextViewForTableRow" />
 
             <EditText
@@ -101,7 +101,7 @@
 
             <TextView
                 android:id="@+id/textView1005"
-                android:text="@string/database_timeout"
+                android:text="@string/conf_database_timeout"
                 style="@style/TextViewForTableRow" />
 
             <EditText
@@ -109,6 +109,23 @@
                 android:inputType="number"
                 style="@style/EditTextForTableRow" />
         </TableRow>
+
+        <TableRow
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/textView1005"
+                android:text="@string/conf_lieu_par_defaut"
+                style="@style/TextViewForTableRow" />
+
+            <EditText
+                android:id="@+id/editLieuParDefaut"
+                android:inputType="text"
+                style="@style/EditTextForTableRow" />
+        </TableRow>
+
+        <Space style="@style/BigVerticalSpace"/>
 
         <TableRow
             android:layout_height="fill_parent"
@@ -136,7 +153,7 @@
         android:gravity="right">
 
         <Button
-            android:text="@string/apply"
+            android:text="@string/conf_apply_button"
             android:id="@+id/buttonApply"
             android:onClick="onClickApply"
             style="@style/ValidationButton"/>
