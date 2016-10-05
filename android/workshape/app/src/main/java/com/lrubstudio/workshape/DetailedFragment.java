@@ -72,7 +72,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
                 };
                 MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
 
-                // save button is invisible
+                // set save button invisible
                 view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
 
                 // setup TextChangedListener handlers on each edit
@@ -88,7 +88,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
                                 public void onTextChanged(CharSequence s, int start, int before, int count) { }
                                 public void afterTextChanged(Editable s)
                                 {
-                                    String entry = ((EditText)getActivity().findViewById(id)).getText().toString();
+                                    String entry = ((EditText)view.findViewById(id)).getText().toString();
                                     if (entry.equals(originalString))
                                         view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
                                     else
@@ -135,6 +135,10 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         else
         {
             // build and run request
+            new DbRequest(this).execute(DbPiece.buildRequestProductUpdate(getActivity(),
+                    qrCode, date, reference, fournisseur, refFournisseur,
+                    longueurInitiale, largeur, grammage,
+                    typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
         }
     }
 
@@ -145,9 +149,6 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         {
             // toast ok !
             Toast.makeText(getActivity(), getActivity().getString(R.string.piece_creee), Toast.LENGTH_LONG).show();
-
-            // bye
-            getActivity().finish();
         }
         else
         {
