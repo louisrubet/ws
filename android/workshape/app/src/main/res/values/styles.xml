@@ -25,13 +25,35 @@
         <item name="popupTheme">@style/AppTheme.PopupOverlay</item>
     </style>
 
+    <!-- partitioning screen
+    -->
+    <style name="Vertical_80Purcent">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">0.80</item>
+    </style>
+
+    <style name="Vertical_20Purcent">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">0.20</item>
+    </style>
+
     <!-- Tables
     -->
 
     <!-- high level table layout -->
     <style name="CommonTableLayout">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- table row -->
+    <style name="CommonTableRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
     <!-- text (titles, left side of TableRows) -->
@@ -47,6 +69,7 @@
     <!-- text (titles, left side of TableRows) -->
     <style name="TextViewMultilinesForTableRow" parent="android:Widget.TextView">
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">top</item>
         <item name="android:lines">30</item>
         <item name="android:minLines">1</item>

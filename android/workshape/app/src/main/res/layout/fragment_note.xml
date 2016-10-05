@@ -7,16 +7,20 @@
               android:orientation="vertical"
               android:gravity="center_horizontal">
 
-        <EditText
-            android:id="@+id/editNote"
-            android:inputType="text|textMultiLine"
-            android:layout_height="0dip"
-            android:layout_weight="0.80"
-            style="@style/TextViewMultilinesForTableRow"/>
+        <LinearLayout style="@style/Vertical_80Purcent">
 
-        <Button
-            android:text="@string/sauver_la_note"
-            android:id="@+id/buttonActionNote"
-            style="@style/ValidationButton"/>
+                <EditText style="@style/TextViewMultilinesForTableRow"
+                    android:id="@+id/editNote"
+                    android:inputType="text|textMultiLine" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/Vertical_20Purcent">
+
+                <Button style="@style/ValidationButton"
+                    android:text="@string/sauver_la_note"
+                    android:id="@+id/buttonActionNote" />
+
+        </LinearLayout>
 
 </LinearLayout>

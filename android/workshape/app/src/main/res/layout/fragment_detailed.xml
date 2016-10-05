@@ -7,187 +7,146 @@
               android:orientation="vertical"
               android:gravity="center_horizontal">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 xmlns:tools="http://schemas.android.com/tools"
-                 style="@style/CommonTableLayout" >
+    <LinearLayout style="@style/Vertical_80Purcent">
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="match_parent">
+        <TableLayout style="@style/CommonTableLayout"
+                     xmlns:android="http://schemas.android.com/apk/res/android"
+                     xmlns:tools="http://schemas.android.com/tools">
 
-            <TextView
-                android:id="@+id/textView99"
-                android:text="@string/qr_code"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editQRCode"
-                android:inputType="text"
-                style="@style/EditTextForTableRow" />
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView99"
+                          android:text="@string/qr_code" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editQRCode"
+                          android:inputType="text" />
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="match_parent">
+            </TableRow>
 
-            <TextView
-                android:id="@+id/textView991"
-                android:text="@string/reference"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editReference"
-                android:inputType="text"
-                style="@style/EditTextForTableRow" />
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView991"
+                          android:text="@string/reference" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editReference"
+                          android:inputType="text" />
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="match_parent">
+            </TableRow>
 
-            <TextView
-                android:id="@+id/textView100"
-                android:text="@string/fournisseur"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editFournisseur"
-                android:inputType="text"
-                style="@style/EditTextForTableRow" />
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView100"
+                          android:text="@string/fournisseur" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editFournisseur"
+                          android:inputType="text" />
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="match_parent">
+            </TableRow>
 
-            <TextView
-                android:id="@+id/textView101"
-                android:text="@string/ref_fourn"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editRefFournisseur"
-                android:inputType="text"
-                style="@style/EditTextForTableRow"/>
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView101"
+                          android:text="@string/ref_fourn" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editRefFournisseur"
+                          android:inputType="text" />
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="match_parent">
+            </TableRow>
 
-            <TextView
-                android:id="@+id/textView106"
-                android:text="@string/date_d_arrivee"
-                style="@style/TextViewForTableRow"
-                />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editDateArrivee"
-                android:inputType="datetime"
-                style="@style/EditTextForTableRow"/>
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView106"
+                          android:text="@string/date_d_arrivee" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editDateArrivee"
+                          android:inputType="datetime" />
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="match_parent">
+            </TableRow>
 
-            <TextView
-                android:id="@+id/textView107"
-                android:text="@string/transport_frigo"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editTransportFrigo"
-                android:inputType="text"
-                style="@style/EditTextForTableRow"/>
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView107"
+                          android:text="@string/transport_frigo" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editTransportFrigo"
+                          android:inputType="text" />
 
-        <Space style="@style/ShortVerticalSpace"/>
+            </TableRow>
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="match_parent">
+            <Space style="@style/ShortVerticalSpace"/>
 
-            <TextView
-                android:id="@+id/textView102"
-                android:text="@string/longueur_initiale"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editLongueurInitiale"
-                style="@style/EditTextForTableRow"
-                android:inputType="numberDecimal"/>
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView102"
+                          android:text="@string/longueur_initiale" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editLongueurInitiale"
+                          android:inputType="numberDecimal" />
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="match_parent">
+            </TableRow>
 
-            <TextView
-                android:id="@+id/textView103"
-                android:text="@string/largeur"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editLargeur"
-                android:inputType="numberDecimal"
-                style="@style/EditTextForTableRow"/>
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView103"
+                          android:text="@string/largeur" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editLargeur"
+                          android:inputType="numberDecimal" />
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="match_parent">
+            </TableRow>
 
-            <TextView
-                android:id="@+id/textView104"
-                android:text="@string/grammage"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editGrammage"
-                android:inputType="text"
-                style="@style/EditTextForTableRow"/>
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView104"
+                          android:text="@string/grammage" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editGrammage"
+                          android:inputType="text" />
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="match_parent">
+            </TableRow>
 
-            <TextView
-                android:id="@+id/textView105"
-                android:text="@string/type_de_tissus"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editTypeDeTissus"
-                android:inputType="text"
-                style="@style/EditTextForTableRow"/>
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView105"
+                          android:text="@string/type_de_tissus" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editTypeDeTissus"
+                          android:inputType="text" />
 
-        <Space style="@style/ShortVerticalSpace"/>
+            </TableRow>
 
-    </TableLayout>
+            <Space style="@style/ShortVerticalSpace"/>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="right">
+        </TableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/Vertical_20Purcent">
 
         <Button style="@style/ValidationButton"
-            android:text="@string/sauver_la_piece"
-            android:id="@+id/buttonAddModify"
-            />
+                android:text="@string/sauver_la_piece"
+                android:id="@+id/buttonAddModify" />
+
     </LinearLayout>
 
 </LinearLayout>

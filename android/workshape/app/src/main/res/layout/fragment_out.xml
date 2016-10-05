@@ -7,139 +7,111 @@
               android:orientation="vertical"
               android:gravity="center_horizontal">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 xmlns:tools="http://schemas.android.com/tools"
-                 style="@style/CommonTableLayout">
+    <LinearLayout style="@style/Vertical_80Purcent">
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:layout_gravity="center_vertical|right">
+        <TableLayout style="@style/CommonTableLayout"
+                     xmlns:android="http://schemas.android.com/apk/res/android"
+                     xmlns:tools="http://schemas.android.com/tools">
 
-            <TextView
-                android:text="@string/qr_code"
-                android:id="@+id/textView20"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editOutQRCode"
-                android:inputType="text"
-                style="@style/EditTextForTableRow" />
+                <TextView style="@style/TextViewForTableRow"
+                          android:text="@string/qr_code"
+                          android:id="@+id/textView20" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editOutQRCode"
+                          android:inputType="text" />
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent">
+            </TableRow>
 
-            <TextView
-                android:text="@string/reference"
-                android:id="@+id/textView21"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editOutReference"
-                android:inputType="text"
-                style="@style/EditTextForTableRow" />
+                <TextView style="@style/TextViewForTableRow"
+                          android:text="@string/reference"
+                          android:id="@+id/textView21" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editOutReference"
+                          android:inputType="text" />
 
-        <Space style="@style/BigVerticalSpace"/>
+            </TableRow>
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent">
+            <Space style="@style/BigVerticalSpace"/>
 
-            <TextView
-                android:text="@string/lieu_actuel"
-                android:id="@+id/textView211"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editOutLieuActuel"
-                android:inputType="text"
-                style="@style/EditTextForTableRow" />
+                <TextView style="@style/TextViewForTableRow"
+                          android:text="@string/lieu_actuel"
+                          android:id="@+id/textView211" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editOutLieuActuel"
+                          android:inputType="text" />
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent">
+            </TableRow>
 
-            <TextView
-                android:text="@string/lieu_depuis_out"
-                android:id="@+id/textView212"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editOutLieuDepuis"
-                android:inputType="text"
-                style="@style/EditTextForTableRow" />
+                <TextView style="@style/TextViewForTableRow"
+                          android:text="@string/lieu_depuis_out"
+                          android:id="@+id/textView212" />
 
-        </TableRow>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editOutLieuDepuis"
+                          android:inputType="text" />
 
-        <Space style="@style/BigVerticalSpace"/>
+            </TableRow>
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent">
+            <Space style="@style/BigVerticalSpace"/>
 
-            <TextView
-                android:text="@string/temps_hors_gel_total"
-                android:id="@+id/textView24"
-                style="@style/TextViewForTableRow" />
+            <TableRow style="@style/CommonTableRow">
 
-            <EditText
-                android:id="@+id/editOutHorsGelTotal"
-                android:inputType="time"
-                style="@style/EditTextForTableRow" />
-        </TableRow>
+                <TextView style="@style/TextViewForTableRow"
+                          android:text="@string/temps_hors_gel_total"
+                          android:id="@+id/textView24" />
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent">
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editOutHorsGelTotal"
+                          android:inputType="time" />
 
-            <TextView
-                android:text="@string/longueur_initiale"
-                android:id="@+id/textView22"
-                style="@style/TextViewForTableRow"
-                android:textIsSelectable="true" />
+            </TableRow>
 
-            <EditText
-                android:id="@+id/editOutLongueurInitiale"
-                android:inputType="none|numberDecimal"
-                style="@style/EditTextForTableRow" />
-        </TableRow>
+            <TableRow style="@style/CommonTableRow">
 
-        <TableRow
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent">
+                <TextView style="@style/TextViewForTableRow"
+                          android:text="@string/longueur_initiale"
+                          android:id="@+id/textView22"
+                          android:textIsSelectable="true" />
 
-            <TextView
-                android:text="@string/longueur_actuelle"
-                android:id="@+id/textView23"
-                style="@style/TextViewForTableRow" />
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editOutLongueurInitiale"
+                          android:inputType="none|numberDecimal" />
+            </TableRow>
 
-            <EditText
-                android:id="@+id/editOutLongueurActuelle"
-                android:inputType="none|numberDecimal"
-                style="@style/EditTextForTableRow" />
-        </TableRow>
+            <TableRow style="@style/CommonTableRow">
 
-        <Space style="@style/BigVerticalSpace"/>
+                <TextView style="@style/TextViewForTableRow"
+                          android:text="@string/longueur_actuelle"
+                          android:id="@+id/textView23" />
 
-    </TableLayout>
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editOutLongueurActuelle"
+                          android:inputType="none|numberDecimal" />
+            </TableRow>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="right">
+            <Space style="@style/BigVerticalSpace"/>
 
-        <Button
-            android:text="@string/sortir_la_piece"
-            android:id="@+id/buttonActionOut"
-            style="@style/ValidationButton"/>
+        </TableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/Vertical_20Purcent">
+
+        <Button style="@style/ValidationButton"
+                android:text="@string/sortir_la_piece"
+                android:id="@+id/buttonActionOut" />
+
     </LinearLayout>
 
 </LinearLayout>
