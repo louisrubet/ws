@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              tools:context="com.lrubstudio.workshape.InFragment"
+              android:orientation="vertical"
+              android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/editNote"
+            android:inputType="text|textMultiLine"
+            android:layout_height="0dip"
+            android:layout_weight="0.80"
+            style="@style/TextViewMultilinesForTableRow"/>
+
+        <Button
+            android:text="@string/sauver_la_note"
+            android:id="@+id/buttonActionNote"
+            style="@style/ValidationButton"/>
+
+</LinearLayout>

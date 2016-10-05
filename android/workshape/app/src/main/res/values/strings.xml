@@ -9,6 +9,7 @@
     <string name="activity_piece_out">Sortie de la pièce d\'un frigo</string>
     <string name="activity_piece_in">Entrée de la pièce dans un frigo</string>
     <string name="activity_edit_detailed_title">Détail de la pièce</string>
+    <string name="activity_edit_note_title">Note</string>
     <string name="activity_add_title">Ajout d\'une pièce</string>
     <string name="activity_configuration_title">Configuration</string>
 
@@ -58,6 +59,7 @@
     <string name="internal_problem">Problème interne du logiciel</string>
     <string name="sortir_la_piece">Sortir la pièce</string>
     <string name="entrer_la_piece">Entrer la pièce</string>
+    <string name="sauver_la_note">Sauver la note</string>
     <string name="should_be_decimal">Valeur numérique obligatoire</string>
     <string name="should_be_hhmm">Valeur hh:mm obligatoire</string>
 

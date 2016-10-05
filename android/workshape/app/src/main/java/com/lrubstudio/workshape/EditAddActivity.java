@@ -31,14 +31,14 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
     // mode edit (piece to be put out or in): fragments to be shown by the pager
     private static final int EDIT_PAGE_IN_OUT = 0;
     private static final int EDIT_PAGE_DETAILED = 1;
-    private static final int EDIT_PAGE_PHOTO = 2;
-    private static final int EDIT_PAGES_NB = 2;
+    private static final int EDIT_PAGE_NOTE = 2;
+    private static final int EDIT_PAGES_NB = 3;
     private static final int EDIT_DEFAULT_PAGE = EDIT_PAGE_IN_OUT;
 
     // mode add: fragments to be shown by the pager
     private static final int ADD_PAGE_DETAILED = 0;
-    private static final int ADD_PAGE_PHOTO = 1;
-    private static final int ADD_PAGES_NB = 1;
+    private static final int ADD_PAGE_NOTE = 1;
+    private static final int ADD_PAGES_NB = 2;
     private static final int ADD_DEFAULT_PAGE = ADD_PAGE_DETAILED;
 
     // fragments in a pager
@@ -124,6 +124,9 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                 case EDIT_PAGE_DETAILED:
                     getSupportActionBar().setTitle(R.string.activity_edit_detailed_title);
                     break;
+                case EDIT_PAGE_NOTE:
+                    getSupportActionBar().setTitle(R.string.activity_edit_note_title);
+                    break;
             }
         }
         else if (mode == MODE_EDIT_IN)
@@ -136,6 +139,8 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                 case EDIT_PAGE_DETAILED:
                     getSupportActionBar().setTitle(R.string.activity_edit_detailed_title);
                     break;
+                case EDIT_PAGE_NOTE:
+                    getSupportActionBar().setTitle(R.string.activity_edit_note_title);
             }
         }
         else if (mode == MODE_ADD)
@@ -145,9 +150,8 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                 case ADD_PAGE_DETAILED:
                     getSupportActionBar().setTitle(R.string.activity_add_title);
                     break;
-                case ADD_PAGE_PHOTO:
-                    getSupportActionBar().setTitle(R.string.activity_edit_detailed_title);
-                    break;
+                case ADD_PAGE_NOTE:
+                    getSupportActionBar().setTitle(R.string.activity_edit_note_title);
             }
         }
     }
@@ -198,12 +202,12 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                     // main fragment
                     case EditAddActivity.EDIT_PAGE_IN_OUT:
                         return new OutFragment();
-                    // other
+                    // detailed
                     case EditAddActivity.EDIT_PAGE_DETAILED:
                         return new DetailedFragment();
-                    // other
-                    //case EditAddActivity.EDIT_PAGE_PHOTO:
-                    //    return new DetailedFragment();
+                    // note
+                    case EditAddActivity.EDIT_PAGE_NOTE:
+                        return new NoteFragment();
                     default:
                         break;
                 }
@@ -215,12 +219,12 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                     // main fragment
                     case EditAddActivity.EDIT_PAGE_IN_OUT:
                         return new InFragment();
-                    // other
+                    // detailed
                     case EditAddActivity.EDIT_PAGE_DETAILED:
                         return new DetailedFragment();
-                    // other
-                    //case EditAddActivity.EDIT_PAGE_PHOTO:
-                    //    return new DetailedFragment();
+                    // note
+                    case EditAddActivity.EDIT_PAGE_NOTE:
+                        return new NoteFragment();
                     default:
                         break;
                 }
@@ -238,9 +242,9 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                         detailed.setArguments(bundle);
                         return detailed;
                     }
-                    // other
-                    //case EditAddActivity.ADD_PAGE_PHOTO:
-                    //    return new DetailedFragment();
+                    // note
+                    case EditAddActivity.ADD_PAGE_NOTE:
+                        return new NoteFragment();
                     default:
                         break;
                 }

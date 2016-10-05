@@ -44,6 +44,18 @@
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
+    <!-- text (titles, left side of TableRows) -->
+    <style name="TextViewMultilinesForTableRow" parent="android:Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">top</item>
+        <item name="android:lines">30</item>
+        <item name="android:minLines">1</item>
+        <item name="android:maxLines">200</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
     <style name="TextViewForTableRowSmall" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
