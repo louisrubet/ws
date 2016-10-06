@@ -119,35 +119,45 @@ public class DbPiece
         return request;
     }
 
-    static public Map setDbgValues()
+    static public Map setDbgValuesOut()
     {
-        Map tmp_map = null;
+        Map tmp_map = new HashMap();
+        tmp_map.put("idproduct", "123456");
+        tmp_map.put("reference", "product ref");
+        tmp_map.put("qrCode", "abcd1234");
+        tmp_map.put("fournisseur", "Fournisseur");
+        tmp_map.put("refFournisseur", "Ref Fournisseur");
+        tmp_map.put("longueurInitiale", "25.00");
+        tmp_map.put("longueurActuelle", "7.50");
+        tmp_map.put("largeur", "1.25");
+        tmp_map.put("grammage", "1 kg / m2");
+        tmp_map.put("typeDeTissus", "Sergé");
+        tmp_map.put("dateArrivee", "1 janvier 2016");
+        tmp_map.put("transportFrigo", "Oui");
+        tmp_map.put("lieuActuel", "frigo");
+        tmp_map.put("tempsHorsGelTotal", "02:30");
+        tmp_map.put("note", "Note sur la pièce");
+        return tmp_map;
+    }
 
-        try
-        {
-            tmp_map = new HashMap();
-            tmp_map.put("idproduct", "123456");
-            tmp_map.put("reference", "product ref");
-            tmp_map.put("qrCode", "abcd1234");
-            tmp_map.put("fournisseur", "Fournisseur");
-            tmp_map.put("refFournisseur", "Ref Fournisseur");
-            tmp_map.put("longueurInitiale", "25.00");
-            tmp_map.put("longueurActuelle", "7.50");
-            tmp_map.put("largeur", "1.25");
-            tmp_map.put("grammage", "1 kg / m2");
-            tmp_map.put("typeDeTissus", "Sergé");
-            tmp_map.put("dateArrivee", "1 janvier 2016");
-            tmp_map.put("transportFrigo", "Oui");
-            tmp_map.put("decongelele", "2 juin 2016 11h00");
-            tmp_map.put("decongele", "4 fois");
-            tmp_map.put("lieuActuel", "frigo");
-            tmp_map.put("tempsHorsGelTotal", "02:30");
-            tmp_map.put("note", "Note sur la pièce");
-        }
-        finally
-        {
-        }
-
+    static public Map setDbgValuesIn()
+    {
+        Map tmp_map = new HashMap();
+        tmp_map.put("idproduct", "123456");
+        tmp_map.put("reference", "product ref");
+        tmp_map.put("qrCode", "abcd1234");
+        tmp_map.put("fournisseur", "Fournisseur");
+        tmp_map.put("refFournisseur", "Ref Fournisseur");
+        tmp_map.put("longueurInitiale", "25.00");
+        tmp_map.put("longueurActuelle", "7.50");
+        tmp_map.put("largeur", "1.25");
+        tmp_map.put("grammage", "1 kg / m2");
+        tmp_map.put("typeDeTissus", "Sergé");
+        tmp_map.put("dateArrivee", "1 janvier 2016");
+        tmp_map.put("transportFrigo", "Oui");
+        tmp_map.put("lieuActuel", "");
+        tmp_map.put("tempsHorsGelTotal", "02:30");
+        tmp_map.put("note", "Note sur la pièce");
         return tmp_map;
     }
 

@@ -19,11 +19,6 @@ import java.util.Properties;
 
 public class DbRequest extends AsyncTask<String, Integer, Map>
 {
-    // debug
-    private static final Boolean DBG = false;
-    private static final Boolean DBG_FILL_MAP = false;
-    private static int dbgCount = 0;
-
     // errors
     public static final int DBERR_OK = 0;
     public static final int DBERR_CONNECTION_FAILED = 1;
@@ -90,11 +85,15 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
         Map map = null;
         int columnsCount = 0;
 
-        if (DBG)
+        if (Debug.NO_DB)
         {
-            if (DBG_FILL_MAP)
+            if (Debug.SIMULATE_PIECE_TO_OUT)
             {
-                map = DbPiece.setDbgValues();
+                map = DbPiece.setDbgValuesOut();
+            }
+            else if (Debug.SIMULATE_PIECE_TO_IN)
+            {
+                map = DbPiece.setDbgValuesIn();
             }
         }
         else
@@ -164,7 +163,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
     {
         boolean is_connected;
 
-        if (DBG)
+        if (Debug.NO_DB)
         {
             is_connected = true;
         }
