@@ -50,10 +50,11 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <!-- table row -->
+    <!-- table row (table rows total height matches parent height) -->
     <style name="CommonTableRow">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
     </style>
 
     <!-- text (titles, left side of TableRows) -->
