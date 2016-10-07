@@ -44,7 +44,20 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
     // fragments in a pager
     CollectionPagerAdapter collectionPagerAdapter;
     ViewPager viewPager;
+
     boolean isAdd = false;
+
+    // used by fragments: indicates if a fragment was modified
+    boolean isModified = false;
+    public boolean isModified()
+    {
+        return isModified;
+    }
+
+    public void setModified(boolean modified)
+    {
+        isModified = modified;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -155,26 +168,30 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
         }
     }
 
+    private static int backpress = 0;
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
+    public void onBackPressed()
     {
-        if (item.getItemId() == android.R.id.home)
+        if (isModified)
         {
-            int currentPage = viewPager.getCurrentItem();
-
-            switch(currentPage)
-            {
-                case EDIT_PAGE_IN_OUT:
-                    onBackPressed();
-                    break;
-                default:
-                    //if (currentPage > 0)
-                    //    viewPager.setCurrentItem(currentPage - 1);
-                    break;
-            }
-            return super.onOptionsItemSelected(item);
+            (new SyncDialog()).run(this, "Title", "Question", "Ok", "No");
         }
+        else
+        {
+            finish();
+        }
+    }
 
+    @Override
+    public boolean onSupportNavigateUp()
+    {
+        // back to previous page
+        int currentPage = viewPager.getCurrentItem();
+        if (currentPage > 0)
+            viewPager.setCurrentItem(currentPage - 1);
+        else
+            // from first page do the same as home button
+            onBackPressed();
         return true;
     }
 

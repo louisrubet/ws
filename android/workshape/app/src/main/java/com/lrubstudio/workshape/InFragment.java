@@ -36,76 +36,80 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_in, container, false);
-        if (view != null)
+        return inflater.inflate(R.layout.fragment_in, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        View view = getView();
+
+        try
         {
-            try
-            {
-                // manage MMI: disable some edits
-                view.findViewById(R.id.editInQRCode).setEnabled(false);
-                view.findViewById(R.id.editInReference).setEnabled(false);
-                view.findViewById(R.id.editInLongueurInitiale).setEnabled(false);
-                view.findViewById(R.id.editInLongueurActuelle).setEnabled(false);
-                view.findViewById(R.id.editInHorsGelTotal).setEnabled(false);
-                view.findViewById(R.id.editInLieuDepuis).setEnabled(false);
+            // manage MMI: disable some edits
+            view.findViewById(R.id.editInQRCode).setEnabled(false);
+            view.findViewById(R.id.editInReference).setEnabled(false);
+            view.findViewById(R.id.editInLongueurInitiale).setEnabled(false);
+            view.findViewById(R.id.editInLongueurActuelle).setEnabled(false);
+            view.findViewById(R.id.editInHorsGelTotal).setEnabled(false);
+            view.findViewById(R.id.editInLieuDepuis).setEnabled(false);
 
-                // manage button
-                view.findViewById(R.id.buttonActionIn).setOnClickListener(this);
-            }
-            catch(Exception e)
-            {
-                // bloody mystery
-                Toast.makeText(getActivity(), getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
-                getActivity().finish();
-            }
-
-            // fill MMI views from db fields
-            int[] edits = new int [] {
-                    R.id.editInQRCode, R.id.editInReference, R.id.editInLongueurInitiale,
-                    R.id.editInLongueurActuelle, R.id.editInHorsGelTotal, R.id.editInLieuDepuis };
-            String[] dbfields = new String [] {
-                    DbPiece.qrCode, DbPiece.reference, DbPiece.longueurInitiale,
-                    DbPiece.longueurActuelle, DbPiece.tempsHorsGelTotal, DbPiece.lieuDepuis };
-            MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
-
-            // fill hors gel time duration
-            try
-            {
-                // time diff
-                Date currentDate = new Date(System.currentTimeMillis());
-                SimpleDateFormat dateFormat = new SimpleDateFormat(view.getResources().getString(R.string.date_format_to_android));
-                String dateFrom = ((EditText)view.findViewById(R.id.editInLieuDepuis)).getText().toString();
-                Date dateLieu = dateFormat.parse(dateFrom);
-
-                long diffS = (currentDate.getTime() - dateLieu.getTime()) / 1000;
-                String diffString = view.getResources().getString(R.string.time_format_to_android);
-
-                // building hours
-                long hours = diffS / 3600;
-                String hoursString = new String();
-                if (hours < 10)
-                    hoursString += "0";
-                hoursString += String.valueOf(hours);
-                diffString = diffString.replaceAll("HH", hoursString);
-
-                // building minutes
-                long minutes = (diffS - 3600 * (diffS / 3600)) / 60;
-                String minutesString = new String();
-                if (minutes < 10)
-                    minutesString += "0";
-                minutesString += String.valueOf(minutes);
-                diffString = diffString.replaceAll("mm", minutesString);
-
-                // setting text
-                ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setText(diffString);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            // manage button
+            view.findViewById(R.id.buttonActionIn).setOnClickListener(this);
+        }
+        catch(Exception e)
+        {
+            // bloody mystery
+            Toast.makeText(getActivity(), getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
+            getActivity().finish();
         }
 
-        return view;
+        // fill MMI views from db fields
+        int[] edits = new int [] {
+                R.id.editInQRCode, R.id.editInReference, R.id.editInLongueurInitiale,
+                R.id.editInLongueurActuelle, R.id.editInHorsGelTotal, R.id.editInLieuDepuis };
+        String[] dbfields = new String [] {
+                DbPiece.qrCode, DbPiece.reference, DbPiece.longueurInitiale,
+                DbPiece.longueurActuelle, DbPiece.tempsHorsGelTotal, DbPiece.lieuDepuis };
+        MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
+
+        // fill hors gel time duration
+        try
+        {
+            // time diff
+            Date currentDate = new Date(System.currentTimeMillis());
+            SimpleDateFormat dateFormat = new SimpleDateFormat(view.getResources().getString(R.string.date_format_to_android));
+            String dateFrom = ((EditText)view.findViewById(R.id.editInLieuDepuis)).getText().toString();
+            Date dateLieu = dateFormat.parse(dateFrom);
+
+            long diffS = (currentDate.getTime() - dateLieu.getTime()) / 1000;
+            String diffString = view.getResources().getString(R.string.time_format_to_android);
+
+            // building hours
+            long hours = diffS / 3600;
+            String hoursString = new String();
+            if (hours < 10)
+                hoursString += "0";
+            hoursString += String.valueOf(hours);
+            diffString = diffString.replaceAll("HH", hoursString);
+
+            // building minutes
+            long minutes = (diffS - 3600 * (diffS / 3600)) / 60;
+            String minutesString = new String();
+            if (minutes < 10)
+                minutesString += "0";
+            minutesString += String.valueOf(minutes);
+            diffString = diffString.replaceAll("mm", minutesString);
+
+            // setting text
+            ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setText(diffString);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override

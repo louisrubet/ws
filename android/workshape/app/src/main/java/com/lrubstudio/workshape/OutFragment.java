@@ -30,44 +30,48 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_out, container, false);
-        if (view != null)
+        return inflater.inflate(R.layout.fragment_out, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        View view = getView();
+
+        // manage MMI: disable some edits
+        try
         {
-            // manage MMI: disable some edits
-            try
-            {
-                view.findViewById(R.id.editOutQRCode).setEnabled(false);
-                view.findViewById(R.id.editOutReference).setEnabled(false);
-                view.findViewById(R.id.editOutLongueurInitiale).setEnabled(false);
-                view.findViewById(R.id.editOutLongueurActuelle).setEnabled(false);
-                view.findViewById(R.id.editOutHorsGelTotal).setEnabled(false);
-                view.findViewById(R.id.editOutLieuActuel).setEnabled(false);
-                view.findViewById(R.id.editOutLieuDepuis).setEnabled(false);
+            view.findViewById(R.id.editOutQRCode).setEnabled(false);
+            view.findViewById(R.id.editOutReference).setEnabled(false);
+            view.findViewById(R.id.editOutLongueurInitiale).setEnabled(false);
+            view.findViewById(R.id.editOutLongueurActuelle).setEnabled(false);
+            view.findViewById(R.id.editOutHorsGelTotal).setEnabled(false);
+            view.findViewById(R.id.editOutLieuActuel).setEnabled(false);
+            view.findViewById(R.id.editOutLieuDepuis).setEnabled(false);
 
-                // manage button
-                view.findViewById(R.id.buttonActionOut).setOnClickListener(this);
-            }
-            catch(Exception e)
-            {
-                // bloody mystery
-                Toast.makeText(getActivity(), getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
-                getActivity().finish();
-            }
-
-            // fill MMI views from db fields
-            int[] edits = new int [] {
-                    R.id.editOutQRCode, R.id.editOutReference, R.id.editOutLongueurInitiale,
-                    R.id.editOutLongueurActuelle, R.id.editOutHorsGelTotal, R.id.editOutLieuActuel,
-                    R.id.editOutLieuDepuis };
-            String[] dbfields = new String [] {
-                    DbPiece.qrCode, DbPiece.reference, DbPiece.longueurInitiale,
-                    DbPiece.longueurActuelle, DbPiece.tempsHorsGelTotal, DbPiece.lieuActuel,
-                    DbPiece.lieuDepuis
-            };
-            MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
+            // manage button
+            view.findViewById(R.id.buttonActionOut).setOnClickListener(this);
+        }
+        catch(Exception e)
+        {
+            // bloody mystery
+            Toast.makeText(getActivity(), getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
+            getActivity().finish();
         }
 
-        return view;
+        // fill MMI views from db fields
+        int[] edits = new int [] {
+                R.id.editOutQRCode, R.id.editOutReference, R.id.editOutLongueurInitiale,
+                R.id.editOutLongueurActuelle, R.id.editOutHorsGelTotal, R.id.editOutLieuActuel,
+                R.id.editOutLieuDepuis };
+        String[] dbfields = new String [] {
+                DbPiece.qrCode, DbPiece.reference, DbPiece.longueurInitiale,
+                DbPiece.longueurActuelle, DbPiece.tempsHorsGelTotal, DbPiece.lieuActuel,
+                DbPiece.lieuDepuis
+        };
+        MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
+
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override

@@ -40,16 +40,19 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_note, container, false);
-        if (view != null)
-        {
-            // fill with db field
-            MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, new int [] { R.id.editNote }, new String [] { DbPiece.note } );
+        return inflater.inflate(R.layout.fragment_note, container, false);
+    }
 
-            // set save button invisible
-            view.findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        final View view = getView();
 
-        }
+        // fill with db field
+        MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, new int [] { R.id.editNote }, new String [] { DbPiece.note } );
+
+        // set save button invisible
+        view.findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
 
         // setup TextChangedListener handlers on edit
         final String originalString = ((EditText)view.findViewById(R.id.editNote)).getText().toString();
@@ -63,17 +66,22 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
                     {
                         String entry = ((EditText)view.findViewById(R.id.editNote)).getText().toString();
                         if (entry.equals(originalString))
+                        {
+                            ((EditAddActivity)getActivity()).setModified(false);
                             view.findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
+                        }
                         else
+                        {
+                            ((EditAddActivity)getActivity()).setModified(true);
                             view.findViewById(R.id.buttonActionNote).setVisibility(View.VISIBLE);
+                        }
                     }
                 }
         );
 
         // manage button
         view.findViewById(R.id.buttonActionNote).setOnClickListener(this);
-
-        return view;
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override

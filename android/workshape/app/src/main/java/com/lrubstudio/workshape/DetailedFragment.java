@@ -21,6 +21,7 @@ import java.util.Map;
 public class DetailedFragment extends Fragment implements View.OnClickListener, DbRequest.AsyncResponse
 {
     private boolean isNewPiece = false;
+    Bundle bundle;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -31,79 +32,89 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        //keep arguments
+        bundle = getArguments();
+
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_detailed, container, false);
+        return inflater.inflate(R.layout.fragment_detailed, container, false);
+    }
 
-        if (view != null)
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        boolean newPiece;
+        final View view = getView();
+
+        // see if piece is added
+        if(bundle != null)
         {
-            boolean newPiece;
-
-            // see if piece is added
-            Bundle bundle = this.getArguments();
-            if(bundle != null)
+            // yes, fill only QRCode
+            newPiece = bundle.getBoolean("newPiece");
+            if (newPiece && MainActivity.getLastRequestedPiece().getTemporaryQrCode().length()>0)
             {
-                // yes, fill only QRCode
-                newPiece = bundle.getBoolean("newPiece");
-                if (newPiece && MainActivity.getLastRequestedPiece().getTemporaryQrCode().length()>0)
-                {
-                    ((EditText)view.findViewById(R.id.editQRCode)).setText(MainActivity.getLastRequestedPiece().getTemporaryQrCode());
+                ((EditText)view.findViewById(R.id.editQRCode)).setText(MainActivity.getLastRequestedPiece().getTemporaryQrCode());
 
-                    // keep it's a new piece
-                    isNewPiece = true;
-                }
-                else
-                {
-                    // bloody mystery
-                    Toast.makeText(view.getContext(), getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
-                }
+                // keep it's a new piece
+                isNewPiece = true;
             }
             else
             {
-                // fill MMI views from db fields
-                int[] edits = new int [] {
-                        R.id.editQRCode, R.id.editReference, R.id.editFournisseur, R.id.editRefFournisseur,
-                        R.id.editDateArrivee, R.id.editTransportFrigo, R.id.editLongueurInitiale,
-                        R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus
-                };
-                String[] dbfields = new String [] {
-                        DbPiece.qrCode, DbPiece.reference, DbPiece.fournisseur, DbPiece.refFournisseur,
-                        DbPiece.dateArrivee, DbPiece.transportFrigo, DbPiece.longueurInitiale,
-                        DbPiece.largeur, DbPiece.grammage, DbPiece.typeDeTissus
-                };
-                MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
+                // bloody mystery
+                Toast.makeText(view.getContext(), getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+            // fill MMI views from db fields
+            int[] edits = new int [] {
+                    R.id.editQRCode, R.id.editReference, R.id.editFournisseur, R.id.editRefFournisseur,
+                    R.id.editDateArrivee, R.id.editTransportFrigo, R.id.editLongueurInitiale,
+                    R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus
+            };
+            String[] dbfields = new String [] {
+                    DbPiece.qrCode, DbPiece.reference, DbPiece.fournisseur, DbPiece.refFournisseur,
+                    DbPiece.dateArrivee, DbPiece.transportFrigo, DbPiece.longueurInitiale,
+                    DbPiece.largeur, DbPiece.grammage, DbPiece.typeDeTissus
+            };
+            MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
 
-                // set save button invisible
-                view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
+            // set save button invisible
+            view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
 
-                // setup TextChangedListener handlers on each edit
-                for (int i = 0; i < edits.length; i++)
-                {
-                    final String originalString = MainActivity.getLastRequestedPiece().get(dbfields[i]);
-                    final int id = edits[i];
+            // setup TextChangedListener handlers on each edit
+            for (int i = 0; i < edits.length; i++)
+            {
+                final String originalString = MainActivity.getLastRequestedPiece().get(dbfields[i]);
+                final int id = edits[i];
 
-                    ((EditText)view.findViewById(id)).addTextChangedListener(
-                            new TextWatcher()
+                ((EditText)view.findViewById(id)).addTextChangedListener(
+                        new TextWatcher()
+                        {
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                            public void afterTextChanged(Editable s)
                             {
-                                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-                                public void onTextChanged(CharSequence s, int start, int before, int count) { }
-                                public void afterTextChanged(Editable s)
+                                String entry = ((EditText)view.findViewById(id)).getText().toString();
+                                if (entry.equals(originalString))
                                 {
-                                    String entry = ((EditText)view.findViewById(id)).getText().toString();
-                                    if (entry.equals(originalString))
-                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
-                                    else
-                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
+                                    ((EditAddActivity)getActivity()).setModified(false);
+                                    view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
+                                }
+                                else
+                                {
+                                    ((EditAddActivity)getActivity()).setModified(true);
+                                    view.findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
                                 }
                             }
-                    );
-                }
+                        }
+                );
             }
-
-            // manage button
-            view.findViewById(R.id.buttonAddModify).setOnClickListener(this);
         }
 
-        return view;
+        // manage button
+        view.findViewById(R.id.buttonAddModify).setOnClickListener(this);
+
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
