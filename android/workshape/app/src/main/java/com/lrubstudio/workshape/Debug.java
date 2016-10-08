@@ -8,7 +8,7 @@ public final class Debug
 {
     // db simulation
     public static boolean NO_DB = false;
-    public static boolean SIMULATE_PIECE_NEW = true;
-    public static boolean SIMULATE_PIECE_OUT = false;
-    public static boolean SIMULATE_PIECE_IN = false;
+    public static boolean SIMULATE_PRODUCT_NEW = true;
+    public static boolean SIMULATE_PRODUCT_OUT = false;
+    public static boolean SIMULATE_PRODUCT_IN = false;
 }

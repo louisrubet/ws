@@ -109,7 +109,7 @@
     <LinearLayout style="@style/Vertical_20Purcent">
 
         <Button style="@style/ValidationButton"
-                android:text="@string/sortir_la_piece"
+                android:text="@string/sortir_le_produit"
                 android:id="@+id/buttonActionOut" />
 
     </LinearLayout>

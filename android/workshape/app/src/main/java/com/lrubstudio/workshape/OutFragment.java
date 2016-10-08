@@ -1,12 +1,10 @@
 package com.lrubstudio.workshape;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -65,11 +63,11 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
                 R.id.editOutLongueurActuelle, R.id.editOutHorsGelTotal, R.id.editOutLieuActuel,
                 R.id.editOutLieuDepuis };
         String[] dbfields = new String [] {
-                DbPiece.qrCode, DbPiece.reference, DbPiece.longueurInitiale,
-                DbPiece.longueurActuelle, DbPiece.tempsHorsGelTotal, DbPiece.lieuActuel,
-                DbPiece.lieuDepuis
+                DbProduct.qrCode, DbProduct.reference, DbProduct.longueurInitiale,
+                DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuActuel,
+                DbProduct.lieuDepuis
         };
-        MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
+        MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
 
         super.onActivityCreated(savedInstanceState);
     }
@@ -80,7 +78,7 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
         // build then run request
         String qrCode=((EditText)getView().findViewById(R.id.editOutQRCode)).getText().toString();
         String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
-        new DbRequest(this).execute(DbPiece.buildRequestProductOut(getActivity(), qrCode, date));
+        new DbRequest(this).execute(DbProduct.buildRequestProductOut(getActivity(), qrCode, date));
     }
 
     @Override
@@ -89,7 +87,7 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
         if (dbError == DbRequest.DBERR_OK)
         {
             // toast ok !
-            Toast.makeText(getActivity(), getActivity().getString(R.string.piece_sortie), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getActivity().getString(R.string.produit_sorti), Toast.LENGTH_LONG).show();
 
             // bye
             getActivity().finish();

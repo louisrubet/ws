@@ -4,22 +4,16 @@ package com.lrubstudio.workshape;
  * Created by louis on 05/10/16.
  */
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.text.Spannable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -49,7 +43,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
         final View view = getView();
 
         // fill with db field
-        MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, new int [] { R.id.editNote }, new String [] { DbPiece.note } );
+        MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, new int [] { R.id.editNote }, new String [] { DbProduct.note } );
 
         // set save button invisible
         view.findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
@@ -88,12 +82,12 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
     public void onClick(View view)
     {
         // build and run request
-        String qrCode = MainActivity.getLastRequestedPiece().getQrCode();
+        String qrCode = MainActivity.getLastRequestedProduct().getQrCode();
         if (qrCode.length() > 0)
         {
             String note = ((EditText)getView().findViewById(R.id.editNote)).getText().toString();
             String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
-            new DbRequest(this).execute(DbPiece.buildRequestProductUpdateNote(getActivity(), qrCode, date, note));
+            new DbRequest(this).execute(DbProduct.buildRequestProductUpdateNote(getActivity(), qrCode, date, note));
         }
         else
         {

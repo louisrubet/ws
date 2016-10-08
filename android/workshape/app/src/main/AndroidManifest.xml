@@ -34,7 +34,7 @@
                 android:value="com.lrubstudio.workshape.MainActivity" />
         </activity>
 
-        <!-- edit / add piece activity -->
+        <!-- edit / add product activity -->
         <activity
             android:name=".EditAddActivity"
             android:label="@string/activity_edit_title"

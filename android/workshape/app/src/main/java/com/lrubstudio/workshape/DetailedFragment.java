@@ -38,30 +38,21 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
     {
         final View view = getView();
 
-        // see if piece is added
-        if(MainActivity.getLastRequestedPiece().isNewQrCode())
-        {
-            // it is a new QrCode, fill this only field
-            if (MainActivity.getLastRequestedPiece().getQrCode().length()>0)
-                ((EditText)view.findViewById(R.id.editQRCode)).setText(MainActivity.getLastRequestedPiece().getQrCode());
-            else
-                // bloody mystery
-                Toast.makeText(view.getContext(), getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
-        }
-        else
+        // see if product is added
+        if(! MainActivity.getLastRequestedProduct().isNewQrCode())
         {
             // fill MMI views from db fields
             int[] edits = new int [] {
-                    R.id.editQRCode, R.id.editReference, R.id.editFournisseur, R.id.editRefFournisseur,
+                    R.id.editReference, R.id.editFournisseur, R.id.editRefFournisseur,
                     R.id.editDateArrivee, R.id.editTransportFrigo, R.id.editLongueurInitiale,
                     R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus
             };
             String[] dbfields = new String [] {
-                    DbPiece.qrCode, DbPiece.reference, DbPiece.fournisseur, DbPiece.refFournisseur,
-                    DbPiece.dateArrivee, DbPiece.transportFrigo, DbPiece.longueurInitiale,
-                    DbPiece.largeur, DbPiece.grammage, DbPiece.typeDeTissus
+                    DbProduct.reference, DbProduct.fournisseur, DbProduct.refFournisseur,
+                    DbProduct.dateArrivee, DbProduct.transportFrigo, DbProduct.longueurInitiale,
+                    DbProduct.largeur, DbProduct.grammage, DbProduct.typeDeTissus
             };
-            MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
+            MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
 
             // set save button invisible
             view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
@@ -69,7 +60,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             // setup TextChangedListener handlers on each edit
             for (int i = 0; i < edits.length; i++)
             {
-                final String originalString = MainActivity.getLastRequestedPiece().get(dbfields[i]);
+                final String originalString = MainActivity.getLastRequestedProduct().get(dbfields[i]);
                 final int id = edits[i];
 
                 ((EditText)view.findViewById(id)).addTextChangedListener(
@@ -105,7 +96,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onClick(View view)
     {
-        String qrCode = MainActivity.getLastRequestedPiece().getQrCode();
+        String qrCode = MainActivity.getLastRequestedProduct().getQrCode();
         String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
         String reference = ((EditText)getView().findViewById(R.id.editReference)).getText().toString();
         String fournisseur = ((EditText)getView().findViewById(R.id.editFournisseur)).getText().toString();
@@ -118,17 +109,17 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         String transportFrigo = ((EditText)getView().findViewById(R.id.editTransportFrigo)).getText().toString();
         String lieuActuel = ConfigurationActivity.configuration.lieuParDefaut;
 
-        // new piece: create it
-        if (MainActivity.getLastRequestedPiece().isNewQrCode())
+        // new product: create it
+        if (MainActivity.getLastRequestedProduct().isNewQrCode())
             // build and run request
-            new DbRequest(this).execute(DbPiece.buildRequestProductAdd(getActivity(),
+            new DbRequest(this).execute(DbProduct.buildRequestProductAdd(getActivity(),
                   qrCode, date, reference, fournisseur, refFournisseur,
                   longueurInitiale, largeur, grammage,
                   typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
-        // piece to update: update it
+        // product to update: update it
         else
             // build and run request
-            new DbRequest(this).execute(DbPiece.buildRequestProductUpdate(getActivity(),
+            new DbRequest(this).execute(DbProduct.buildRequestProductUpdate(getActivity(),
                     qrCode, date, reference, fournisseur, refFournisseur,
                     longueurInitiale, largeur, grammage,
                     typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
@@ -140,10 +131,10 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         if (dbError == DbRequest.DBERR_OK)
         {
             // toast ok !
-            if (MainActivity.getLastRequestedPiece().isNewQrCode())
-                Toast.makeText(getActivity(), getActivity().getString(R.string.piece_creee), Toast.LENGTH_LONG).show();
+            if (MainActivity.getLastRequestedProduct().isNewQrCode())
+                Toast.makeText(getActivity(), getActivity().getString(R.string.produit_cree), Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(getActivity(), getActivity().getString(R.string.piece_sauvee), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getActivity().getString(R.string.produit_sauve), Toast.LENGTH_LONG).show();
 
             // don't see button
             getView().findViewById(R.id.buttonAddModify).setVisibility(View.GONE);

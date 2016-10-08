@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
     // db request for one product and product reference
 
     //
-    private static DbPiece lastRequestedPiece = new DbPiece();
-    public static DbPiece getLastRequestedPiece() { return lastRequestedPiece; }
+    private static DbProduct lastRequestedProduct = new DbProduct();
+    public static DbProduct getLastRequestedProduct() { return lastRequestedProduct; }
 
     //
     @Override
@@ -65,9 +65,9 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         // read stored configuration (SharedPreference)
         ConfigurationActivity.init_configuration((Context)this);
 
-        // put back last piece reference
+        // put back last product reference
         final EditText editQrCode = (EditText)findViewById(R.id.editText);
-        editQrCode.setText(lastRequestedPiece.getQrCode());
+        editQrCode.setText(lastRequestedProduct.getQrCode());
         editQrCode.addTextChangedListener(
                 new TextWatcher()
                 {
@@ -101,13 +101,13 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 // hide edit button
                 findViewById(R.id.imageButton).setVisibility(View.GONE);
 
-                Toast.makeText(this, getResources().getString(R.string.unknown_piece), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.produit_inconnu), Toast.LENGTH_SHORT).show();
             }
             else
             {
-                // fill db structure (here lastRequestedPiece.QrCode is already ok)
-                lastRequestedPiece.setFromMap(result);
-                MainActivity.getLastRequestedPiece().setNewQrCode(false);
+                // fill db structure (here lastRequestedProduct.QrCode is already ok)
+                lastRequestedProduct.setFromMap(result);
+                MainActivity.getLastRequestedProduct().setNewQrCode(false);
 
                 // hide floating button
                 ((FloatingActionButton)findViewById(R.id.fab)).hide();
@@ -142,13 +142,13 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
             if (qr.length() > 0)
             {
                 // keep this qr code
-                MainActivity.getLastRequestedPiece().setQrCode(qr);
+                MainActivity.getLastRequestedProduct().setQrCode(qr);
 
                 // start the turning thing
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
                 // build request and run asynchronous request
-                new DbRequest(this).execute(DbPiece.buildRequestProductView(this, qr));
+                new DbRequest(this).execute(DbProduct.buildRequestProductView(this, qr));
             }
         }
     }
@@ -168,10 +168,10 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
             if (qr.length() > 0)
             {
                 // keep this qr code
-                MainActivity.getLastRequestedPiece().setQrCode(qr);
+                MainActivity.getLastRequestedProduct().setQrCode(qr);
 
                 // set it as new
-                MainActivity.getLastRequestedPiece().setNewQrCode(true);
+                MainActivity.getLastRequestedProduct().setNewQrCode(true);
 
                 // -> run edit activity (cause: add)
                 Intent intent = new Intent(this, EditAddActivity.class);
@@ -242,14 +242,14 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
             if(result.getContents() != null && !result.getContents().isEmpty())
             {
                 // keep reference and set it to edit
-                MainActivity.getLastRequestedPiece().setQrCode(result.getContents());
+                MainActivity.getLastRequestedProduct().setQrCode(result.getContents());
                 ((EditText)findViewById(R.id.editText)).setText(result.getContents());
 
                 // make thing turn
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
                 // run asynchronous request
-                new DbRequest(this).execute(DbPiece.buildRequestProductView(this, result.getContents()));
+                new DbRequest(this).execute(DbProduct.buildRequestProductView(this, result.getContents()));
             }
         }
         else

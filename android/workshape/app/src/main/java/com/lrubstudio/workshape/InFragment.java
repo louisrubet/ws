@@ -1,20 +1,13 @@
 package com.lrubstudio.workshape;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.Spannable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -69,9 +62,9 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
                 R.id.editInQRCode, R.id.editInReference, R.id.editInLongueurInitiale,
                 R.id.editInLongueurActuelle, R.id.editInHorsGelTotal, R.id.editInLieuDepuis };
         String[] dbfields = new String [] {
-                DbPiece.qrCode, DbPiece.reference, DbPiece.longueurInitiale,
-                DbPiece.longueurActuelle, DbPiece.tempsHorsGelTotal, DbPiece.lieuDepuis };
-        MainActivity.getLastRequestedPiece().fillFragmentEditsFromFields(view, edits, dbfields);
+                DbProduct.qrCode, DbProduct.reference, DbProduct.longueurInitiale,
+                DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuDepuis };
+        MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
 
         // fill hors gel time duration
         try
@@ -124,7 +117,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             String longueurConsommee = ((EditText)getView().findViewById(R.id.editInLongueurConsommee)).getText().toString();
             String temps_hors_gel = ((EditText)getView().findViewById(R.id.editInTempsHorsGel)).getText().toString();
 
-            new DbRequest(this).execute(DbPiece.buildRequestProductIn(getActivity(), qrCode, date, longueurConsommee, temps_hors_gel));
+            new DbRequest(this).execute(DbProduct.buildRequestProductIn(getActivity(), qrCode, date, longueurConsommee, temps_hors_gel));
         }
     }
 
@@ -134,7 +127,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         if (dbError == DbRequest.DBERR_OK)
         {
             // toast ok !
-            Toast.makeText(getActivity(), getActivity().getString(R.string.piece_entree), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getActivity().getString(R.string.produit_entre), Toast.LENGTH_LONG).show();
 
             // bye
             getActivity().finish();

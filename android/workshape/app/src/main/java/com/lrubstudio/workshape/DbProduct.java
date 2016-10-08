@@ -4,15 +4,13 @@ import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by louis on 03/09/16.
  */
-public class DbPiece
+public class DbProduct
 {
     // db field names
     public static final String idproduct = "idproduct";
@@ -171,8 +169,8 @@ public class DbPiece
 
     public boolean isProductOut()
     {
-        // piece is considered out if 'lieuActuel' is null or empty
-        return get(DbPiece.lieuActuel).isEmpty();
+        // product is considered out if 'lieuActuel' is null or empty
+        return get(DbProduct.lieuActuel).isEmpty();
     }
 
     public void fillFragmentEditsFromFields(View fragment, int[] edits, String[] dbfields)

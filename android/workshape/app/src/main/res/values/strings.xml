@@ -5,12 +5,12 @@
 
     <!-- all activities -->
     <string name="activity_main_title">Workshape</string>
-    <string name="activity_edit_title">Edition d\'une pièce</string>
-    <string name="activity_piece_out">Sortie de la pièce d\'un frigo</string>
-    <string name="activity_piece_in">Entrée de la pièce dans un frigo</string>
-    <string name="activity_edit_detailed_title">Détail de la pièce</string>
+    <string name="activity_edit_title">Edition</string>
+    <string name="activity_product_out">Sortie d\'un frigo</string>
+    <string name="activity_product_in">Entrée dans un frigo</string>
+    <string name="activity_edit_detailed_title">Détail</string>
     <string name="activity_edit_note_title">Note</string>
-    <string name="activity_add_title">Ajout d\'une pièce</string>
+    <string name="activity_add_title">Ajout</string>
     <string name="activity_configuration_title">Configuration</string>
 
     <!-- main and scanner activities
@@ -22,7 +22,7 @@
 
     <!-- edit add activity
     -->
-    <string name="reference">Référence</string>
+    <string name="reference">Référence du rouleau</string>
     <string name="qr_code">QR code</string>
     <string name="fournisseur">Fournisseur</string>
     <string name="ref_fourn">Ref. fourn.</string>
@@ -34,7 +34,6 @@
     <string name="lieu_actuel">Lieu actuel</string>
     <string name="lieu_depuis_out">depuis</string>
     <string name="lieu_depuis_in">Sortie depuis</string>
-    <string name="entrer_en">Pièce à entrer dans</string>
     <string name="date_application">Date d\'application</string>
     <string name="type_de_tissus">Type de tissus</string>
     <string name="date_d_arrivee">Date d\'arrivée</string>
@@ -42,26 +41,26 @@
     <string name="decongele">Nb décongélation</string>
     <string name="temps_hors_gel_total">Tot. hors gel (h:m)</string>
     <string name="hors_gel">Passé hors gel (h:m)</string>
-    <string name="piece_sortie">Pièce sortie</string>
-    <string name="piece_entree">Pièce entrée</string>
-    <string name="piece_creee">Pièce créée</string>
-    <string name="piece_sauvee">Pièce sauvée</string>
+    <string name="produit_sorti">Produit sorti</string>
+    <string name="produit_entre">Produit entré</string>
+    <string name="produit_cree">Produit créé</string>
+    <string name="produit_sauve">Produit sauvé</string>
     <string name="note_sauvee">Note sauvée</string>
     <string name="qrcode_inconnu">QR code inconnu</string>
     <string name="db_err_request">Erreur de la base de données</string>
     <string name="db_err_connection_failed">Erreur de connection à la base de données</string>
     <string name="conf_password_title">"Entrer le mot de passe</string>
-    <string name="unknown_piece">"Pièce inconnue\nAppuyer sur '+' pour l'ajouter</string>
+    <string name="produit_inconnu">"Produit inconnu\nAppuyer sur '+' pour l'ajouter</string>
     <string name="enter">Entrer</string>
     <string name="cancel">Annuler</string>
     <string name="conf_file_read_error">Configuration illisible - Réinstallez l\'application</string>
     <string name="conf_file_write_error">Impossible de sauver la configuration</string>
     <string name="conf_file_write_done">Configuration sauvegardée</string>
-    <string name="sauver_la_piece">Sauver la pièce</string>
+    <string name="sauver_produit">Sauver le produit</string>
     <string name="buttonHistoCongel">Historique</string>
     <string name="internal_problem">Problème interne du logiciel</string>
-    <string name="sortir_la_piece">Sortir la pièce</string>
-    <string name="entrer_la_piece">Entrer la pièce</string>
+    <string name="sortir_le_produit">Sortir le produit</string>
+    <string name="entrer_le_produit">Entrer le produit</string>
     <string name="sauver_la_note">Sauver la note</string>
     <string name="should_be_decimal">Valeur numérique obligatoire</string>
     <string name="should_be_hhmm">Valeur hh:mm obligatoire</string>

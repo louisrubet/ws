@@ -1,6 +1,5 @@
 package com.lrubstudio.workshape;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,16 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener
 {
@@ -28,7 +18,7 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
     public static final int MODE_EDIT_IN = 3;
     private int mode = MODE_NONE;
 
-    // mode edit (piece to be put out or in): fragments to be shown by the pager
+    // mode edit (product to be put out or in): fragments to be shown by the pager
     private static final int EDIT_PAGE_IN_OUT = 0;
     private static final int EDIT_PAGE_DETAILED = 1;
     private static final int EDIT_PAGE_NOTE = 2;
@@ -59,9 +49,9 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
         setContentView(R.layout.activity_editadd);
 
         // determine mode: add, edit for out, edit for in
-        if (MainActivity.getLastRequestedPiece().isNewQrCode())
+        if (MainActivity.getLastRequestedProduct().isNewQrCode())
             mode = MODE_ADD;
-        else if (MainActivity.getLastRequestedPiece().isProductOut())
+        else if (MainActivity.getLastRequestedProduct().isProductOut())
             mode = MODE_EDIT_IN;
         else
             mode = MODE_EDIT_OUT;
@@ -87,11 +77,11 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                 break;
             case MODE_EDIT_OUT:
                 viewPager.setCurrentItem(EDIT_DEFAULT_PAGE);
-                getSupportActionBar().setTitle(R.string.activity_piece_out);
+                getSupportActionBar().setTitle(R.string.activity_product_out);
                 break;
             case MODE_EDIT_IN:
                 viewPager.setCurrentItem(EDIT_DEFAULT_PAGE);
-                getSupportActionBar().setTitle(R.string.activity_piece_in);
+                getSupportActionBar().setTitle(R.string.activity_product_in);
                 break;
             default:
                 break;
@@ -118,7 +108,7 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
             switch (position)
             {
                 case EDIT_PAGE_IN_OUT:
-                    getSupportActionBar().setTitle(R.string.activity_piece_out);
+                    getSupportActionBar().setTitle(R.string.activity_product_out);
                     break;
                 case EDIT_PAGE_DETAILED:
                     getSupportActionBar().setTitle(R.string.activity_edit_detailed_title);
@@ -133,7 +123,7 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
             switch (position)
             {
                 case EDIT_PAGE_IN_OUT:
-                    getSupportActionBar().setTitle(R.string.activity_piece_in);
+                    getSupportActionBar().setTitle(R.string.activity_product_in);
                     break;
                 case EDIT_PAGE_DETAILED:
                     getSupportActionBar().setTitle(R.string.activity_edit_detailed_title);

@@ -16,18 +16,6 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:id="@+id/textView99"
-                          android:text="@string/qr_code" />
-
-                <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editQRCode"
-                          android:inputType="text" />
-
-            </TableRow>
-
-            <TableRow style="@style/CommonTableRow">
-
-                <TextView style="@style/TextViewForTableRow"
                           android:id="@+id/textView991"
                           android:text="@string/reference" />
 
@@ -144,7 +132,7 @@
     <LinearLayout style="@style/Vertical_20Purcent">
 
         <Button style="@style/ValidationButton"
-                android:text="@string/sauver_la_piece"
+                android:text="@string/sauver_produit"
                 android:id="@+id/buttonAddModify" />
 
     </LinearLayout>
