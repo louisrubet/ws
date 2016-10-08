@@ -16,8 +16,8 @@ public class DbPiece
 {
     // db field names
     public static final String idproduct = "idproduct";
-    public static final String reference = "reference";
     public static final String qrCode = "qr_code";
+    public static final String reference = "reference";
     public static final String fournisseur = "fournisseur";
     public static final String refFournisseur = "ref_fournisseur";
     public static final String longueurInitiale = "longueur_initiale";
@@ -32,8 +32,11 @@ public class DbPiece
     public static final String tempsHorsGelTotal = "temps_hors_gel_total";
     public static final String note = "note";
 
+    // product key column
+    private String QrCode;
+    private boolean isNewQrCode = false;
+
     // db values (input field name, output value)
-    private String temporaryQrCode;
     private Map map;
     public void setFromMap(Map map)
     {
@@ -119,12 +122,17 @@ public class DbPiece
         return request;
     }
 
+    static public Map setDbgValuesNew()
+    {
+        return null;
+    }
+
     static public Map setDbgValuesOut()
     {
         Map tmp_map = new HashMap();
+        tmp_map.put("qrCode", "abcd1234");
         tmp_map.put("idproduct", "123456");
         tmp_map.put("reference", "product ref");
-        tmp_map.put("qrCode", "abcd1234");
         tmp_map.put("fournisseur", "Fournisseur");
         tmp_map.put("refFournisseur", "Ref Fournisseur");
         tmp_map.put("longueurInitiale", "25.00");
@@ -161,7 +169,7 @@ public class DbPiece
         return tmp_map;
     }
 
-    public boolean isPieceOut()
+    public boolean isProductOut()
     {
         // piece is considered out if 'lieuActuel' is null or empty
         return get(DbPiece.lieuActuel).isEmpty();
@@ -200,13 +208,24 @@ public class DbPiece
         }
     }
 
-    public String getTemporaryQrCode()
+    public String getQrCode()
     {
-        return temporaryQrCode;
+        return QrCode;
     }
 
-    public void setTemporaryQrCode(String temporaryQrCode)
+    public void setQrCode(String QrCode)
     {
-        this.temporaryQrCode = temporaryQrCode;
+        this.QrCode = QrCode;
+    }
+
+    public boolean isNewQrCode()
+    {
+        return isNewQrCode;
+    }
+
+    public void setNewQrCode(boolean newQrCode)
+    {
+        isNewQrCode = newQrCode;
     }
 }
+

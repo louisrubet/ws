@@ -45,15 +45,8 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
     CollectionPagerAdapter collectionPagerAdapter;
     ViewPager viewPager;
 
-    boolean isAdd = false;
-
     // used by fragments: indicates if a fragment was modified
     boolean isModified = false;
-    public boolean isModified()
-    {
-        return isModified;
-    }
-
     public void setModified(boolean modified)
     {
         isModified = modified;
@@ -65,18 +58,13 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editadd);
 
-        // activity mode and new qr code if any
-        Bundle bundle = getIntent().getExtras();
-        if(bundle != null)
-        {
-            mode = bundle.getInt("mode");
-            if (mode != MODE_ADD && mode != MODE_EDIT_OUT && mode != MODE_EDIT_IN)
-            {
-                // bloody mystery
-                Toast.makeText(this, getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
-                finish();
-            }
-        }
+        // determine mode: add, edit for out, edit for in
+        if (MainActivity.getLastRequestedPiece().isNewQrCode())
+            mode = MODE_ADD;
+        else if (MainActivity.getLastRequestedPiece().isProductOut())
+            mode = MODE_EDIT_IN;
+        else
+            mode = MODE_EDIT_OUT;
 
         // pager
         collectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager(), this);
@@ -94,7 +82,6 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
         switch(mode)
         {
             case MODE_ADD:
-                isAdd = true;
                 viewPager.setCurrentItem(ADD_DEFAULT_PAGE);
                 getSupportActionBar().setTitle(R.string.activity_add_title);
                 break;
@@ -168,18 +155,17 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
         }
     }
 
-    private static int backpress = 0;
     @Override
     public void onBackPressed()
     {
         if (isModified)
         {
-            (new SyncDialog()).run(this, "Title", "Question", "Ok", "No");
+            // check if modifications
+            if ((new SyncDialog()).run(this, getResources().getString(R.string.modifs_non_sauvees), getResources().getString(R.string.question_confirmer), getResources().getString(R.string.reponse_abandonner), getResources().getString(R.string.reponse_rester)))
+                finish();
         }
         else
-        {
             finish();
-        }
     }
 
     @Override
@@ -251,13 +237,7 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
                 {
                     // main fragment
                     case EditAddActivity.ADD_PAGE_DETAILED:
-                    {
-                        DetailedFragment detailed = new DetailedFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putBoolean("newPiece", parentActivity.isAdd);
-                        detailed.setArguments(bundle);
-                        return detailed;
-                    }
+                        return new DetailedFragment();
                     // note
                     case EditAddActivity.ADD_PAGE_NOTE:
                         return new NoteFragment();

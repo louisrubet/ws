@@ -8,6 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +26,6 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements DbRequest.AsyncResponse
 {
     // db request for one product and product reference
-    private static String lastPieceReference = "";
 
     //
     private static DbPiece lastRequestedPiece = new DbPiece();
@@ -61,11 +62,27 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         // round progressbar for db access
         findViewById(R.id.progressBar).setVisibility(View.GONE);
 
-        // put back last piece reference
-        ((EditText)findViewById(R.id.editText)).setText(lastPieceReference);
-
         // read stored configuration (SharedPreference)
         ConfigurationActivity.init_configuration((Context)this);
+
+        // put back last piece reference
+        final EditText editQrCode = (EditText)findViewById(R.id.editText);
+        editQrCode.setText(lastRequestedPiece.getQrCode());
+        editQrCode.addTextChangedListener(
+                new TextWatcher()
+                {
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                    public void afterTextChanged(Editable s)
+                    {
+                        // hide floating add button in case of text change
+                        ((FloatingActionButton)findViewById(R.id.fab)).hide();
+
+                        // show edit button
+                        findViewById(R.id.imageButton).setVisibility(View.VISIBLE);
+                    }
+                }
+        );
     }
 
     @Override
@@ -80,36 +97,26 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
             {
                 // show floating button
                 ((FloatingActionButton)findViewById(R.id.fab)).show();
+
                 // hide edit button
                 findViewById(R.id.imageButton).setVisibility(View.GONE);
-
-                // unknown piece -> show it
-                lastPieceReference = "";
-
-                // erase last qr code
-                MainActivity.getLastRequestedPiece().setTemporaryQrCode(lastPieceReference);
 
                 Toast.makeText(this, getResources().getString(R.string.unknown_piece), Toast.LENGTH_SHORT).show();
             }
             else
             {
-                // keep values
+                // fill db structure (here lastRequestedPiece.QrCode is already ok)
                 lastRequestedPiece.setFromMap(result);
+                MainActivity.getLastRequestedPiece().setNewQrCode(false);
 
                 // hide floating button
                 ((FloatingActionButton)findViewById(R.id.fab)).hide();
+
                 // show edit button
                 findViewById(R.id.imageButton).setVisibility(View.VISIBLE);
 
                 // -> run edit activity
-                Intent intent = new Intent(this, EditAddActivity.class);
-                Bundle bundle = new Bundle();
-                if (lastRequestedPiece.isPieceOut())
-                    bundle.putInt("mode", EditAddActivity.MODE_EDIT_IN);
-                else
-                    bundle.putInt("mode", EditAddActivity.MODE_EDIT_OUT);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                startActivity(new Intent(this, EditAddActivity.class));
             }
         }
         else
@@ -135,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
             if (qr.length() > 0)
             {
                 // keep this qr code
-                MainActivity.getLastRequestedPiece().setTemporaryQrCode(qr);
+                MainActivity.getLastRequestedPiece().setQrCode(qr);
 
                 // start the turning thing
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
@@ -161,7 +168,10 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
             if (qr.length() > 0)
             {
                 // keep this qr code
-                MainActivity.getLastRequestedPiece().setTemporaryQrCode(qr);
+                MainActivity.getLastRequestedPiece().setQrCode(qr);
+
+                // set it as new
+                MainActivity.getLastRequestedPiece().setNewQrCode(true);
 
                 // -> run edit activity (cause: add)
                 Intent intent = new Intent(this, EditAddActivity.class);
@@ -229,20 +239,17 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         if(result != null)
         {
             // result and not cancelled
-            if(result.getContents() != null)
+            if(result.getContents() != null && !result.getContents().isEmpty())
             {
                 // keep reference and set it to edit
-                lastPieceReference = result.getContents();
-                ((EditText)findViewById(R.id.editText)).setText(lastPieceReference);
-
-                // keep this qr code
-                MainActivity.getLastRequestedPiece().setTemporaryQrCode(lastPieceReference);
+                MainActivity.getLastRequestedPiece().setQrCode(result.getContents());
+                ((EditText)findViewById(R.id.editText)).setText(result.getContents());
 
                 // make thing turn
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
                 // run asynchronous request
-                new DbRequest(this).execute(DbPiece.buildRequestProductView(this, lastPieceReference));
+                new DbRequest(this).execute(DbPiece.buildRequestProductView(this, result.getContents()));
             }
         }
         else

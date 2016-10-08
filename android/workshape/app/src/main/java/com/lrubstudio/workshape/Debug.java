@@ -7,7 +7,8 @@ package com.lrubstudio.workshape;
 public final class Debug
 {
     // db simulation
-    public static boolean NO_DB = true;
-    public static boolean SIMULATE_PIECE_TO_OUT = false;
-    public static boolean SIMULATE_PIECE_TO_IN = true;
+    public static boolean NO_DB = false;
+    public static boolean SIMULATE_PIECE_NEW = true;
+    public static boolean SIMULATE_PIECE_OUT = false;
+    public static boolean SIMULATE_PIECE_IN = false;
 }

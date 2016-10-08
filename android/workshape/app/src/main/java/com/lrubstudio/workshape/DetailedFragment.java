@@ -20,9 +20,6 @@ import java.util.Map;
  */
 public class DetailedFragment extends Fragment implements View.OnClickListener, DbRequest.AsyncResponse
 {
-    private boolean isNewPiece = false;
-    Bundle bundle;
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -32,9 +29,6 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        //keep arguments
-        bundle = getArguments();
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detailed, container, false);
     }
@@ -42,26 +36,17 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
-        boolean newPiece;
         final View view = getView();
 
         // see if piece is added
-        if(bundle != null)
+        if(MainActivity.getLastRequestedPiece().isNewQrCode())
         {
-            // yes, fill only QRCode
-            newPiece = bundle.getBoolean("newPiece");
-            if (newPiece && MainActivity.getLastRequestedPiece().getTemporaryQrCode().length()>0)
-            {
-                ((EditText)view.findViewById(R.id.editQRCode)).setText(MainActivity.getLastRequestedPiece().getTemporaryQrCode());
-
-                // keep it's a new piece
-                isNewPiece = true;
-            }
+            // it is a new QrCode, fill this only field
+            if (MainActivity.getLastRequestedPiece().getQrCode().length()>0)
+                ((EditText)view.findViewById(R.id.editQRCode)).setText(MainActivity.getLastRequestedPiece().getQrCode());
             else
-            {
                 // bloody mystery
                 Toast.makeText(view.getContext(), getResources().getString(R.string.internal_problem), Toast.LENGTH_LONG).show();
-            }
         }
         else
         {
@@ -120,7 +105,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onClick(View view)
     {
-        String qrCode = MainActivity.getLastRequestedPiece().getTemporaryQrCode();
+        String qrCode = MainActivity.getLastRequestedPiece().getQrCode();
         String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
         String reference = ((EditText)getView().findViewById(R.id.editReference)).getText().toString();
         String fournisseur = ((EditText)getView().findViewById(R.id.editFournisseur)).getText().toString();
@@ -134,23 +119,19 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         String lieuActuel = ConfigurationActivity.configuration.lieuParDefaut;
 
         // new piece: create it
-        if (isNewPiece)
-        {
+        if (MainActivity.getLastRequestedPiece().isNewQrCode())
             // build and run request
             new DbRequest(this).execute(DbPiece.buildRequestProductAdd(getActivity(),
                   qrCode, date, reference, fournisseur, refFournisseur,
                   longueurInitiale, largeur, grammage,
                   typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
-        }
         // piece to update: update it
         else
-        {
             // build and run request
             new DbRequest(this).execute(DbPiece.buildRequestProductUpdate(getActivity(),
                     qrCode, date, reference, fournisseur, refFournisseur,
                     longueurInitiale, largeur, grammage,
                     typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
-        }
     }
 
     @Override
@@ -159,7 +140,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         if (dbError == DbRequest.DBERR_OK)
         {
             // toast ok !
-            if (isNewPiece)
+            if (MainActivity.getLastRequestedPiece().isNewQrCode())
                 Toast.makeText(getActivity(), getActivity().getString(R.string.piece_creee), Toast.LENGTH_LONG).show();
             else
                 Toast.makeText(getActivity(), getActivity().getString(R.string.piece_sauvee), Toast.LENGTH_LONG).show();

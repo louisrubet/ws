@@ -87,11 +87,15 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
 
         if (Debug.NO_DB)
         {
-            if (Debug.SIMULATE_PIECE_TO_OUT)
+            if (Debug.SIMULATE_PIECE_NEW)
+            {
+                map = DbPiece.setDbgValuesNew();
+            }
+            else if (Debug.SIMULATE_PIECE_OUT)
             {
                 map = DbPiece.setDbgValuesOut();
             }
-            else if (Debug.SIMULATE_PIECE_TO_IN)
+            else if (Debug.SIMULATE_PIECE_IN)
             {
                 map = DbPiece.setDbgValuesIn();
             }

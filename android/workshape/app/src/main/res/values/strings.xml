@@ -66,6 +66,11 @@
     <string name="should_be_decimal">Valeur numérique obligatoire</string>
     <string name="should_be_hhmm">Valeur hh:mm obligatoire</string>
 
+    <string name="modifs_non_sauvees">Le produit a été modifié</string>
+    <string name="question_confirmer">Abandonner les modifications ?</string>
+    <string name="reponse_rester">Non, rester</string>
+    <string name="reponse_abandonner">Oui, abandonner</string>
+
     <!-- configuration activity -->
     <string name="conf_server_hostname">DB server host</string>
     <string name="conf_server_port">DB server port</string>
