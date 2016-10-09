@@ -27,6 +27,10 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        // keep instance, ie be sure not to go again to onCreateView
+        // in order to keep EditAddActivity.isModified state
+        setRetainInstance(true);
+
         super.onCreate(savedInstanceState);
     }
 
@@ -34,14 +38,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_note, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        final View view = getView();
-
+        final View view = inflater.inflate(R.layout.fragment_note, container, false);
         // fill with db field
         MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, new int [] { R.id.editNote }, new String [] { DbProduct.note } );
 
@@ -61,12 +58,12 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
                         String entry = ((EditText)view.findViewById(R.id.editNote)).getText().toString();
                         if (entry.equals(originalString))
                         {
-                            ((EditAddActivity)getActivity()).setModified(false);
+                            ((EditAddActivity)getActivity()).setNoteFragmentModified(false);
                             view.findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
                         }
                         else
                         {
-                            ((EditAddActivity)getActivity()).setModified(true);
+                            ((EditAddActivity)getActivity()).setNoteFragmentModified(true);
                             view.findViewById(R.id.buttonActionNote).setVisibility(View.VISIBLE);
                         }
                     }
@@ -75,7 +72,8 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
 
         // manage button
         view.findViewById(R.id.buttonActionNote).setOnClickListener(this);
-        super.onActivityCreated(savedInstanceState);
+
+        return view;
     }
 
     @Override

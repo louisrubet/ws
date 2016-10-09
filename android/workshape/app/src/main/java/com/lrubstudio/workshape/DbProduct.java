@@ -32,7 +32,27 @@ public class DbProduct
 
     // product key column
     private String QrCode;
+    public String getQrCode()
+    {
+        return QrCode;
+    }
+
+    public void setQrCode(String QrCode)
+    {
+        this.QrCode = QrCode;
+    }
+
+    //
     private boolean isNewQrCode = false;
+    public boolean isNewQrCode()
+    {
+        return isNewQrCode;
+    }
+
+    public void setNewQrCode(boolean newQrCode)
+    {
+        isNewQrCode = newQrCode;
+    }
 
     // db values (input field name, output value)
     private Map map;
@@ -204,26 +224,6 @@ public class DbProduct
         {
             return "";
         }
-    }
-
-    public String getQrCode()
-    {
-        return QrCode;
-    }
-
-    public void setQrCode(String QrCode)
-    {
-        this.QrCode = QrCode;
-    }
-
-    public boolean isNewQrCode()
-    {
-        return isNewQrCode;
-    }
-
-    public void setNewQrCode(boolean newQrCode)
-    {
-        isNewQrCode = newQrCode;
     }
 }
 

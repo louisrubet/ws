@@ -23,6 +23,10 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        // keep instance, ie be sure not to go again to onCreateView
+        // in order to keep EditAddActivity.isModified state
+        setRetainInstance(true);
+
         super.onCreate(savedInstanceState);
     }
 
@@ -30,13 +34,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detailed, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        final View view = getView();
+        final View view = inflater.inflate(R.layout.fragment_detailed, container, false);
 
         // see if product is added
         if(! MainActivity.getLastRequestedProduct().isNewQrCode())
@@ -73,12 +71,12 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
                                 String entry = ((EditText)view.findViewById(id)).getText().toString();
                                 if (entry.equals(originalString))
                                 {
-                                    ((EditAddActivity)getActivity()).setModified(false);
+                                    ((EditAddActivity)getActivity()).setDetailedFragmentModified(false);
                                     view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
                                 }
                                 else
                                 {
-                                    ((EditAddActivity)getActivity()).setModified(true);
+                                    ((EditAddActivity)getActivity()).setDetailedFragmentModified(true);
                                     view.findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
                                 }
                             }
@@ -90,7 +88,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         // manage button
         view.findViewById(R.id.buttonAddModify).setOnClickListener(this);
 
-        super.onActivityCreated(savedInstanceState);
+        return view;
     }
 
     @Override

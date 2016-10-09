@@ -36,10 +36,16 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
     ViewPager viewPager;
 
     // used by fragments: indicates if a fragment was modified
-    boolean isModified = false;
-    public void setModified(boolean modified)
+    boolean isDetailedFragmentModified = false;
+    public void setDetailedFragmentModified(boolean modified)
     {
-        isModified = modified;
+        isDetailedFragmentModified = modified;
+    }
+
+    boolean isNoteFragmentModified = false;
+    public void setNoteFragmentModified(boolean modified)
+    {
+        isNoteFragmentModified = modified;
     }
 
     @Override
@@ -148,7 +154,7 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
     @Override
     public void onBackPressed()
     {
-        if (isModified)
+        if (isDetailedFragmentModified || isNoteFragmentModified)
         {
             // check if modifications
             if ((new SyncDialog()).run(this, getResources().getString(R.string.modifs_non_sauvees), getResources().getString(R.string.question_confirmer), getResources().getString(R.string.reponse_abandonner), getResources().getString(R.string.reponse_rester)))
