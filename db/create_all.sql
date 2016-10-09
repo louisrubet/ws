@@ -36,7 +36,7 @@ CREATE TABLE `event` (
   `champ3` varchar(45) DEFAULT NULL,
   `valeur3` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idevent`,`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS `product`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product` (
   `idproduct` int(11) NOT NULL AUTO_INCREMENT,
-  `qr_code` varchar(45) DEFAULT NULL,
+  `qr_code` varchar(45) NOT NULL,
   `reference` varchar(45) DEFAULT NULL,
   `fournisseur` varchar(45) DEFAULT NULL,
   `ref_fournisseur` varchar(45) DEFAULT NULL,
@@ -64,9 +64,9 @@ CREATE TABLE `product` (
   `temps_hors_gel_total` time DEFAULT NULL,
   `nb_decongelation` int(11) DEFAULT NULL,
   `note` text,
-  PRIMARY KEY (`idproduct`),
-  UNIQUE KEY `idx_product_qr_code` (`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`idproduct`,`qr_code`),
+  UNIQUE KEY `qr_code_UNIQUE` (`qr_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,10 +77,9 @@ DROP TABLE IF EXISTS `product_view`;
 /*!50001 DROP VIEW IF EXISTS `product_view`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `product_view` AS SELECT 
- 1 AS `idproduct`,
- 1 AS `reference`,
+/*!50001 CREATE VIEW `product_view` AS SELECT
  1 AS `qr_code`,
+ 1 AS `reference`,
  1 AS `fournisseur`,
  1 AS `ref_fournisseur`,
  1 AS `longueur_initiale`,
@@ -110,7 +109,7 @@ SET character_set_client = @saved_cs_client;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`workshape`@`%` PROCEDURE `product_add`(in qrcode nvarchar(45), in date_now nvarchar(45),
+CREATE DEFINER=`workshape`@`%` PROCEDURE `product_add`(in qr_code nvarchar(45), in date_now nvarchar(45),
 	in reference nvarchar(45),
     in fournisseur nvarchar(45),
     in ref_fournisseur nvarchar(45),
@@ -127,13 +126,13 @@ BEGIN
 
     set date_now_dt = str_to_date(date_now, "%d/%m/%Y %T");
     set date_arrivee_dt = str_to_date(date_arrivee_dt, "%d/%m/%Y %T");
-    
+
 	# added an entry in product table
-    insert into product(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel)
-		values(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, largeur, grammage, type_de_tissus, date_arrivee_dt, transport_frigo, lieu_actuel);
+    insert into product(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis)
+		values(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, largeur, grammage, type_de_tissus, date_arrivee_dt, transport_frigo, lieu_actuel, date_now_dt);
 
 	# then record an event
-    insert into event(qr_code, event, date) values(qrcode, "new", date_now_dt);
+    insert into event(qr_code, event, date) values(qr_code, "new", date_now_dt);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -218,7 +217,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update`(in qrcode nvarchar(45), in date_now nvarchar(45),
+CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update`(in qr_code nvarchar(45), in date_now nvarchar(45),
 	in reference nvarchar(45),
     in fournisseur nvarchar(45),
     in ref_fournisseur nvarchar(45),
@@ -233,10 +232,11 @@ BEGIN
 	declare date_now_dt DateTime;
 	declare date_arrivee_dt DateTime;
 
-    set date_now_dt = str_to_date(date_now, "%d/%m/%Y %T");
-    set date_arrivee_dt = str_to_date(date_arrivee_dt, "%d/%m/%Y %T");
-    
+    set date_now_dt = str_to_date(date_now, "%d/%m/%Y %H:%i");
+    set date_arrivee_dt = str_to_date(date_arrivee, "%d/%m/%Y %H:%i");
+
 	# added an entry in product table
+    SET SQL_SAFE_UPDATES=0;
     update product
 		set reference = reference,
             fournisseur = fournisseur,
@@ -248,10 +248,11 @@ BEGIN
             date_arrivee = date_arrivee_dt,
             transport_frigo = transport_frigo,
             lieu_actuel = lieu_actuel
-		where qr_code = qrcode;
+		where qr_code = qr_code;
 
 	# then record an event
-    insert into event(qr_code, event, date) values(qrcode, "update", date_now_dt);
+    insert into event(qr_code, event, date) values(qr_code, "update", date_now_dt);
+	SET SQL_SAFE_UPDATES=1;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -273,9 +274,11 @@ BEGIN
 	declare date_now_dt DateTime;
 
     set date_now_dt = str_to_date(date_now, "%d/%m/%Y %T");
-    
+
 	# added an entry in product table
+    SET SQL_SAFE_UPDATES=0;
     update product set note = note where qr_code = qrcode;
+    SET SQL_SAFE_UPDATES=1;
 
 	# then record an event
     insert into event(qr_code, event, date) values(qrcode, "update note", date_now_dt);
@@ -299,7 +302,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`workshape`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `product_view` AS select `product`.`idproduct` AS `idproduct`,`product`.`reference` AS `reference`,`product`.`qr_code` AS `qr_code`,`product`.`fournisseur` AS `fournisseur`,`product`.`ref_fournisseur` AS `ref_fournisseur`,`product`.`longueur_initiale` AS `longueur_initiale`,`product`.`longueur_actuelle` AS `longueur_actuelle`,`product`.`largeur` AS `largeur`,`product`.`grammage` AS `grammage`,`product`.`type_de_tissus` AS `type_de_tissus`,date_format(`product`.`date_arrivee`,'%d/%m/%Y') AS `date_arrivee`,`product`.`transport_frigo` AS `transport_frigo`,`product`.`lieu_actuel` AS `lieu_actuel`,date_format(`product`.`lieu_depuis`,'%d/%m/%Y %T') AS `lieu_depuis`,`product`.`temps_hors_gel_total` AS `temps_hors_gel_total`,`product`.`nb_decongelation` AS `nb_decongelation`,`product`.`note` AS `note` from `product` */;
+/*!50001 VIEW `product_view` AS select `product`.`qr_code` AS `qr_code`,`product`.`reference` AS `reference`,`product`.`fournisseur` AS `fournisseur`,`product`.`ref_fournisseur` AS `ref_fournisseur`,`product`.`longueur_initiale` AS `longueur_initiale`,`product`.`longueur_actuelle` AS `longueur_actuelle`,`product`.`largeur` AS `largeur`,`product`.`grammage` AS `grammage`,`product`.`type_de_tissus` AS `type_de_tissus`,date_format(`product`.`date_arrivee`,'%d/%m/%Y %H:%i') AS `date_arrivee`,`product`.`transport_frigo` AS `transport_frigo`,`product`.`lieu_actuel` AS `lieu_actuel`,date_format(`product`.`lieu_depuis`,'%d/%m/%Y %H:%i') AS `lieu_depuis`,`product`.`temps_hors_gel_total` AS `temps_hors_gel_total`,`product`.`nb_decongelation` AS `nb_decongelation`,`product`.`note` AS `note` from `product` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -313,4 +316,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-05 22:15:04
+-- Dump completed on 2016-10-09 18:50:06
