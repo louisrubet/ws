@@ -75,23 +75,17 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             String dateFrom = ((EditText)view.findViewById(R.id.editInLieuDepuis)).getText().toString();
             Date dateLieu = dateFormat.parse(dateFrom);
 
-            long diffS = (currentDate.getTime() - dateLieu.getTime()) / 1000;
-            String diffString = view.getResources().getString(R.string.time_format_to_android);
-
             // building hours
+            long diffS = (currentDate.getTime() - dateLieu.getTime()) / 1000;
             long hours = diffS / 3600;
-            String hoursString = new String();
-            if (hours < 10)
-                hoursString += "0";
-            hoursString += String.valueOf(hours);
-            diffString = diffString.replaceAll("HH", hoursString);
+            String hoursString = String.format("%02d", hours);
 
             // building minutes
             long minutes = (diffS - 3600 * (diffS / 3600)) / 60;
-            String minutesString = new String();
-            if (minutes < 10)
-                minutesString += "0";
-            minutesString += String.valueOf(minutes);
+            String minutesString = String.format("%02d", minutes);
+
+            String diffString = view.getResources().getString(R.string.time_format_to_android);
+            diffString = diffString.replaceAll("HH", hoursString);
             diffString = diffString.replaceAll("mm", minutesString);
 
             // setting text

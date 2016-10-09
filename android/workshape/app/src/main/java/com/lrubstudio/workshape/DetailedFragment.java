@@ -1,16 +1,23 @@
 package com.lrubstudio.workshape;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -18,8 +25,19 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailedFragment extends Fragment implements View.OnClickListener, DbRequest.AsyncResponse
+public class DetailedFragment extends Fragment implements View.OnClickListener, DbRequest.AsyncResponse, DateTimeGetter.onDateTimeGetter
 {
+    private static final int TAG_DATE_ARRIVEE = 0;
+
+    private class DateTimeObject extends Object
+    {
+        DateTimeObject(int idView) { this.idView = idView; }
+        int idView;
+        int year;
+        int month;
+        int day;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -39,7 +57,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         // see if product is added
         if(! MainActivity.getLastRequestedProduct().isNewQrCode())
         {
-            // fill MMI views from db fields
+            // no, fill MMI views from db fields
             int[] edits = new int [] {
                     R.id.editReference, R.id.editFournisseur, R.id.editRefFournisseur,
                     R.id.editDateArrivee, R.id.editTransportFrigo, R.id.editLongueurInitiale,
@@ -88,39 +106,61 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         // manage button
         view.findViewById(R.id.buttonAddModify).setOnClickListener(this);
 
+        // manage dates
+        view.findViewById(R.id.editDateArrivee).setOnClickListener(this);
+
         return view;
     }
 
     @Override
     public void onClick(View view)
     {
-        String qrCode = MainActivity.getLastRequestedProduct().getQrCode();
-        String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
-        String reference = ((EditText)getView().findViewById(R.id.editReference)).getText().toString();
-        String fournisseur = ((EditText)getView().findViewById(R.id.editFournisseur)).getText().toString();
-        String refFournisseur = ((EditText)getView().findViewById(R.id.editRefFournisseur)).getText().toString();
-        String longueurInitiale = ((EditText)getView().findViewById(R.id.editLongueurInitiale)).getText().toString();
-        String largeur = ((EditText)getView().findViewById(R.id.editLargeur)).getText().toString();
-        String grammage = ((EditText)getView().findViewById(R.id.editGrammage)).getText().toString();
-        String typeDeTissus = ((EditText)getView().findViewById(R.id.editTypeDeTissus)).getText().toString();
-        String dateArrivee = ((EditText)getView().findViewById(R.id.editDateArrivee)).getText().toString();
-        String transportFrigo = ((EditText)getView().findViewById(R.id.editTransportFrigo)).getText().toString();
-        String lieuActuel = ConfigurationActivity.configuration.lieuParDefaut;
+        // button 'save'
+        if (view.getId() == R.id.buttonAddModify)
+        {
+            String qrCode = MainActivity.getLastRequestedProduct().getQrCode();
+            String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
+            String reference = ((EditText) getView().findViewById(R.id.editReference)).getText().toString();
+            String fournisseur = ((EditText) getView().findViewById(R.id.editFournisseur)).getText().toString();
+            String refFournisseur = ((EditText) getView().findViewById(R.id.editRefFournisseur)).getText().toString();
+            String longueurInitiale = ((EditText) getView().findViewById(R.id.editLongueurInitiale)).getText().toString();
+            String largeur = ((EditText) getView().findViewById(R.id.editLargeur)).getText().toString();
+            String grammage = ((EditText) getView().findViewById(R.id.editGrammage)).getText().toString();
+            String typeDeTissus = ((EditText) getView().findViewById(R.id.editTypeDeTissus)).getText().toString();
+            String dateArrivee = ((EditText) getView().findViewById(R.id.editDateArrivee)).getText().toString();
+            String transportFrigo = ((EditText) getView().findViewById(R.id.editTransportFrigo)).getText().toString();
+            String lieuActuel = ConfigurationActivity.configuration.lieuParDefaut;
 
-        // new product: create it
-        if (MainActivity.getLastRequestedProduct().isNewQrCode())
-            // build and run request
-            new DbRequest(this).execute(DbProduct.buildRequestProductAdd(getActivity(),
-                  qrCode, date, reference, fournisseur, refFournisseur,
-                  longueurInitiale, largeur, grammage,
-                  typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
-        // product to update: update it
-        else
-            // build and run request
-            new DbRequest(this).execute(DbProduct.buildRequestProductUpdate(getActivity(),
-                    qrCode, date, reference, fournisseur, refFournisseur,
-                    longueurInitiale, largeur, grammage,
-                    typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
+            // new product: create it
+            if (MainActivity.getLastRequestedProduct().isNewQrCode())
+                // build and run request
+                new DbRequest(this).execute(DbProduct.buildRequestProductAdd(getActivity(),
+                        qrCode, date, reference, fournisseur, refFournisseur,
+                        longueurInitiale, largeur, grammage,
+                        typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
+                // product to update: update it
+            else
+                // build and run request
+                new DbRequest(this).execute(DbProduct.buildRequestProductUpdate(getActivity(),
+                        qrCode, date, reference, fournisseur, refFournisseur,
+                        longueurInitiale, largeur, grammage,
+                        typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
+        }
+        else if(view.getId() == R.id.editDateArrivee)
+        {
+            String dateArrivee = ((EditText)getView().findViewById(R.id.editDateArrivee)).getText().toString();
+
+            // choose date then time
+            (new DateTimeGetter(getActivity(), this, R.id.editDateArrivee, dateArrivee)).run();
+        }
+    }
+
+    public void onDateTimeGetter(int id, String dateTime)
+    {
+        if (id == R.id.editDateArrivee)
+        {
+            ((EditText)getView().findViewById(R.id.editDateArrivee)).setText(dateTime);
+        }
     }
 
     @Override
@@ -136,6 +176,13 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
 
             // don't see button
             getView().findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
+
+            // not modified anymore
+            ((EditAddActivity)getActivity()).setDetailedFragmentModified(false);
+
+            // after creation: back to home
+            if (MainActivity.getLastRequestedProduct().isNewQrCode())
+                getActivity().finish();
         }
         else
         {

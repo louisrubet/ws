@@ -103,7 +103,7 @@ public class DbProduct
         request = request.replaceAll("#largeur", largeur);
         request = request.replaceAll("#grammage", grammage);
         request = request.replaceAll("#type_de_tissus", typeDeTissus);
-        request = request.replaceAll("#date_arrivee", dateArrivee);
+        request = request.replaceAll("#datarrivee", dateArrivee);
         request = request.replaceAll("#transport_frigo", transportFrigo);
         request = request.replaceAll("#lieu_actuel", lieuActuel);
         return request;
@@ -125,7 +125,7 @@ public class DbProduct
         request = request.replaceAll("#largeur", largeur);
         request = request.replaceAll("#grammage", grammage);
         request = request.replaceAll("#type_de_tissus", typeDeTissus);
-        request = request.replaceAll("#date_arrivee", dateArrivee);
+        request = request.replaceAll("#datarrivee", dateArrivee);
         request = request.replaceAll("#transport_frigo", transportFrigo);
         request = request.replaceAll("#lieu_actuel", lieuActuel);
         return request;
@@ -201,11 +201,11 @@ public class DbProduct
             try
             {
                 String value = this.get(dbfields[text_id]);
-                ((EditText) fragment.findViewById(id)).setText(value);
+                ((EditText)fragment.findViewById(id)).setText(value);
             }
             catch(Exception e)
             {
-                //Toast.makeText(this, "Error with field \"" + dbfields[text_id] + "\"", Toast.LENGTH_LONG).show();
+                // nothing
             }
             text_id += 1;
         }
