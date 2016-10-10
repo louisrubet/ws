@@ -57,9 +57,8 @@
                           android:text="@string/lieu_depuis_out"
                           android:id="@+id/textView212" />
 
-                <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editOutLieuDepuis"
-                          android:inputType="text" />
+                <Button style="@style/TimeButtonForTableRow"
+                        android:id="@+id/buttonOutLieuDepuis" />
 
             </TableRow>
 

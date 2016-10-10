@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -45,7 +46,7 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
             view.findViewById(R.id.editOutLongueurActuelle).setEnabled(false);
             view.findViewById(R.id.editOutHorsGelTotal).setEnabled(false);
             view.findViewById(R.id.editOutLieuActuel).setEnabled(false);
-            view.findViewById(R.id.editOutLieuDepuis).setEnabled(false);
+            view.findViewById(R.id.buttonOutLieuDepuis).setEnabled(false);
 
             // manage button
             view.findViewById(R.id.buttonActionOut).setOnClickListener(this);
@@ -60,14 +61,13 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
         // fill MMI views from db fields
         int[] edits = new int [] {
                 R.id.editOutQRCode, R.id.editOutReference, R.id.editOutLongueurInitiale,
-                R.id.editOutLongueurActuelle, R.id.editOutHorsGelTotal, R.id.editOutLieuActuel,
-                R.id.editOutLieuDepuis };
+                R.id.editOutLongueurActuelle, R.id.editOutHorsGelTotal, R.id.editOutLieuActuel };
         String[] dbfields = new String [] {
                 DbProduct.qrCode, DbProduct.reference, DbProduct.longueurInitiale,
-                DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuActuel,
-                DbProduct.lieuDepuis
-        };
+                DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuActuel };
         MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
+
+        ((Button)view.findViewById(R.id.buttonOutLieuDepuis)).setText(MainActivity.getLastRequestedProduct().get(DbProduct.lieuDepuis));
 
         super.onActivityCreated(savedInstanceState);
     }
