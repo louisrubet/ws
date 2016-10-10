@@ -28,17 +28,6 @@ import java.util.Map;
  */
 public class DetailedFragment extends Fragment implements View.OnClickListener, DbRequest.AsyncResponse, DateTimeGetter.onDateTimeGetter
 {
-    private static final int TAG_DATE_ARRIVEE = 0;
-
-    private class DateTimeObject extends Object
-    {
-        DateTimeObject(int idView) { this.idView = idView; }
-        int idView;
-        int year;
-        int month;
-        int day;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
