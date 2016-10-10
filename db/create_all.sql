@@ -36,7 +36,7 @@ CREATE TABLE `event` (
   `champ3` varchar(45) DEFAULT NULL,
   `valeur3` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idevent`,`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `product` (
   `note` text,
   PRIMARY KEY (`idproduct`,`qr_code`),
   UNIQUE KEY `qr_code_UNIQUE` (`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `product_view`;
 /*!50001 DROP VIEW IF EXISTS `product_view`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `product_view` AS SELECT
+/*!50001 CREATE VIEW `product_view` AS SELECT 
  1 AS `qr_code`,
  1 AS `reference`,
  1 AS `fournisseur`,
@@ -126,7 +126,7 @@ BEGIN
 
     set date_now_dt = str_to_date(date_now, "%d/%m/%Y %T");
     set date_arrivee_dt = str_to_date(date_arrivee_dt, "%d/%m/%Y %T");
-
+    
 	# added an entry in product table
     insert into product(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis)
 		values(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, largeur, grammage, type_de_tissus, date_arrivee_dt, transport_frigo, lieu_actuel, date_now_dt);
@@ -193,10 +193,10 @@ CREATE DEFINER=`workshape`@`%` PROCEDURE `product_out`(in qrcode nvarchar(45), i
 begin
 	declare date_time DateTime;
 
-    set date_time = str_to_date(date_now, "%d/%m/%Y %T");
+    set date_time = str_to_date(date_now, "%d/%m/%Y %H:%i");
 
 	# first update product
-	update product set lieu_actuel="sortie", lieu_depuis=date_time where qr_code=qrcode;
+	update product set lieu_actuel=null, lieu_depuis=date_time where qr_code=qrcode;
 
 	# then record an event
 	# datetime entry in french format, i.e. "23/12/2016 16:57:00"
@@ -234,7 +234,7 @@ BEGIN
 
     set date_now_dt = str_to_date(date_now, "%d/%m/%Y %H:%i");
     set date_arrivee_dt = str_to_date(date_arrivee, "%d/%m/%Y %H:%i");
-
+    
 	# added an entry in product table
     SET SQL_SAFE_UPDATES=0;
     update product
@@ -274,11 +274,9 @@ BEGIN
 	declare date_now_dt DateTime;
 
     set date_now_dt = str_to_date(date_now, "%d/%m/%Y %T");
-
+    
 	# added an entry in product table
-    SET SQL_SAFE_UPDATES=0;
     update product set note = note where qr_code = qrcode;
-    SET SQL_SAFE_UPDATES=1;
 
 	# then record an event
     insert into event(qr_code, event, date) values(qrcode, "update note", date_now_dt);
@@ -316,4 +314,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-09 18:50:06
+-- Dump completed on 2016-10-10 19:40:12
