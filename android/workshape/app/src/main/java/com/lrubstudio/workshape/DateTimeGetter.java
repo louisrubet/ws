@@ -49,40 +49,31 @@ public class DateTimeGetter implements DatePickerDialog.OnDateSetListener, TimeP
 
     public DateTimeGetter(Context context, onDateTimeGetter dateTimeGetter, int id, String dateTime)
     {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(context.getResources().getString(R.string.date_format_to_android));
+        Date dateLieu;
+
         this.context = context;
         this.dateTimeGetter = dateTimeGetter;
         this.id = id;
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat(context.getResources().getString(R.string.date_format_to_android));
-        this.year = -1;
-        this.month = -1;
-        this.day = -1;
-        this.hour = -1;
-        this.minute = -1;
-
         try
         {
-            Date dateLieu = dateFormat.parse(dateTime);
-            year = dateLieu.getYear();
-            month = dateLieu.getMonth();
-            day = dateLieu.getDay();
-            hour = dateLieu.getHours();
-            minute = dateLieu.getMinutes();
+            // parsed argument date
+            dateLieu = dateFormat.parse(dateTime);
         }
         catch(Exception e)
         {
-            final Calendar c = Calendar.getInstance();
-            if (year == -1)
-                this.year = c.get(Calendar.YEAR);
-            if (month == -1)
-                month = c.get(Calendar.MONTH);
-            if (day == -1)
-                day = c.get(Calendar.DAY_OF_MONTH);
-            if (hour == -1)
-                hour = c.get(Calendar.HOUR_OF_DAY);
-            if (minute == -1)
-                minute = c.get(Calendar.MINUTE);
+            // now
+            dateLieu = new Date();
         }
+        cal.setTime(dateLieu);
+
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
+        hour = cal.get(Calendar.HOUR_OF_DAY);
+        minute = cal.get(Calendar.MINUTE);
     }
 
     void run()

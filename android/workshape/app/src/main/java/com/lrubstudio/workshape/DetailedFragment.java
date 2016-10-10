@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -60,15 +61,17 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             // no, fill MMI views from db fields
             int[] edits = new int [] {
                     R.id.editReference, R.id.editFournisseur, R.id.editRefFournisseur,
-                    R.id.editDateArrivee, R.id.editTransportFrigo, R.id.editLongueurInitiale,
+                    R.id.editTransportFrigo, R.id.editLongueurInitiale,
                     R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus
             };
             String[] dbfields = new String [] {
                     DbProduct.reference, DbProduct.fournisseur, DbProduct.refFournisseur,
-                    DbProduct.dateArrivee, DbProduct.transportFrigo, DbProduct.longueurInitiale,
+                    DbProduct.transportFrigo, DbProduct.longueurInitiale,
                     DbProduct.largeur, DbProduct.grammage, DbProduct.typeDeTissus
             };
             MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
+
+            ((Button)view.findViewById(R.id.buttonDateArrivee)).setText(MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee));
 
             // set save button invisible
             view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
@@ -107,7 +110,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         view.findViewById(R.id.buttonAddModify).setOnClickListener(this);
 
         // manage dates
-        view.findViewById(R.id.editDateArrivee).setOnClickListener(this);
+        view.findViewById(R.id.buttonDateArrivee).setOnClickListener(this);
 
         return view;
     }
@@ -127,7 +130,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             String largeur = ((EditText) getView().findViewById(R.id.editLargeur)).getText().toString();
             String grammage = ((EditText) getView().findViewById(R.id.editGrammage)).getText().toString();
             String typeDeTissus = ((EditText) getView().findViewById(R.id.editTypeDeTissus)).getText().toString();
-            String dateArrivee = ((EditText) getView().findViewById(R.id.editDateArrivee)).getText().toString();
+            String dateArrivee = ((Button) getView().findViewById(R.id.buttonDateArrivee)).getText().toString();
             String transportFrigo = ((EditText) getView().findViewById(R.id.editTransportFrigo)).getText().toString();
             String lieuActuel = ConfigurationActivity.configuration.lieuParDefaut;
 
@@ -146,20 +149,20 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
                         longueurInitiale, largeur, grammage,
                         typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
         }
-        else if(view.getId() == R.id.editDateArrivee)
+        else if(view.getId() == R.id.buttonDateArrivee)
         {
-            String dateArrivee = ((EditText)getView().findViewById(R.id.editDateArrivee)).getText().toString();
+            String dateArrivee = ((Button)getView().findViewById(R.id.buttonDateArrivee)).getText().toString();
 
             // choose date then time
-            (new DateTimeGetter(getActivity(), this, R.id.editDateArrivee, dateArrivee)).run();
+            (new DateTimeGetter(getActivity(), this, R.id.buttonDateArrivee, dateArrivee)).run();
         }
     }
 
     public void onDateTimeGetter(int id, String dateTime)
     {
-        if (id == R.id.editDateArrivee)
+        if (id == R.id.buttonDateArrivee)
         {
-            ((EditText)getView().findViewById(R.id.editDateArrivee)).setText(dateTime);
+            ((Button)getView().findViewById(R.id.buttonDateArrivee)).setText(dateTime);
         }
     }
 

@@ -55,9 +55,8 @@
                           android:id="@+id/textView106"
                           android:text="@string/date_d_arrivee" />
 
-                <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editDateArrivee"
-                          android:inputType="datetime" />
+                <Button style="@style/TimeButtonForTableRow"
+                        android:id="@+id/buttonDateArrivee" />
 
             </TableRow>
 
