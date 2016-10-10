@@ -90,7 +90,7 @@
     </style>
 
     <!-- edit (entry zones, right side of TableRows) -->
-    <style name="EditTextForTableRow" parent="android:Widget.EditText">
+    <style name="EditTextForTableRow" parent="Widget.AppCompat.EditText">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_gravity">center_vertical|right</item>
@@ -100,14 +100,17 @@
         <item name="android:gravity">right</item>
     </style>
 
-    <style name="TimeButtonForTableRow" parent="android:Widget.Holo.Button.Borderless">
+    <style name="TimeButtonForTableRow" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_gravity">center_vertical|right</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:width">200dp</item>
-        <item name="android:gravity">right</item>
+        <item name="android:gravity">bottom|right</item>
+        <item name="android:hint">@string/hint_date</item>
+        <item name="android:textColor">?attr/editTextColor</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <!-- spacing -->

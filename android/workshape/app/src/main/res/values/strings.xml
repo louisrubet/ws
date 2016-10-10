@@ -64,6 +64,7 @@
     <string name="sauver_la_note">Sauver la note</string>
     <string name="should_be_decimal">Valeur numérique obligatoire</string>
     <string name="should_be_hhmm">Valeur hh:mm obligatoire</string>
+    <string name="hint_date">Choisir une date..</string>
 
     <string name="modifs_non_sauvees">Le produit a été modifié</string>
     <string name="question_confirmer">Abandonner les modifications ?</string>

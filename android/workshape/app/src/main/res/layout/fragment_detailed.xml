@@ -56,7 +56,8 @@
                           android:text="@string/date_d_arrivee" />
 
                 <Button style="@style/TimeButtonForTableRow"
-                        android:id="@+id/buttonDateArrivee" />
+                        android:id="@+id/buttonDateArrivee"
+                        android:hint="@string/hint_date" />
 
             </TableRow>
 
