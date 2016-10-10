@@ -190,7 +190,10 @@ public class DbProduct
     public boolean isProductOut()
     {
         // product is considered out if 'lieuActuel' is null or empty
-        return get(DbProduct.lieuActuel).isEmpty();
+        String value = get(DbProduct.lieuActuel);
+        if (value != null && !value.isEmpty())
+            return false;
+        return true;
     }
 
     public void fillFragmentEditsFromFields(View fragment, int[] edits, String[] dbfields)
@@ -226,4 +229,3 @@ public class DbProduct
         }
     }
 }
-
