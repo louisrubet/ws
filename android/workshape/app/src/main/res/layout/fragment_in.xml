@@ -45,9 +45,8 @@
                           android:text="@string/lieu_depuis_in"
                           android:id="@+id/textView2123" />
 
-                <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editInLieuDepuis"
-                          android:inputType="datetime" />
+                <Button style="@style/TimeButtonForTableRow"
+                        android:id="@+id/buttonInLieuDepuis" />
 
             </TableRow>
 

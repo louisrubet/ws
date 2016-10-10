@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,6 +24,9 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        // fragment should scroll when editing a view
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         super.onCreate(savedInstanceState);
     }
 
@@ -45,7 +50,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             view.findViewById(R.id.editInLongueurInitiale).setEnabled(false);
             view.findViewById(R.id.editInLongueurActuelle).setEnabled(false);
             view.findViewById(R.id.editInHorsGelTotal).setEnabled(false);
-            view.findViewById(R.id.editInLieuDepuis).setEnabled(false);
+            view.findViewById(R.id.buttonInLieuDepuis).setEnabled(false);
 
             // manage button
             view.findViewById(R.id.buttonActionIn).setOnClickListener(this);
@@ -60,7 +65,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         // fill MMI views from db fields
         int[] edits = new int [] {
                 R.id.editInQRCode, R.id.editInReference, R.id.editInLongueurInitiale,
-                R.id.editInLongueurActuelle, R.id.editInHorsGelTotal, R.id.editInLieuDepuis };
+                R.id.editInLongueurActuelle, R.id.editInHorsGelTotal, R.id.buttonInLieuDepuis };
         String[] dbfields = new String [] {
                 DbProduct.qrCode, DbProduct.reference, DbProduct.longueurInitiale,
                 DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuDepuis };
@@ -72,7 +77,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             // time diff
             Date currentDate = new Date(System.currentTimeMillis());
             SimpleDateFormat dateFormat = new SimpleDateFormat(view.getResources().getString(R.string.date_format_to_android));
-            String dateFrom = ((EditText)view.findViewById(R.id.editInLieuDepuis)).getText().toString();
+            String dateFrom = ((Button)view.findViewById(R.id.buttonInLieuDepuis)).getText().toString();
             Date dateLieu = dateFormat.parse(dateFrom);
 
             // building hours

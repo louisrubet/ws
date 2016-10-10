@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +23,9 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        // fragment should scroll when editing a view
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         super.onCreate(savedInstanceState);
     }
 
@@ -61,13 +65,11 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
         // fill MMI views from db fields
         int[] edits = new int [] {
                 R.id.editOutQRCode, R.id.editOutReference, R.id.editOutLongueurInitiale,
-                R.id.editOutLongueurActuelle, R.id.editOutHorsGelTotal, R.id.editOutLieuActuel };
+                R.id.editOutLongueurActuelle, R.id.editOutHorsGelTotal, R.id.editOutLieuActuel, R.id.buttonOutLieuDepuis };
         String[] dbfields = new String [] {
                 DbProduct.qrCode, DbProduct.reference, DbProduct.longueurInitiale,
-                DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuActuel };
+                DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuActuel, DbProduct.lieuDepuis };
         MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
-
-        ((Button)view.findViewById(R.id.buttonOutLieuDepuis)).setText(MainActivity.getLastRequestedProduct().get(DbProduct.lieuDepuis));
 
         super.onActivityCreated(savedInstanceState);
     }
