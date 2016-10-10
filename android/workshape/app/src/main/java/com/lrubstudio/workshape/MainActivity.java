@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 // hide edit button
                 findViewById(R.id.imageButton).setVisibility(View.GONE);
 
-                Toast.makeText(this, getResources().getString(R.string.produit_inconnu), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.produit_inconnu), Toast.LENGTH_LONG).show();
             }
             else
             {
