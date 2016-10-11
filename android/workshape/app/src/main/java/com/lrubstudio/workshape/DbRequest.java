@@ -43,8 +43,6 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
     // to be overloaded
     public String getDriverClass()
     {
-        // jtds driver for SQLServer
-        // return new String("net.sourceforge.jtds.jdbc.Driver");
         // jtds for mysql
         return new String("com.mysql.jdbc.Driver");
     }
@@ -85,17 +83,17 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
         Map map = null;
         int columnsCount = 0;
 
-        if (Debug.NO_DB())
+        if (Debug.NO_DB)
         {
-            if (Debug.SIMULATE_PRODUCT_NEW())
+            if (Debug.SIMULATE_PRODUCT_NEW)
             {
                 map = DbProduct.setDbgValuesNew();
             }
-            else if (Debug.SIMULATE_PRODUCT_OUT())
+            else if (Debug.SIMULATE_PRODUCT_OUT)
             {
                 map = DbProduct.setDbgValuesOut();
             }
-            else if (Debug.SIMULATE_PRODUCT_IN())
+            else if (Debug.SIMULATE_PRODUCT_IN)
             {
                 map = DbProduct.setDbgValuesIn();
             }
@@ -156,6 +154,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
 
     protected void onProgressUpdate(Integer... progress)
     {
+        // nothing
     }
 
     protected void onPostExecute(Map result)
@@ -167,7 +166,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
     {
         boolean is_connected;
 
-        if (Debug.NO_DB())
+        if (Debug.NO_DB)
         {
             is_connected = true;
         }
