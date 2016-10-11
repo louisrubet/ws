@@ -36,7 +36,7 @@ CREATE TABLE `event` (
   `champ3` varchar(45) DEFAULT NULL,
   `valeur3` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idevent`,`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `product` (
   `note` text,
   PRIMARY KEY (`idproduct`,`qr_code`),
   UNIQUE KEY `qr_code_UNIQUE` (`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,12 +124,13 @@ BEGIN
 	declare date_now_dt DateTime;
 	declare date_arrivee_dt DateTime;
 
-    set date_now_dt = str_to_date(date_now, "%d/%m/%Y %T");
-    set date_arrivee_dt = str_to_date(date_arrivee_dt, "%d/%m/%Y %T");
+	# datetime entry in french format, i.e. "23/12/2016 16:57"
+    set date_now_dt = str_to_date(date_now, "%d/%m/%Y %H:%i");
+    set date_arrivee_dt = str_to_date(date_arrivee, "%d/%m/%Y %H:%i");
     
 	# added an entry in product table
-    insert into product(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis)
-		values(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, largeur, grammage, type_de_tissus, date_arrivee_dt, transport_frigo, lieu_actuel, date_now_dt);
+    insert into product(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, longueur_actuelle, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis)
+		values(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, longueur_initiale, largeur, grammage, type_de_tissus, date_arrivee_dt, transport_frigo, lieu_actuel, date_now_dt);
 
 	# then record an event
     insert into event(qr_code, event, date) values(qr_code, "new", date_now_dt);
@@ -151,24 +152,24 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`workshape`@`%` PROCEDURE `product_in`(in qrcode nvarchar(45), in date_now nvarchar(45), in longueur_consommee decimal(10,2), in temps_hors_gel nvarchar(45))
 BEGIN
-	declare date_time DateTime;
+	declare date_now_dt DateTime;
     declare tps_hors_gel time;
 
-	# datetime entry in french format, i.e. "23/12/2016 16:57:00"
-    set date_time = str_to_date(date_now, "%d/%m/%Y %T");
+	# datetime entry in french format, i.e. "23/12/2016 16:57"
+    set date_now_dt = str_to_date(date_now, "%d/%m/%Y %H:%i");
     set tps_hors_gel = convert(temps_hors_gel, time);
 
 	# first update product
 	update product
 		set lieu_actuel = "frigo",
-			lieu_depuis = date_time,
-			longueur_actuelle = longueur_actuelle - longueur_consommee,
+			lieu_depuis = date_now_dt,
+			longueur_actuelle = coalesce(longueur_actuelle - longueur_consommee, longueur_initiale - longueur_consommee),
 			temps_hors_gel_total = coalesce(AddTime(temps_hors_gel_total, tps_hors_gel), tps_hors_gel)
         where qr_code=qrcode;
 
 	# then record an event
     insert into event(qr_code, event, date, champ1, valeur1, champ2, valeur2, champ3, valeur3)
-		values(qrcode, "in", date_time,
+		values(qrcode, "in", date_now_dt,
 				"lieu_actuel", "frigo",
                 "longueur_consommee", longueur_consommee,
                 "temps_hors_gel", temps_hors_gel);
@@ -191,16 +192,16 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`workshape`@`%` PROCEDURE `product_out`(in qrcode nvarchar(45), in date_now nvarchar(45))
 begin
-	declare date_time DateTime;
+	declare date_now_dt DateTime;
 
-    set date_time = str_to_date(date_now, "%d/%m/%Y %H:%i");
+    # datetime entry in french format, i.e. "23/12/2016 16:57"
+    set date_now_dt = str_to_date(date_now, "%d/%m/%Y %H:%i");
 
 	# first update product
-	update product set lieu_actuel=null, lieu_depuis=date_time where qr_code=qrcode;
+	update product set lieu_actuel=null, lieu_depuis=date_now_dt where qr_code=qrcode;
 
 	# then record an event
-	# datetime entry in french format, i.e. "23/12/2016 16:57:00"
-    insert into event(qr_code, event, date) values(qrcode, "out", date_time);
+    insert into event(qr_code, event, date) values(qrcode, "out", date_now_dt);
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -232,6 +233,7 @@ BEGIN
 	declare date_now_dt DateTime;
 	declare date_arrivee_dt DateTime;
 
+	# datetime entry in french format, i.e. "23/12/2016 16:57:00"
     set date_now_dt = str_to_date(date_now, "%d/%m/%Y %H:%i");
     set date_arrivee_dt = str_to_date(date_arrivee, "%d/%m/%Y %H:%i");
     
@@ -273,7 +275,8 @@ CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update_note`(in qrcode nvarcha
 BEGIN
 	declare date_now_dt DateTime;
 
-    set date_now_dt = str_to_date(date_now, "%d/%m/%Y %T");
+	# datetime entry in french format, i.e. "23/12/2016 16:57"
+    set date_now_dt = str_to_date(date_now, "%d/%m/%Y %H:%i");
     
 	# added an entry in product table
     update product set note = note where qr_code = qrcode;
@@ -314,4 +317,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-10 19:40:12
+-- Dump completed on 2016-10-11 23:03:00
