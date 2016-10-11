@@ -2,6 +2,7 @@ package com.lrubstudio.workshape;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.HashMap;
@@ -203,12 +204,22 @@ public class DbProduct
         {
             try
             {
+                // fill an EditText
                 String value = this.get(dbfields[text_id]);
                 ((EditText)fragment.findViewById(id)).setText(value);
             }
-            catch(Exception e)
+            catch(Exception eEdit)
             {
-                // nothing
+                // fill a Button
+                try
+                {
+                    String value = this.get(dbfields[text_id]);
+                    ((Button) fragment.findViewById(id)).setText(value);
+                }
+                catch(Exception eButton)
+                {
+                    // nothing
+                }
             }
             text_id += 1;
         }
