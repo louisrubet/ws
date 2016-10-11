@@ -25,6 +25,10 @@ public class ConfigurationActivity extends AppCompatActivity
         String connectionTimeoutS;
         String lieuParDefaut;
         String confPassword;
+        String dbg_no_db;
+        String dbg_simulate_product_new;
+        String dbg_simulate_product_out;
+        String dbg_simulate_product_in;
     }
 
     public static Configuration configuration;
@@ -34,7 +38,8 @@ public class ConfigurationActivity extends AppCompatActivity
     private int[] ids = {R.id.editServerHostname, R.id.editServerPort,
             R.id.editDatabaseName, R.id.editDatabaseUser,
             R.id.editDatabasePassword, R.id.editDatabaseTimeout,
-            R.id.editLieuParDefaut, R.id.editConfigurationPassword};
+            R.id.editLieuParDefaut, R.id.editConfigurationPassword,
+            R.id.editDbgNoDb, R.id.editDbgSimulNew, R.id.editDbgSimulOut, R.id.editDbgSimulIn};
 
     //
     public static void init_configuration(Context context_)
@@ -61,6 +66,10 @@ public class ConfigurationActivity extends AppCompatActivity
                     configuration.connectionTimeoutS = sharedPref.getString(context.getString(R.string.conf_database_timeout), "5");
                     configuration.lieuParDefaut = sharedPref.getString(context.getString(R.string.conf_lieu_par_defaut), "frigo");
                     configuration.confPassword = sharedPref.getString(context.getString(R.string.conf_password), "");
+                    configuration.dbg_no_db = sharedPref.getString(context.getString(R.string.conf_dbg_no_db), "");
+                    configuration.dbg_simulate_product_new = sharedPref.getString(context.getString(R.string.conf_dbg_simulate_product_new), "");
+                    configuration.dbg_simulate_product_out = sharedPref.getString(context.getString(R.string.conf_dbg_simulate_product_out), "");
+                    configuration.dbg_simulate_product_in = sharedPref.getString(context.getString(R.string.conf_dbg_simulate_product_in), "");
                 }
                 catch(Exception e)
                 {
@@ -78,7 +87,9 @@ public class ConfigurationActivity extends AppCompatActivity
         String[] entries = new String[] {configuration.serverIp, configuration.serverPort,
                 configuration.database, configuration.user,
                 configuration.password, configuration.connectionTimeoutS,
-                configuration.lieuParDefaut, configuration.confPassword};
+                configuration.lieuParDefaut, configuration.confPassword, configuration.dbg_no_db,
+                configuration.dbg_simulate_product_new, configuration.dbg_simulate_product_out,
+                configuration.dbg_simulate_product_in };
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
@@ -90,9 +101,7 @@ public class ConfigurationActivity extends AppCompatActivity
 
         // setup configuration entries in edits
         for (int i = 0; i < ids.length; i++)
-        {
             ((EditText)findViewById(ids[i])).setText(entries[i]);
-        }
         findViewById(R.id.buttonApply).setVisibility(View.GONE);
 
         // setup TextChangedListener handlers on each edit
@@ -153,6 +162,18 @@ public class ConfigurationActivity extends AppCompatActivity
 
                 configuration.lieuParDefaut = ((EditText)findViewById(R.id.editLieuParDefaut)).getText().toString();
                 editor.putString(context.getString(R.string.conf_lieu_par_defaut), configuration.lieuParDefaut);
+
+                configuration.dbg_no_db = ((EditText)findViewById(R.id.editDbgNoDb)).getText().toString();
+                editor.putString(context.getString(R.string.conf_dbg_no_db), configuration.dbg_no_db);
+
+                configuration.dbg_simulate_product_new = ((EditText)findViewById(R.id.editDbgSimulNew)).getText().toString();
+                editor.putString(context.getString(R.string.conf_dbg_simulate_product_new), configuration.dbg_simulate_product_new);
+
+                configuration.dbg_simulate_product_out = ((EditText)findViewById(R.id.editDbgSimulOut)).getText().toString();
+                editor.putString(context.getString(R.string.conf_dbg_simulate_product_out), configuration.dbg_simulate_product_out);
+
+                configuration.dbg_simulate_product_in = ((EditText)findViewById(R.id.editDbgSimulIn)).getText().toString();
+                editor.putString(context.getString(R.string.conf_dbg_simulate_product_in), configuration.dbg_simulate_product_in);
 
                 editor.commit();
 

@@ -85,17 +85,17 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
         Map map = null;
         int columnsCount = 0;
 
-        if (Debug.NO_DB)
+        if (Debug.NO_DB())
         {
-            if (Debug.SIMULATE_PRODUCT_NEW)
+            if (Debug.SIMULATE_PRODUCT_NEW())
             {
                 map = DbProduct.setDbgValuesNew();
             }
-            else if (Debug.SIMULATE_PRODUCT_OUT)
+            else if (Debug.SIMULATE_PRODUCT_OUT())
             {
                 map = DbProduct.setDbgValuesOut();
             }
-            else if (Debug.SIMULATE_PRODUCT_IN)
+            else if (Debug.SIMULATE_PRODUCT_IN())
             {
                 map = DbProduct.setDbgValuesIn();
             }
@@ -167,7 +167,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
     {
         boolean is_connected;
 
-        if (Debug.NO_DB)
+        if (Debug.NO_DB())
         {
             is_connected = true;
         }

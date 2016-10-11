@@ -15,149 +15,172 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout style="@style/Vertical_80Purcent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent" >
 
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                      xmlns:tools="http://schemas.android.com/tools"
                      style="@style/CommonTableLayout"
                      android:layout_below="@id/my_AppBarlayout">
 
-            <TableRow
-                android:layout_height="fill_parent"
-                android:layout_width="match_parent">
+            <TableRow style="@style/CommonTableRow" >
 
-                <TextView
+                <TextView style="@style/TextViewForTableRow"
                     android:id="@+id/textView1000"
-                    android:text="@string/conf_server_hostname"
-                    style="@style/TextViewForTableRow" />
+                    android:text="@string/conf_server_hostname" />
 
-                <EditText
+                <EditText style="@style/EditTextForTableRow"
                     android:id="@+id/editServerHostname"
-                    android:inputType="text"
-                    style="@style/EditTextForTableRow" />
+                    android:inputType="text" />
+
             </TableRow>
 
-            <TableRow
-                android:layout_height="fill_parent"
-                android:layout_width="match_parent">
+            <TableRow style="@style/CommonTableRow" >
 
-                <TextView
+                <TextView style="@style/TextViewForTableRow"
                     android:id="@+id/textView1001"
-                    android:text="@string/conf_server_port"
-                    style="@style/TextViewForTableRow" />
+                    android:text="@string/conf_server_port" />
 
-                <EditText
+                <EditText style="@style/EditTextForTableRow"
                     android:id="@+id/editServerPort"
-                    android:inputType="text"
-                    style="@style/EditTextForTableRow" />
+                    android:inputType="text" />
+
             </TableRow>
 
-            <TableRow
-                android:layout_height="fill_parent"
-                android:layout_width="match_parent">
+            <TableRow style="@style/CommonTableRow" >
 
-                <TextView
+                <TextView style="@style/TextViewForTableRow"
                     android:id="@+id/textView1002"
-                    android:text="@string/conf_database_name"
-                    style="@style/TextViewForTableRow" />
+                    android:text="@string/conf_database_name" />
 
-                <EditText
+                <EditText style="@style/EditTextForTableRow"
                     android:id="@+id/editDatabaseName"
-                    android:inputType="text"
-                    style="@style/EditTextForTableRow" />
+                    android:inputType="text" />
+
             </TableRow>
 
-            <TableRow
-                android:layout_height="fill_parent"
-                android:layout_width="match_parent">
+            <TableRow style="@style/CommonTableRow" >
 
-                <TextView
+                <TextView style="@style/TextViewForTableRow"
                     android:id="@+id/textView1003"
-                    android:text="@string/conf_database_user"
-                    style="@style/TextViewForTableRow" />
+                    android:text="@string/conf_database_user" />
 
-                <EditText
+                <EditText style="@style/EditTextForTableRow"
                     android:id="@+id/editDatabaseUser"
-                    android:inputType="text"
-                    style="@style/EditTextForTableRow" />
+                    android:inputType="text" />
+
             </TableRow>
 
-            <TableRow
-                android:layout_height="fill_parent"
-                android:layout_width="match_parent">
+            <TableRow style="@style/CommonTableRow" >
 
-                <TextView
+                <TextView style="@style/TextViewForTableRow"
                     android:id="@+id/textView1004"
-                    android:text="@string/conf_database_password"
-                    style="@style/TextViewForTableRow" />
+                    android:text="@string/conf_database_password" />
 
-                <EditText
+                <EditText style="@style/EditTextForTableRow"
                     android:id="@+id/editDatabasePassword"
-                    android:inputType="text"
-                    style="@style/EditTextForTableRow" />
+                    android:inputType="text" />
+
             </TableRow>
 
-            <TableRow
-                android:layout_height="fill_parent"
-                android:layout_width="match_parent">
+            <TableRow style="@style/CommonTableRow" >
 
-                <TextView
+                <TextView style="@style/TextViewForTableRow"
                     android:id="@+id/textView1005"
-                    android:text="@string/conf_database_timeout"
-                    style="@style/TextViewForTableRow" />
+                    android:text="@string/conf_database_timeout" />
 
-                <EditText
+                <EditText style="@style/EditTextForTableRow"
                     android:id="@+id/editDatabaseTimeout"
-                    android:inputType="number"
-                    style="@style/EditTextForTableRow" />
+                    android:inputType="number" />
+
             </TableRow>
 
-            <TableRow
-                android:layout_height="fill_parent"
-                android:layout_width="match_parent">
+            <TableRow style="@style/CommonTableRow" >
 
-                <TextView
-                    android:id="@+id/textView1005"
-                    android:text="@string/conf_lieu_par_defaut"
-                    style="@style/TextViewForTableRow" />
-
-                <EditText
-                    android:id="@+id/editLieuParDefaut"
-                    android:inputType="text"
-                    style="@style/EditTextForTableRow" />
-            </TableRow>
-
-            <Space style="@style/BigVerticalSpace"/>
-
-            <TableRow
-                android:layout_height="fill_parent"
-                android:layout_width="match_parent">
-
-                <TextView
+                <TextView style="@style/TextViewForTableRow"
                     android:id="@+id/textView1006"
-                    android:text="@string/conf_password"
-                    style="@style/TextViewForTableRow" />
+                    android:text="@string/conf_lieu_par_defaut" />
 
-                <EditText
-                    android:id="@+id/editConfigurationPassword"
-                    android:inputType="textPassword"
-                    style="@style/EditTextForTableRow" />
+                <EditText style="@style/EditTextForTableRow"
+                    android:id="@+id/editLieuParDefaut"
+                    android:inputType="text" />
+
             </TableRow>
 
             <Space style="@style/BigVerticalSpace"/>
+
+            <TableRow style="@style/CommonTableRow" >
+
+                <TextView style="@style/TextViewForTableRow"
+                    android:id="@+id/textView1007"
+                    android:text="@string/conf_password" />
+
+                <EditText style="@style/EditTextForTableRow"
+                    android:id="@+id/editConfigurationPassword"
+                    android:inputType="textPassword" />
+
+            </TableRow>
+
+            <Space style="@style/BigVerticalSpace"/>
+
+            <TableRow style="@style/CommonTableRow" >
+
+                <TextView style="@style/TextViewForTableRow"
+                    android:id="@+id/textView1008"
+                    android:text="@string/conf_dbg_no_db" />
+
+                <EditText style="@style/EditTextForTableRow"
+                    android:id="@+id/editDbgNoDb" />
+
+            </TableRow>
+
+            <TableRow style="@style/CommonTableRow" >
+
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView1009"
+                          android:text="@string/conf_dbg_simulate_product_new" />
+
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editDbgSimulNew" />
+
+            </TableRow>
+
+            <TableRow style="@style/CommonTableRow" >
+
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView1010"
+                          android:text="@string/conf_dbg_simulate_product_out" />
+
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editDbgSimulOut" />
+
+            </TableRow>
+
+            <TableRow style="@style/CommonTableRow" >
+
+                <TextView style="@style/TextViewForTableRow"
+                          android:id="@+id/textView1011"
+                          android:text="@string/conf_dbg_simulate_product_in" />
+
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editDbgSimulIn" />
+
+            </TableRow>
 
         </TableLayout>
 
-    </LinearLayout>
-
-    <LinearLayout style="@style/Vertical_20Purcent">
-
-        <Button
-            android:text="@string/conf_apply_button"
-            android:id="@+id/buttonApply"
-            android:onClick="onClickApply"
-            style="@style/ValidationButton"/>
+        <Button style="@style/ValidationButton"
+                android:text="@string/conf_apply_button"
+                android:id="@+id/buttonApply"
+                android:onClick="onClickApply" />
 
     </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

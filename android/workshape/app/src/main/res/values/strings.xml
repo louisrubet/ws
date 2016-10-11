@@ -80,6 +80,10 @@
     <string name="conf_database_timeout">DB timeout (s)</string>
     <string name="conf_lieu_par_defaut">Lieu par défaut</string>
     <string name="conf_password">Mot de passe conf</string>
+    <string name="conf_dbg_no_db">DEBUG pas de db</string>
+    <string name="conf_dbg_simulate_product_new">DEBUG simul new</string>
+    <string name="conf_dbg_simulate_product_out">DEBUG simul out</string>
+    <string name="conf_dbg_simulate_product_in">DEBUG simul in</string>
     <string name="conf_apply_button">Sauver et sortir</string>
 
 </resources>
