@@ -50,17 +50,15 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             // no, fill MMI views from db fields
             int[] edits = new int [] {
                     R.id.editReference, R.id.editFournisseur, R.id.editRefFournisseur,
-                    R.id.editTransportFrigo, R.id.editLongueurInitiale,
+                    R.id.editTransportFrigo, R.id.editLongueurInitiale, R.id.buttonDateArrivee,
                     R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus
             };
             String[] dbfields = new String [] {
                     DbProduct.reference, DbProduct.fournisseur, DbProduct.refFournisseur,
-                    DbProduct.transportFrigo, DbProduct.longueurInitiale,
+                    DbProduct.transportFrigo, DbProduct.longueurInitiale, DbProduct.dateArrivee,
                     DbProduct.largeur, DbProduct.grammage, DbProduct.typeDeTissus
             };
             MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
-
-            ((Button)view.findViewById(R.id.buttonDateArrivee)).setText(MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee));
 
             // set save button invisible
             view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
@@ -70,29 +68,59 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             {
                 final String originalString = MainActivity.getLastRequestedProduct().get(dbfields[i]);
                 final int id = edits[i];
+                View widget = view.findViewById(id);
 
-                ((EditText)view.findViewById(id)).addTextChangedListener(
-                        new TextWatcher()
-                        {
-                            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-                            public void onTextChanged(CharSequence s, int start, int before, int count) { }
-                            public void afterTextChanged(Editable s)
+                if (widget instanceof  EditText)
+                    ((EditText)view.findViewById(id)).addTextChangedListener(
+                            new TextWatcher()
                             {
-                                String entry = ((EditText)view.findViewById(id)).getText().toString();
-                                if (entry.equals(originalString))
+                                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                                public void afterTextChanged(Editable s)
                                 {
-                                    ((EditAddActivity)getActivity()).setDetailedFragmentModified(false);
-                                    view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
-                                }
-                                else
-                                {
-                                    ((EditAddActivity)getActivity()).setDetailedFragmentModified(true);
-                                    view.findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
+                                    String entry = ((EditText)view.findViewById(id)).getText().toString();
+                                    if (entry.equals(originalString))
+                                    {
+                                        ((EditAddActivity)getActivity()).setDetailedFragmentModified(false);
+                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
+                                    }
+                                    else
+                                    {
+                                        ((EditAddActivity)getActivity()).setDetailedFragmentModified(true);
+                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
-                        }
-                );
+                    );
+                else if (widget instanceof Button)
+                    ((Button)view.findViewById(id)).addTextChangedListener(
+                            new TextWatcher()
+                            {
+                                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                                public void afterTextChanged(Editable s)
+                                {
+                                    String entry = ((Button)view.findViewById(id)).getText().toString();
+                                    if (entry.equals(originalString))
+                                    {
+                                        ((EditAddActivity)getActivity()).setDetailedFragmentModified(false);
+                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
+                                    }
+                                    else
+                                    {
+                                        ((EditAddActivity)getActivity()).setDetailedFragmentModified(true);
+                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
+                                    }
+                                }
+                            }
+                    );
             }
+        }
+        else
+        {
+            // yes (new product)
+            // mark current product as modified in order to prevent leaving without question
+            ((EditAddActivity)getActivity()).setDetailedFragmentModified(true);
         }
 
         // manage button
