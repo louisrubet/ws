@@ -100,6 +100,7 @@
         <item name="android:gravity">right</item>
     </style>
 
+    <!-- tile button -->
     <style name="TimeButtonForTableRow" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -111,6 +112,21 @@
         <item name="android:hint">@string/hint_date</item>
         <item name="android:textColor">?attr/editTextColor</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- Switch (entry zones, right side of TableRows) -->
+    <style name="SwitchForTableRow" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:layout_height">48sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:scaleX">1.2</item>
+        <item name="android:scaleY">1.2</item>
+        <item name="android:textOn">@string/conf_flash_oui</item>
+        <item name="android:textOff">@string/conf_flash_non</item>
+        <item name="android:showText">true</item>
+        <item name="android:layout_gravity">center_vertical|right</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">28dp</item>
+        <item name="android:width">200dp</item>
     </style>
 
     <!-- spacing -->

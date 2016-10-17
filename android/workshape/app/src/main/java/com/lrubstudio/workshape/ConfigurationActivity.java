@@ -10,7 +10,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class ConfigurationActivity extends AppCompatActivity
@@ -25,21 +28,15 @@ public class ConfigurationActivity extends AppCompatActivity
         String connectionTimeoutS;
         String lieuParDefaut;
         String confPassword;
+        boolean flashParDefaut;
     }
 
     public static Configuration configuration;
     private static Context context;
 
     //
-    private int[] ids = {R.id.editServerHostname, R.id.editServerPort,
-            R.id.editDatabaseName, R.id.editDatabaseUser,
-            R.id.editDatabasePassword, R.id.editDatabaseTimeout,
-            R.id.editLieuParDefaut, R.id.editConfigurationPassword };
-
-    //
     public static void init_configuration(Context context_)
     {
-        //
         context = context_;
 
         if (configuration == null)
@@ -60,6 +57,7 @@ public class ConfigurationActivity extends AppCompatActivity
                     configuration.password = sharedPref.getString(context.getString(R.string.conf_database_password), "workshape");
                     configuration.connectionTimeoutS = sharedPref.getString(context.getString(R.string.conf_database_timeout), "5");
                     configuration.lieuParDefaut = sharedPref.getString(context.getString(R.string.conf_lieu_par_defaut), "frigo");
+                    configuration.flashParDefaut = sharedPref.getBoolean(context.getString(R.string.conf_flash_par_defaut), true);
                     configuration.confPassword = sharedPref.getString(context.getString(R.string.conf_password), "");
                 }
                 catch(Exception e)
@@ -75,7 +73,12 @@ public class ConfigurationActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        String[] entries = new String[] {configuration.serverIp, configuration.serverPort,
+        int[] idsStrings = {R.id.editServerHostname, R.id.editServerPort,
+                R.id.editDatabaseName, R.id.editDatabaseUser,
+                R.id.editDatabasePassword, R.id.editDatabaseTimeout,
+                R.id.editLieuParDefaut, R.id.editConfigurationPassword };
+
+        String[] entries = new String[] { configuration.serverIp, configuration.serverPort,
                 configuration.database, configuration.user,
                 configuration.password, configuration.connectionTimeoutS,
                 configuration.lieuParDefaut, configuration.confPassword };
@@ -88,16 +91,20 @@ public class ConfigurationActivity extends AppCompatActivity
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // setup configuration entries in edits
-        for (int i = 0; i < ids.length; i++)
-            ((EditText)findViewById(ids[i])).setText(entries[i]);
         findViewById(R.id.buttonApply).setVisibility(View.GONE);
 
+        // Strings
+        //
+
+        // setup configuration entries in edits
+        for (int i = 0; i < idsStrings.length; i++)
+            ((EditText)findViewById(idsStrings[i])).setText(entries[i]);
+
         // setup TextChangedListener handlers on each edit
-        for (int i = 0; i < ids.length; i++)
+        for (int i = 0; i < idsStrings.length; i++)
         {
             final String originalString = entries[i];
-            final int id = ids[i];
+            final int id = idsStrings[i];
 
             ((EditText)findViewById(id)).addTextChangedListener(
                     new TextWatcher()
@@ -115,6 +122,23 @@ public class ConfigurationActivity extends AppCompatActivity
                     }
             );
         }
+
+        // Booleans
+        //
+        final Boolean originalFlashParDefaut = configuration.flashParDefaut;
+        ((Switch)findViewById(R.id.switchFlashParDefaut)).setChecked(configuration.flashParDefaut);
+        ((Switch)findViewById(R.id.switchFlashParDefaut)).setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener()
+                {
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+                    {
+                        if (isChecked == originalFlashParDefaut)
+                            findViewById(R.id.buttonApply).setVisibility(View.GONE);
+                        else
+                            findViewById(R.id.buttonApply).setVisibility(View.VISIBLE);
+                    }
+                }
+        );
     }
 
     public void onClickApply(View view)
@@ -151,6 +175,9 @@ public class ConfigurationActivity extends AppCompatActivity
 
                 configuration.lieuParDefaut = ((EditText)findViewById(R.id.editLieuParDefaut)).getText().toString();
                 editor.putString(context.getString(R.string.conf_lieu_par_defaut), configuration.lieuParDefaut);
+
+                configuration.flashParDefaut = ((Switch)findViewById(R.id.switchFlashParDefaut)).isChecked();
+                editor.putBoolean(context.getString(R.string.conf_flash_par_defaut), configuration.flashParDefaut);
 
                 editor.commit();
 

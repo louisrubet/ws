@@ -40,7 +40,8 @@ public class ScannerActivity extends Activity implements CompoundBarcodeView.Tor
         else
         {
             // flash on by default
-            onClickFlash(switchFlashlightButton);
+            if (ConfigurationActivity.configuration.flashParDefaut)
+                onClickFlash(switchFlashlightButton);
         }
 
         // setup capture
