@@ -1,27 +1,27 @@
 # Ecran d'accueil
 L'écran d'accueil permet de scanner un rouleau ou d'entrer directement sa référence
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.12.06.png?raw=true "Ecran d'accueil")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.12.06.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
 -----------------------
 # Scanner
 Le scanner permet de lire un QR code de n'importe quel type et de retrouver le rouleau correspondant.
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.15.15.png?raw=true "Scanner")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.15.15.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
 -----------------------
 # Nouveau rouleau
 Lorsqu'un nouveau code est scanné ou entré dans la boite 'référence', une notification 'Produit inconnu' et un bouton '+' apparaissent.
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.16.00.png?raw=true "Nouveau rouleau")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.16.00.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
 -----------------------
 # Ajout du rouleau
 Après appui sur le bouton '+', un formulaire de nouveau rouleau apparait. Parcourir et remplir les champs puis appuyer sur 'Sauver le produit'.
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.16.00.png?raw=true "Ajout du rouleau")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.16.00.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.17.30.png?raw=true "Remplir les champs")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.17.30.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
 -----------------------
 # Sortie d'un rouleau du frigo
@@ -33,7 +33,7 @@ Appuyer sur 'Sortir le produit' pour enregistrer la sortie.
 
 Balayer l'écran de la droite vers la gauche pour le détail du rouleau.
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.22.51.png?raw=true "Sortie du rouleau")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.22.51.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
 -----------------------
 # Entrée d'un rouleau au frigo
@@ -45,11 +45,11 @@ Appuyer sur 'Entrer le produit' pour enregistrer la sortie.
 
 Balayer l'écran de la droite vers la gauche pour le détail du rouleau.
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.26.11.png?raw=true "Entrée du rouleau")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.26.11.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.26.26.png?raw=true "Erreur saisie entrée")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.26.26.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.26.43.png?raw=true "Correction saisie entrée")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.26.43.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
 -----------------------
 # Détail du rouleau
@@ -59,11 +59,11 @@ Il est possible de modifier les champs de définition du rouleau.
 
 Après modification un bouton 'Sauver le produit' apparait.
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.23.07.png?raw=true "Détail sur le rouleau")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.23.07.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.23.46.png?raw=true "Sauver le rouleau")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.23.46.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.24.08.png?raw=true "Sauver la note")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.24.08.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
 -----------------------
 # Note associée au rouleau
@@ -73,7 +73,7 @@ Il est possible de saisir une note sur le rouleau.
 
 Après modification un bouton 'Sauver la note' apparait.
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.24.08.png?raw=true "Note")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.24.08.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
 -----------------------
 # Navigation entre les formulaires
@@ -87,7 +87,7 @@ Lorsque le détail ou la note d'un rouleau a été modifié, ou qu'un rouleau es
 
 L'application demande alors confirmation avant de perdre les modifications apportées.
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.24.35.png?raw=true "Abandon")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.24.35.png?raw=true" alt="Drawing" style="width: 300px;"/>
 
 -----------------------
 # Configuration
@@ -95,4 +95,4 @@ Le menu en haut à gauche permet de lancer le formulaire de **configuration** n�
 
 Il est préférable d'entrer un mot de passe pour sécuriser les futurs accès à ce formulaire.
 
-![alt text](https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.27.10.png?raw=true "Configuration")
+<img src="https://github.com/louisrubet/ws/blob/master/doc/manual/2016_10_17_16.27.10.png?raw=true" alt="Drawing" style="width: 300px;"/>
