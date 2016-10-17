@@ -14,19 +14,19 @@ shell> sudo service mysql stop
 shell> sudo service mysql start # start and restart
 ```
 
-Reset a mysql password if needed
+Reset a mysql password
 ```bash
 shell> sudo su
-root> service mysql stop
-root> echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'NEW PWD';" > mypass.sql
-root> chown mysql:mysql /tmp/mypass.sql && chmod a+rwx /tmp/mypass.sql
-root> mysqld_safe --init-file=/tmp/mypass.sql &
-2016-09-25T15:59:28.709774Z mysqld_safe Logging to syslog.
-2016-09-25T15:59:28.712856Z mysqld_safe Logging to '/var/log/mysql/error.log'.
-2016-09-25T15:59:28.726690Z mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
-root> rm /tmp/mypass.sql
-root> exit
-```
+￼root> service mysql stop
+￼root> echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'NEW PWD';" > /tmp/mypass.sql
+￼root> chown mysql:mysql /tmp/mypass.sql && chmod a+rwx /tmp/mypass.sql
+￼root> mysqld_safe --init-file=/tmp/mypass.sql &
+￼2016-09-25T15:59:28.709774Z mysqld_safe Logging to syslog.
+￼2016-09-25T15:59:28.712856Z mysqld_safe Logging to '/var/log/mysql/error.log'.
+￼2016-09-25T15:59:28.726690Z mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+￼root> rm /tmp/mypass.sql
+￼root> exit
+```￼
 
 Enter mysql interpretor
 ```bash
