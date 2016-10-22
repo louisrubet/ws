@@ -22,7 +22,7 @@
 
     <!-- edit add activity
     -->
-    <string name="reference">Référence du rouleau</string>
+    <string name="name">Nom du rouleau</string>
     <string name="qr_code">QR code</string>
     <string name="fournisseur">Fournisseur</string>
     <string name="ref_fourn">Ref. fourn.</string>

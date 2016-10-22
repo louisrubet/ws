@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `idproduct` int(11) NOT NULL AUTO_INCREMENT,
   `qr_code` varchar(45) NOT NULL,
-  `reference` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
   `fournisseur` varchar(45) DEFAULT NULL,
   `ref_fournisseur` varchar(45) DEFAULT NULL,
   `longueur_initiale` decimal(10,2) DEFAULT NULL,
@@ -79,7 +79,7 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE VIEW `product_view` AS SELECT 
  1 AS `qr_code`,
- 1 AS `reference`,
+ 1 AS `name`,
  1 AS `fournisseur`,
  1 AS `ref_fournisseur`,
  1 AS `longueur_initiale`,
@@ -110,7 +110,7 @@ SET character_set_client = @saved_cs_client;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`workshape`@`%` PROCEDURE `product_add`(in qr_code nvarchar(45), in date_now nvarchar(45),
-	in reference nvarchar(45),
+	in name nvarchar(45),
     in fournisseur nvarchar(45),
     in ref_fournisseur nvarchar(45),
     in longueur_initiale DECIMAL(10,2),
@@ -129,8 +129,8 @@ BEGIN
     set date_arrivee_dt = str_to_date(date_arrivee, "%d/%m/%Y %H:%i");
     
 	# added an entry in product table
-    insert into product(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, longueur_actuelle, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis)
-		values(qr_code, reference, fournisseur, ref_fournisseur, longueur_initiale, longueur_initiale, largeur, grammage, type_de_tissus, date_arrivee_dt, transport_frigo, lieu_actuel, date_now_dt);
+    insert into product(qr_code, name, fournisseur, ref_fournisseur, longueur_initiale, longueur_actuelle, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis)
+		values(qr_code, name, fournisseur, ref_fournisseur, longueur_initiale, longueur_initiale, largeur, grammage, type_de_tissus, date_arrivee_dt, transport_frigo, lieu_actuel, date_now_dt);
 
 	# then record an event
     insert into event(qr_code, event, date) values(qr_code, "new", date_now_dt);
@@ -219,7 +219,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update`(in qr_code nvarchar(45), in date_now nvarchar(45),
-	in reference nvarchar(45),
+	in name nvarchar(45),
     in fournisseur nvarchar(45),
     in ref_fournisseur nvarchar(45),
     in longueur_initiale DECIMAL(10,2),
@@ -240,7 +240,7 @@ BEGIN
 	# added an entry in product table
     SET SQL_SAFE_UPDATES=0;
     update product
-		set reference = reference,
+		set name = name,
             fournisseur = fournisseur,
             ref_fournisseur = ref_fournisseur,
             longueur_initiale = longueur_initiale,
@@ -303,7 +303,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`workshape`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `product_view` AS select `product`.`qr_code` AS `qr_code`,`product`.`reference` AS `reference`,`product`.`fournisseur` AS `fournisseur`,`product`.`ref_fournisseur` AS `ref_fournisseur`,`product`.`longueur_initiale` AS `longueur_initiale`,`product`.`longueur_actuelle` AS `longueur_actuelle`,`product`.`largeur` AS `largeur`,`product`.`grammage` AS `grammage`,`product`.`type_de_tissus` AS `type_de_tissus`,date_format(`product`.`date_arrivee`,'%d/%m/%Y %H:%i') AS `date_arrivee`,`product`.`transport_frigo` AS `transport_frigo`,`product`.`lieu_actuel` AS `lieu_actuel`,date_format(`product`.`lieu_depuis`,'%d/%m/%Y %H:%i') AS `lieu_depuis`,`product`.`temps_hors_gel_total` AS `temps_hors_gel_total`,`product`.`nb_decongelation` AS `nb_decongelation`,`product`.`note` AS `note` from `product` */;
+/*!50001 VIEW `product_view` AS select `product`.`qr_code` AS `qr_code`,`product`.`name` AS `name`,`product`.`fournisseur` AS `fournisseur`,`product`.`ref_fournisseur` AS `ref_fournisseur`,`product`.`longueur_initiale` AS `longueur_initiale`,`product`.`longueur_actuelle` AS `longueur_actuelle`,`product`.`largeur` AS `largeur`,`product`.`grammage` AS `grammage`,`product`.`type_de_tissus` AS `type_de_tissus`,date_format(`product`.`date_arrivee`,'%d/%m/%Y %H:%i') AS `date_arrivee`,`product`.`transport_frigo` AS `transport_frigo`,`product`.`lieu_actuel` AS `lieu_actuel`,date_format(`product`.`lieu_depuis`,'%d/%m/%Y %H:%i') AS `lieu_depuis`,`product`.`temps_hors_gel_total` AS `temps_hors_gel_total`,`product`.`nb_decongelation` AS `nb_decongelation`,`product`.`note` AS `note` from `product` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -317,4 +317,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-11 23:03:00
+-- Dump completed on 2016-10-22 10:47:45

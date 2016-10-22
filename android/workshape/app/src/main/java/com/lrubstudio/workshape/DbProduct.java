@@ -16,7 +16,7 @@ public class DbProduct
     // db field names
     public static final String idproduct = "idproduct";
     public static final String qrCode = "qr_code";
-    public static final String reference = "reference";
+    public static final String name = "name";
     public static final String fournisseur = "fournisseur";
     public static final String refFournisseur = "ref_fournisseur";
     public static final String longueurInitiale = "longueur_initiale";

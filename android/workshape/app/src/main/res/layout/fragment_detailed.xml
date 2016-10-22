@@ -17,7 +17,7 @@
 
                 <TextView style="@style/TextViewForTableRow"
                           android:id="@+id/textView991"
-                          android:text="@string/reference" />
+                          android:text="@string/name" />
 
                 <EditText style="@style/EditTextForTableRow"
                           android:id="@+id/editReference"

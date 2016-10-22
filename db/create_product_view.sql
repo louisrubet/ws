@@ -5,7 +5,7 @@ CREATE
 VIEW `product_view` AS
     SELECT 
         `product`.`qr_code` AS `qr_code`,
-        `product`.`reference` AS `reference`,
+        `product`.`name` AS `name`,
         `product`.`fournisseur` AS `fournisseur`,
         `product`.`ref_fournisseur` AS `ref_fournisseur`,
         `product`.`longueur_initiale` AS `longueur_initiale`,

@@ -1,25 +1,18 @@
 package com.lrubstudio.workshape;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -54,7 +47,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
                     R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus
             };
             String[] dbfields = new String [] {
-                    DbProduct.reference, DbProduct.fournisseur, DbProduct.refFournisseur,
+                    DbProduct.name, DbProduct.fournisseur, DbProduct.refFournisseur,
                     DbProduct.transportFrigo, DbProduct.longueurInitiale, DbProduct.dateArrivee,
                     DbProduct.largeur, DbProduct.grammage, DbProduct.typeDeTissus
             };

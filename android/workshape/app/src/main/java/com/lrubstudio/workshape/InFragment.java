@@ -67,7 +67,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
                 R.id.editInQRCode, R.id.editInReference, R.id.editInLongueurInitiale,
                 R.id.editInLongueurActuelle, R.id.editInHorsGelTotal, R.id.buttonInLieuDepuis };
         String[] dbfields = new String [] {
-                DbProduct.qrCode, DbProduct.reference, DbProduct.longueurInitiale,
+                DbProduct.qrCode, DbProduct.name, DbProduct.longueurInitiale,
                 DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuDepuis };
         MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
 

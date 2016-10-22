@@ -67,7 +67,7 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
                 R.id.editOutQRCode, R.id.editOutReference, R.id.editOutLongueurInitiale,
                 R.id.editOutLongueurActuelle, R.id.editOutHorsGelTotal, R.id.editOutLieuActuel, R.id.buttonOutLieuDepuis };
         String[] dbfields = new String [] {
-                DbProduct.qrCode, DbProduct.reference, DbProduct.longueurInitiale,
+                DbProduct.qrCode, DbProduct.name, DbProduct.longueurInitiale,
                 DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuActuel, DbProduct.lieuDepuis };
         MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
 

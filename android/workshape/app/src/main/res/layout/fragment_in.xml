@@ -28,7 +28,7 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/reference"
+                          android:text="@string/name"
                           android:id="@+id/textView21" />
 
                 <EditText style="@style/EditTextForTableRow"
