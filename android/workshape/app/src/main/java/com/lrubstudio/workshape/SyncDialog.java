@@ -13,54 +13,55 @@ import android.os.Message;
  */
 public class SyncDialog
 {
-    private boolean resultValue;
-
-    public boolean run(Context context, String title, String message, String true_message, String false_message)
+    public interface NoticeSyncDialogListener
     {
-        final Handler handler = new Handler()
-        {
-            @Override
-            public void handleMessage(Message mesg)
-            {
-                throw new RuntimeException();
-            }
-        };
+        void onSyncDialogChoice(boolean positive);
+    }
+    NoticeSyncDialogListener listener = null;
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setTitle(title);
-        alert.setMessage(message);
-        alert.setCancelable(false);
+    SyncDialog(NoticeSyncDialogListener listener)
+    {
+        this.listener = listener;
+    }
 
-        alert.setPositiveButton(true_message, new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int id)
-            {
-                resultValue = true;
-                handler.sendMessage(handler.obtainMessage());
-            }
-        });
+    public void run(Context context, String title, String message, String true_message, String false_message)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        if (false_message.length() > 0)
-        {
-            alert.setNegativeButton(false_message, new DialogInterface.OnClickListener()
+        // message
+        builder.setTitle(title);
+        builder.setMessage(message);
+        //builder.setCancelable(false);
+
+        // at least one button
+        builder.setPositiveButton(true_message, new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int id)
                 {
-                    resultValue = false;
-                    handler.sendMessage(handler.obtainMessage());
+                    if (listener != null)
+                        listener.onSyncDialogChoice(true);
                 }
             });
+
+        // two buttons if any
+        if (false_message.length() > 0)
+        {
+            builder.setNegativeButton(false_message, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        if (listener != null)
+                            listener.onSyncDialogChoice(false);
+                    }
+                });
         }
-        alert.show();
 
         try
         {
-            Looper.loop();
+            builder.create().show();
         }
-        catch(RuntimeException e)
+        catch(Exception e)
         {
         }
-
-        return resultValue;
     }
 }

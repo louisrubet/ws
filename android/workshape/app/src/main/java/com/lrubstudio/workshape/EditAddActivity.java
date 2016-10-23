@@ -9,7 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
-public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener
+public class EditAddActivity extends AppCompatActivity
+        implements ViewPager.OnPageChangeListener, SyncDialog.NoticeSyncDialogListener
 {
     // mode (add or edit)
     public static final int MODE_NONE = 0;
@@ -151,14 +152,22 @@ public class EditAddActivity extends AppCompatActivity implements ViewPager.OnPa
         }
     }
 
+    public void onSyncDialogChoice(boolean positive)
+    {
+        // user replied positively : cancel modifications by finishing the activity
+        if (positive)
+        {
+            finish();
+        }
+    }
+
     @Override
     public void onBackPressed()
     {
         if (isDetailedFragmentModified || isNoteFragmentModified)
         {
-            // check if modifications
-            if ((new SyncDialog()).run(this, getResources().getString(R.string.modifs_non_sauvees), getResources().getString(R.string.question_confirmer), getResources().getString(R.string.reponse_abandonner), getResources().getString(R.string.reponse_rester)))
-                finish();
+            // ask user if really wants to quit if a fragment is modified
+            (new SyncDialog(this)).run(this, getResources().getString(R.string.modifs_non_sauvees), getResources().getString(R.string.question_confirmer), getResources().getString(R.string.reponse_abandonner), getResources().getString(R.string.reponse_rester));
         }
         else
             finish();
