@@ -16,24 +16,20 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/qr_code"
-                          android:id="@+id/textView20" />
+                          android:text="@string/qr_code" />
 
                 <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editOutQRCode"
-                          android:inputType="text" />
+                          android:id="@+id/editOutQRCode" />
 
             </TableRow>
 
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/name"
-                          android:id="@+id/textView21" />
+                          android:text="@string/name" />
 
                 <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editOutReference"
-                          android:inputType="text" />
+                          android:id="@+id/editOutReference" />
 
             </TableRow>
 
@@ -42,20 +38,17 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/lieu_actuel"
-                          android:id="@+id/textView211" />
+                          android:text="@string/lieu_actuel" />
 
                 <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editOutLieuActuel"
-                          android:inputType="text" />
+                          android:id="@+id/editOutLieuActuel" />
 
             </TableRow>
 
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/lieu_depuis_out"
-                          android:id="@+id/textView212" />
+                          android:text="@string/lieu_depuis_out" />
 
                 <Button style="@style/TimeButtonForTableRow"
                         android:id="@+id/buttonOutLieuDepuis" />
@@ -67,8 +60,7 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/temps_hors_gel_total"
-                          android:id="@+id/textView24" />
+                          android:text="@string/temps_hors_gel_total" />
 
                 <EditText style="@style/EditTextForTableRow"
                           android:id="@+id/editOutHorsGelTotal"
@@ -79,24 +71,21 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/longueur_initiale"
-                          android:id="@+id/textView22"
-                          android:textIsSelectable="true" />
+                          android:text="@string/longueur_initiale" />
 
                 <EditText style="@style/EditTextForTableRow"
                           android:id="@+id/editOutLongueurInitiale"
-                          android:inputType="none|numberDecimal" />
+                          android:inputType="numberDecimal" />
             </TableRow>
 
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/longueur_actuelle"
-                          android:id="@+id/textView23" />
+                          android:text="@string/longueur_actuelle" />
 
                 <EditText style="@style/EditTextForTableRow"
                           android:id="@+id/editOutLongueurActuelle"
-                          android:inputType="none|numberDecimal" />
+                          android:inputType="numberDecimal" />
             </TableRow>
 
             <Space style="@style/BigVerticalSpace"/>

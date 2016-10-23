@@ -16,43 +16,36 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:id="@+id/textView991"
                           android:text="@string/name" />
 
                 <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editReference"
-                          android:inputType="text" />
+                          android:id="@+id/editReference" />
 
             </TableRow>
 
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:id="@+id/textView100"
                           android:text="@string/fournisseur" />
 
                 <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editFournisseur"
-                          android:inputType="text" />
+                          android:id="@+id/editFournisseur" />
 
             </TableRow>
 
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:id="@+id/textView101"
                           android:text="@string/ref_fourn" />
 
                 <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editRefFournisseur"
-                          android:inputType="text" />
+                          android:id="@+id/editRefFournisseur" />
 
             </TableRow>
 
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:id="@+id/textView106"
                           android:text="@string/date_d_arrivee" />
 
                 <Button style="@style/TimeButtonForTableRow"
@@ -63,12 +56,10 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:id="@+id/textView107"
                           android:text="@string/transport_frigo" />
 
                 <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editTransportFrigo"
-                          android:inputType="text" />
+                          android:id="@+id/editTransportFrigo" />
 
             </TableRow>
 
@@ -77,7 +68,6 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:id="@+id/textView102"
                           android:text="@string/longueur_initiale" />
 
                 <EditText style="@style/EditTextForTableRow"
@@ -89,7 +79,6 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:id="@+id/textView103"
                           android:text="@string/largeur" />
 
                 <EditText style="@style/EditTextForTableRow"
@@ -101,24 +90,20 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:id="@+id/textView104"
                           android:text="@string/grammage" />
 
                 <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editGrammage"
-                          android:inputType="text" />
+                          android:id="@+id/editGrammage" />
 
             </TableRow>
 
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:id="@+id/textView105"
                           android:text="@string/type_de_tissus" />
 
                 <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editTypeDeTissus"
-                          android:inputType="text" />
+                          android:id="@+id/editTypeDeTissus" />
 
             </TableRow>
 
