@@ -6,6 +6,7 @@
     <!-- all activities -->
     <string name="activity_main_title">Workshape</string>
     <string name="activity_edit_title">Edition</string>
+    <string name="activity_list_title">Liste</string>
     <string name="activity_product_out">Sortie d\'un frigo</string>
     <string name="activity_product_in">Entrée dans un frigo</string>
     <string name="activity_edit_detailed_title">Détail</string>

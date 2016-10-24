@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements DbRequest.AsyncResponse
 {
-    // db request for one product and product reference
+    private static final int ListActivityId = 0;
 
     //
     private static DbProduct lastRequestedProduct = new DbProduct();
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                     MainActivity.getLastRequestedProduct().setNewQrCode(false);
 
                     // hide floating button
-                    ((FloatingActionButton) findViewById(R.id.fab)).hide();
+                    ((FloatingActionButton)findViewById(R.id.fab)).hide();
 
                     // show edit button
                     findViewById(R.id.imageButton).setVisibility(View.VISIBLE);
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
     public void onClickList(View view)
     {
         // start list activity
-        startActivity(new Intent(this, ListActivity.class));
+        startActivityForResult(new Intent(this, ListActivity.class), ListActivityId);
     }
 
     public void onClickGo(View view)
@@ -250,13 +250,14 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         // scanner activity result
+        //
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null)
         {
             // result and not cancelled
             if(result.getContents() != null && !result.getContents().isEmpty())
             {
-                // keep reference and set it to edit
+                // keep qrCode and set it to edit
                 MainActivity.getLastRequestedProduct().setQrCode(result.getContents());
                 ((EditText)findViewById(R.id.editText)).setText(result.getContents());
 
@@ -266,6 +267,21 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 // run asynchronous request
                 new DbRequest(this).execute(DbProduct.buildRequestProductView(this, result.getContents()));
             }
+        }
+        // list activity result
+        //
+        else if (requestCode == ListActivityId)
+        {
+            // keep qrCode and set it to edit
+            String qrCode = data.getStringExtra(DbProduct.qrCode);
+            MainActivity.getLastRequestedProduct().setQrCode(qrCode);
+            ((EditText)findViewById(R.id.editText)).setText(qrCode);
+
+            // make thing turn
+            findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+
+            // run asynchronous request
+            new DbRequest(this).execute(DbProduct.buildRequestProductView(this, qrCode));
         }
         else
         {

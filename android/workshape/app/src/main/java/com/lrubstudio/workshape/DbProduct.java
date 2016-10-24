@@ -71,6 +71,11 @@ public class DbProduct
         return request.replaceAll("#qr_code", qrCode);
     }
 
+    static public String buildRequestProductList(Context context)
+    {
+        return context.getString(R.string.request_product_list);
+    }
+
     static public String buildRequestProductIn(Context context, String qrCode, String date, String longueurConsommee, String temps_hors_gel)
     {
         String request = context.getString(R.string.request_product_in);
