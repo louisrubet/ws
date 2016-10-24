@@ -36,7 +36,7 @@ CREATE TABLE `event` (
   `champ3` varchar(45) DEFAULT NULL,
   `valeur3` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idevent`,`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +47,6 @@ DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product` (
-  `idproduct` int(11) NOT NULL AUTO_INCREMENT,
   `qr_code` varchar(45) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `fournisseur` varchar(45) DEFAULT NULL,
@@ -64,9 +63,9 @@ CREATE TABLE `product` (
   `temps_hors_gel_total` time DEFAULT NULL,
   `nb_decongelation` int(11) DEFAULT NULL,
   `note` text,
-  PRIMARY KEY (`idproduct`,`qr_code`),
+  PRIMARY KEY (`qr_code`),
   UNIQUE KEY `qr_code_UNIQUE` (`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +230,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update`(in qr_code nvarchar(45), in date_now nvarchar(45),
+CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update`(in qr_code_var nvarchar(45), in date_now nvarchar(45),
 	in name nvarchar(45),
     in fournisseur nvarchar(45),
     in ref_fournisseur nvarchar(45),
@@ -251,7 +250,7 @@ BEGIN
     set date_arrivee_dt = str_to_date(date_arrivee, "%d/%m/%Y %H:%i");
     
 	# added an entry in product table
-    SET SQL_SAFE_UPDATES=0;
+	SET SQL_SAFE_UPDATES = 0;
     update product
 		set name = name,
             fournisseur = fournisseur,
@@ -263,11 +262,11 @@ BEGIN
             date_arrivee = date_arrivee_dt,
             transport_frigo = transport_frigo,
             lieu_actuel = lieu_actuel
-		where qr_code = qr_code;
-
-	# then record an event
+		where qr_code = qr_code_var;
+	SET SQL_SAFE_UPDATES = 1;
+	
+    # then record an event
     insert into event(qr_code, event, date) values(qr_code, "update", date_now_dt);
-	SET SQL_SAFE_UPDATES=1;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -348,4 +347,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-24 23:01:40
+-- Dump completed on 2016-10-25  0:03:43
