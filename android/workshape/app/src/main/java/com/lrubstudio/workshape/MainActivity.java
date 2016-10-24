@@ -282,16 +282,23 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         //
         else if (requestCode == ListActivityId)
         {
-            // keep qrCode and set it to edit
-            String qrCode = data.getStringExtra(DbProduct.qrCode);
-            MainActivity.getLastRequestedProduct().setQrCode(qrCode);
-            ((EditText)findViewById(R.id.editText)).setText(qrCode);
+            try
+            {
+                // keep qrCode and set it to edit
+                String qrCode = data.getStringExtra(DbProduct.qrCode);
+                MainActivity.getLastRequestedProduct().setQrCode(qrCode);
+                ((EditText) findViewById(R.id.editText)).setText(qrCode);
 
-            // make thing turn
-            findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+                // make thing turn
+                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
-            // run asynchronous request
-            new DbRequest(this).execute(DbProduct.buildRequestProductView(this, qrCode));
+                // run asynchronous request
+                new DbRequest(this).execute(DbProduct.buildRequestProductView(this, qrCode));
+            }
+            catch(Exception e)
+            {
+                // could happen if list activity is cancelled
+            }
         }
         else
         {
