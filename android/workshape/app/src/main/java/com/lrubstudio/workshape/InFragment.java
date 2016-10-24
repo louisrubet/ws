@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -121,7 +122,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
     }
 
     @Override
-    public void dbRequestFinished(Map result, int dbError, String dbErrorString)
+    public void dbRequestFinished(ArrayList<Map> result, int dbError, String dbErrorString)
     {
         if (dbError == DbRequest.DBERR_OK)
         {

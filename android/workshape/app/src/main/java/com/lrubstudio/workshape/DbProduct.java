@@ -57,10 +57,10 @@ public class DbProduct
     }
 
     // db values (input field name, output value)
-    private Map map;
-    public void setFromMap(Map map)
+    private ArrayList<Map> mapArray;
+    public void setFromMap(ArrayList<Map> mapArray)
     {
-        this.map = map;
+        this.mapArray = mapArray;
     }
 
     // build product requests
@@ -234,12 +234,35 @@ public class DbProduct
         }
     }
 
+    public int getRows()
+    {
+        int rows = 0;
+        if (mapArray != null && mapArray.get(0) != null)
+            rows = mapArray.size();
+        return rows;
+    }
+
     public String get(String fieldName)
     {
         try
         {
-            if (map.containsKey(fieldName))
-                return (String) map.get(fieldName);
+            if (mapArray.get(0).containsKey(fieldName))
+                return (String)mapArray.get(0).get(fieldName);
+            else
+                return "";
+        }
+        catch (Exception e)
+        {
+            return "";
+        }
+    }
+
+    public String get(int row, String fieldName)
+    {
+        try
+        {
+            if (mapArray.get(row).containsKey(fieldName))
+                return (String)mapArray.get(row).get(fieldName);
             else
                 return "";
         }

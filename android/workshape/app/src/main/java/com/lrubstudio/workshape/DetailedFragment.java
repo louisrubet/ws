@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -177,7 +178,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
-    public void dbRequestFinished(Map result, int dbError, String dbErrorString)
+    public void dbRequestFinished(ArrayList<Map> result, int dbError, String dbErrorString)
     {
         if (dbError == DbRequest.DBERR_OK)
         {

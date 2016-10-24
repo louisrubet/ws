@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements DbRequest.AsyncResponse
@@ -86,43 +87,51 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
     }
 
     @Override
-    public void dbRequestFinished(Map result, int dbError, String dbErrorString)
+    public void dbRequestFinished(ArrayList<Map> result, int dbError, String dbErrorString)
     {
-        // stop the turning thing
-        findViewById(R.id.progressBar).setVisibility(View.GONE);
-
-        if (dbError == DbRequest.DBERR_OK)
+        try
         {
-            if (result == null)
+            // stop the turning thing
+            findViewById(R.id.progressBar).setVisibility(View.GONE);
+
+            if (dbError == DbRequest.DBERR_OK)
             {
-                // show floating button
-                ((FloatingActionButton)findViewById(R.id.fab)).show();
+                if (result == null)
+                {
+                    // show floating button
+                    ((FloatingActionButton) findViewById(R.id.fab)).show();
 
-                // hide edit button
-                findViewById(R.id.imageButton).setVisibility(View.GONE);
+                    // hide edit button
+                    findViewById(R.id.imageButton).setVisibility(View.GONE);
 
-                Toast.makeText(this, getResources().getString(R.string.produit_inconnu), Toast.LENGTH_LONG).show();
+                    // request ok but no result -> ask user for new product
+                    Toast.makeText(this, getResources().getString(R.string.produit_inconnu), Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    // fill db structure (here lastRequestedProduct.QrCode is already ok)
+                    lastRequestedProduct.setFromMap(result);
+                    MainActivity.getLastRequestedProduct().setNewQrCode(false);
+
+                    // hide floating button
+                    ((FloatingActionButton) findViewById(R.id.fab)).hide();
+
+                    // show edit button
+                    findViewById(R.id.imageButton).setVisibility(View.VISIBLE);
+
+                    // -> run edit activity
+                    startActivity(new Intent(this, EditAddActivity.class));
+                }
             }
             else
             {
-                // fill db structure (here lastRequestedProduct.QrCode is already ok)
-                lastRequestedProduct.setFromMap(result);
-                MainActivity.getLastRequestedProduct().setNewQrCode(false);
-
-                // hide floating button
-                ((FloatingActionButton)findViewById(R.id.fab)).hide();
-
-                // show edit button
-                findViewById(R.id.imageButton).setVisibility(View.VISIBLE);
-
-                // -> run edit activity
-                startActivity(new Intent(this, EditAddActivity.class));
+                // toast db error
+                Toast.makeText(this, dbErrorString, Toast.LENGTH_LONG).show();
             }
         }
-        else
+        catch(Exception e)
         {
-            // toast db error
-            Toast.makeText(this, dbErrorString, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getResources().getString(R.string.db_err_request), Toast.LENGTH_LONG).show();
         }
     }
 

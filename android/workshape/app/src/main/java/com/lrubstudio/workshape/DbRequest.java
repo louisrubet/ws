@@ -76,7 +76,7 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map> >
     // DbRequest external user MUST implement this interface
     public interface AsyncResponse
     {
-        void dbRequestFinished(Map result, int dbError, String dbErrorString);
+        void dbRequestFinished(ArrayList<Map> result, int dbError, String dbErrorString);
     }
 
     private class DbRequestException extends Exception
@@ -125,8 +125,12 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map> >
                         throw(new DbRequestException(DBERR_REQUEST_ERROR));
 
                     columnsCount = rsmd.getColumnCount();
-                    if (!set.first() || columnsCount <= 0)
+                    if (columnsCount <= 0)
                         throw(new DbRequestException(DBERR_REQUEST_ERROR));
+
+                    // no entry
+                    if (!set.first())
+                        throw(new DbRequestException(DBERR_OK));
 
                     // make result array
                     int row = 0;
@@ -174,7 +178,7 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map> >
         // nothing
     }
 
-    protected void onPostExecute(Map result)
+    protected void onPostExecute(ArrayList<Map> result)
     {
         delegate.dbRequestFinished(result, lastError, lastErrorString);
     }
