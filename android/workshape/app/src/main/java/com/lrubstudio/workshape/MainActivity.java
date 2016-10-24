@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -104,7 +105,16 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                     // hide edit button
                     findViewById(R.id.imageButton).setVisibility(View.GONE);
 
-                    // request ok but no result -> ask user for new product
+                    // request ok but no result
+                    // -> hide keyboard
+                    // -> ask user for new product
+                    View view = this.getCurrentFocus();
+                    if (view != null)
+                    {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+
                     Toast.makeText(this, getResources().getString(R.string.produit_inconnu), Toast.LENGTH_LONG).show();
                 }
                 else

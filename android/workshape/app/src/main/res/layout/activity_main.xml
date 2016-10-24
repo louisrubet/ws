@@ -80,12 +80,10 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end|right"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_white_36dp"
-        android:layout_below="@+id/editText"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
+        app:srcCompat="@drawable/ic_add_white_48dp"
         />
 
 </RelativeLayout>
