@@ -105,6 +105,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
 
             // don't see button
             getView().findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
+            ((EditAddActivity)getActivity()).setNoteFragmentModified(false);
         }
         else
         {
