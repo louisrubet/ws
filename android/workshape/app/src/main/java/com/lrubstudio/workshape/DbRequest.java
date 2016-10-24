@@ -124,12 +124,9 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map> >
                     if (rsmd == null)
                         throw(new DbRequestException(DBERR_REQUEST_ERROR));
 
+                    // no entry ? ok but result is null
                     columnsCount = rsmd.getColumnCount();
-                    if (columnsCount <= 0)
-                        throw(new DbRequestException(DBERR_REQUEST_ERROR));
-
-                    // no entry
-                    if (!set.first())
+                    if (columnsCount <= 0 || !set.first())
                         throw(new DbRequestException(DBERR_OK));
 
                     // make result array
