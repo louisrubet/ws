@@ -56,12 +56,23 @@
         android:tint="@color/abc_input_method_navigation_guard"
         android:scaleType="fitEnd"/>
 
+    <Button
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:text="@string/list_button"
+        android:id="@+id/buttonList"
+        android:onClick="onClickList"
+        android:nestedScrollingEnabled="false"
+        android:layout_marginTop="64dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageButton"/>
+
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
-        android:layout_below="@+id/imageButton"
+        android:layout_below="@+id/buttonList"
         android:layout_centerHorizontal="true"
         android:visibility="gone"/>
 

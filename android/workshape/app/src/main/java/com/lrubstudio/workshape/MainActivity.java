@@ -132,6 +132,12 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         new IntentIntegrator(this).setOrientationLocked(false).setCaptureActivity(ScannerActivity.class).initiateScan();
     }
 
+    public void onClickList(View view)
+    {
+        // start list activity
+        startActivity(new Intent(this, ListActivity.class));
+    }
+
     public void onClickGo(View view)
     {
         // get info about this reference

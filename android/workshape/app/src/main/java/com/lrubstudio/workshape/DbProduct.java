@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -141,12 +142,12 @@ public class DbProduct
         return request;
     }
 
-    static public Map setDbgValuesNew()
+    static public ArrayList<Map> setDbgValuesNew()
     {
         return null;
     }
 
-    static public Map setDbgValuesOut()
+    static public ArrayList<Map> setDbgValuesOut()
     {
         Map tmp_map = new HashMap();
         tmp_map.put("qr_code", "abcd1234");
@@ -165,10 +166,13 @@ public class DbProduct
         tmp_map.put("lieu_depuis", "01/01/2016");
         tmp_map.put("temps_hors_gel_total", "02:30");
         tmp_map.put("note", "Note sur la pièce");
-        return tmp_map;
+
+        ArrayList<Map> mapList = new ArrayList<Map>();
+        mapList.add(tmp_map);
+        return mapList;
     }
 
-    static public Map setDbgValuesIn()
+    static public ArrayList<Map> setDbgValuesIn()
     {
         Map tmp_map = new HashMap();
         tmp_map.put("qr_code", "abcd1234");
@@ -187,7 +191,10 @@ public class DbProduct
         tmp_map.put("lieu_depuis", "17/10/2016 15:28");
         tmp_map.put("temps_hors_gel_total", "02:30");
         tmp_map.put("note", "Note sur la pièce");
-        return tmp_map;
+
+        ArrayList<Map> mapList = new ArrayList<Map>();
+        mapList.add(tmp_map);
+        return mapList;
     }
 
     public boolean isProductOut()

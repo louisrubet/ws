@@ -3,12 +3,14 @@ package com.lrubstudio.workshape;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -17,12 +19,13 @@ import java.util.Properties;
  * Created by louis on 23/04/16.
  */
 
-public class DbRequest extends AsyncTask<String, Integer, Map>
+public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map> >
 {
     // errors
     public static final int DBERR_OK = 0;
     public static final int DBERR_CONNECTION_FAILED = 1;
     public static final int DBERR_REQUEST_ERROR = 2;
+    public static final int DBERR_REQUEST_MEMORY_ERROR = 3;
 
     // connection internals
     private Connection connection;
@@ -76,26 +79,32 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
         void dbRequestFinished(Map result, int dbError, String dbErrorString);
     }
 
+    private class DbRequestException extends Exception
+    {
+        DbRequestException(int reason) { dbRequestReason = reason; }
+        public int dbRequestReason;
+    }
+
     // AsyncTask extents
-    protected Map doInBackground(String... request)
+    protected ArrayList<Map> doInBackground(String... request)
     {
         ResultSet set = null;
-        Map map = null;
+        ArrayList<Map> mapList = null;
         int columnsCount = 0;
 
         if (Debug.NO_DB)
         {
             if (Debug.SIMULATE_PRODUCT_NEW)
             {
-                map = DbProduct.setDbgValuesNew();
+                mapList = DbProduct.setDbgValuesNew();
             }
             else if (Debug.SIMULATE_PRODUCT_OUT)
             {
-                map = DbProduct.setDbgValuesOut();
+                mapList = DbProduct.setDbgValuesOut();
             }
             else if (Debug.SIMULATE_PRODUCT_IN)
             {
-                map = DbProduct.setDbgValuesIn();
+                mapList = DbProduct.setDbgValuesIn();
             }
         }
         else
@@ -107,37 +116,45 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
                     // execute query
                     PreparedStatement st = connection.prepareStatement(request[0]);
                     set = st.executeQuery();
-                    if (set != null)
+                    if (set == null)
+                        throw (new DbRequestException(DBERR_CONNECTION_FAILED));
+
+                    // there must be columns and rows
+                    ResultSetMetaData rsmd = set.getMetaData();
+                    if (rsmd == null)
+                        throw(new DbRequestException(DBERR_REQUEST_ERROR));
+
+                    columnsCount = rsmd.getColumnCount();
+                    if (!set.first() || columnsCount <= 0)
+                        throw(new DbRequestException(DBERR_REQUEST_ERROR));
+
+                    // make result array
+                    int row = 0;
+                    mapList = new ArrayList<Map>();
+                    set.beforeFirst();
+
+                    while(set.next())
                     {
-                        // get columns count
-                        ResultSetMetaData rsmd = set.getMetaData();
-                        if (rsmd != null)
+                        if (!mapList.add(new HashMap()))
+                            throw(new DbRequestException(DBERR_REQUEST_MEMORY_ERROR));
+
+                        // add columns in result row
+                        int i;
+                        for (i = 1; i <= columnsCount; i++)
                         {
-                            columnsCount = rsmd.getColumnCount();
-
-                            // consider first line ONLY
-                            if (columnsCount > 0 && set.first())
-                            {
-                                // make result array
-                                map = new HashMap();
-
-                                // add columns in result
-                                int i;
-                                for (i = 1; i <= columnsCount; i++)
-                                {
-                                    String columnName = rsmd.getColumnName(i);
-                                    if (columnName.length() > 0)
-                                        map.put(columnName, set.getString(i));
-                                    Log.e("DbRequest", "field:"+columnName+" : "+set.getString(i));
-                                }
-                            }
-                            lastError = DBERR_OK;
+                            String columnName = rsmd.getColumnName(i);
+                            if (columnName.length() > 0)
+                                mapList.get(row).put(columnName, set.getString(i));
+                            Log.e("DbRequest", "field:" + columnName + " : " + set.getString(i));
                         }
-                        else
-                            lastError = DBERR_REQUEST_ERROR;
+
+                        row++;
                     }
-                    else
-                        lastError = DBERR_CONNECTION_FAILED;
+                }
+                catch(DbRequestException e)
+                {
+                    lastError = e.dbRequestReason;
+                    lastErrorString = e.getMessage();
                 }
                 catch (Exception e)
                 {
@@ -149,7 +166,7 @@ public class DbRequest extends AsyncTask<String, Integer, Map>
                 lastError = DBERR_CONNECTION_FAILED;
         }
 
-        return map;
+        return mapList;
     }
 
     protected void onProgressUpdate(Integer... progress)

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.lrubstudio.workshape"
           xmlns:android="http://schemas.android.com/apk/res/android">
-
     # for MySQL JDBC connections
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -24,34 +23,43 @@
         <!-- scanner activity -->
         <activity
             android:name=".ScannerActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:parentActivityName="com.lrubstudio.workshape.MainActivity">
+            android:windowSoftInputMode="stateAlwaysHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.lrubstudio.workshape.MainActivity" />
+                android:value="com.lrubstudio.workshape.MainActivity"/>
         </activity>
 
         <!-- edit / add product activity -->
         <activity
             android:name=".EditAddActivity"
             android:label="@string/activity_edit_title"
-            android:parentActivityName="com.lrubstudio.workshape.MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.lrubstudio.workshape.MainActivity" />
+                android:value="com.lrubstudio.workshape.MainActivity"/>
         </activity>
 
         <!-- configuration activity -->
         <activity
             android:name=".ConfigurationActivity"
             android:label="@string/activity_configuration_title"
-            android:parentActivityName="com.lrubstudio.workshape.MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.lrubstudio.workshape.MainActivity" />
+                android:value="com.lrubstudio.workshape.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ListActivity"
+            android:label="@string/title_activity_list"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity"/>
         </activity>
     </application>
 
