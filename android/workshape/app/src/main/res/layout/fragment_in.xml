@@ -99,6 +99,16 @@
 
             </TableRow>
 
+            <TableRow style="@style/CommonTableRow">
+
+                <TextView style="@style/TextViewForTableRow"
+                          android:text="@string/lieu_actuel_in" />
+
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editInLieuActuel" />
+
+            </TableRow>
+
             <Space style="@style/BigVerticalSpace"/>
 
         </TableLayout>

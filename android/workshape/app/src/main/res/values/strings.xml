@@ -37,6 +37,7 @@
     <string name="lieu_actuel">Lieu actuel</string>
     <string name="lieu_depuis_out">depuis</string>
     <string name="lieu_depuis_in">Sortie depuis</string>
+    <string name="lieu_actuel_in">Entrer dans</string>
     <string name="date_application">Date d\'application</string>
     <string name="type_de_tissus">Type de tissus</string>
     <string name="date_d_arrivee">Date d\'arrivée</string>

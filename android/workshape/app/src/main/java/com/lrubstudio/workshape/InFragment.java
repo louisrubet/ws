@@ -1,6 +1,7 @@
 package com.lrubstudio.workshape;
 
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +73,9 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
                 DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuDepuis };
         MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
 
+        // fill lieu from global configuration
+        ((EditText)view.findViewById(R.id.editInLieuActuel)).setText(ConfigurationActivity.configuration.lieuParDefaut);
+
         // fill hors gel time duration
         try
         {
@@ -116,8 +120,9 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
             String longueurConsommee = ((EditText)getView().findViewById(R.id.editInLongueurConsommee)).getText().toString();
             String temps_hors_gel = ((EditText)getView().findViewById(R.id.editInTempsHorsGel)).getText().toString();
+            String lieuActuel= ((EditText)getView().findViewById(R.id.editInLieuActuel)).getText().toString();
 
-            new DbRequest(this).execute(DbProduct.buildRequestProductIn(getActivity(), qrCode, date, longueurConsommee, temps_hors_gel));
+            new DbRequest(this).execute(DbProduct.buildRequestProductIn(getActivity(), qrCode, date, longueurConsommee, temps_hors_gel, lieuActuel));
         }
     }
 

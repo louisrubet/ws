@@ -76,13 +76,14 @@ public class DbProduct
         return context.getString(R.string.request_product_list);
     }
 
-    static public String buildRequestProductIn(Context context, String qrCode, String date, String longueurConsommee, String temps_hors_gel)
+    static public String buildRequestProductIn(Context context, String qrCode, String date, String longueurConsommee, String temps_hors_gel, String lieuActuel)
     {
         String request = context.getString(R.string.request_product_in);
         request = request.replaceAll("#qr_code", qrCode);
         request = request.replaceAll("#date", date);
         request = request.replaceAll("#longueur_consommee", longueurConsommee);
         request = request.replaceAll("#temps_hors_gel", temps_hors_gel);
+        request = request.replaceAll("#lieu_actuel", lieuActuel);
         return request;
     }
 
