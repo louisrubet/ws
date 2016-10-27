@@ -162,7 +162,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`workshape`@`%` PROCEDURE `product_in`(in qr_code_ nvarchar(45), in date_now_ nvarchar(45), in longueur_consommee_ decimal(10,2), in temps_hors_gel_ nvarchar(45))
+CREATE DEFINER=`workshape`@`%` PROCEDURE `product_in`(in qr_code_ nvarchar(45), in date_now_ nvarchar(45), in longueur_consommee_ decimal(10,2), in temps_hors_gel_ nvarchar(45), in lieu_actuel_ nvarchar(45))
 BEGIN
 	declare date_now_dt DateTime;
     declare tps_hors_gel time;
@@ -176,7 +176,8 @@ BEGIN
 		set lieu_actuel = "frigo",
 			lieu_depuis = date_now_dt,
 			longueur_actuelle = coalesce(longueur_actuelle_ - longueur_consommee_, longueur_initiale_ - longueur_consommee_),
-			temps_hors_gel_total = coalesce(AddTime(temps_hors_gel_total, tps_hors_gel), tps_hors_gel)
+			temps_hors_gel_total = coalesce(AddTime(temps_hors_gel_total, tps_hors_gel), tps_hors_gel),
+			lieu_actuel = lieu_actuel_
         where qr_code=qr_code_;
 
 	# then record an event
@@ -202,15 +203,19 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`workshape`@`%` PROCEDURE `product_out`(in qr_code_ nvarchar(45), in date_now_ nvarchar(45))
+CREATE DEFINER=`workshape`@`%` PROCEDURE `product_out`(in qr_code_ nvarchar(45), in date_now_ nvarchar(45), in lieu_actuel_ nvarchar(45))
 begin
 	declare date_now_dt DateTime;
 
     # datetime entry in french format, i.e. "23/12/2016 16:57"
     set date_now_dt = str_to_date(date_now_, "%d/%m/%Y %H:%i");
+    
+    if lieu_actuel_ == "" then
+    	lieu_actuel_ = null;
+    end if;
 
 	# first update product
-	update product set lieu_actuel=null, lieu_depuis=date_now_dt where qr_code=qr_code_;
+	update product set lieu_actuel=lieu_actuel_, lieu_depuis=date_now_dt where qr_code=qr_code_;
 
 	# then record an event
     insert into event(qr_code, event, date) values(qr_code_, "out", date_now_dt);
