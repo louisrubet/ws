@@ -66,8 +66,11 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                         for (int i = 0; i < mapArrayList.size(); i++)
                         {
                             Map map = mapArrayList.get(i);
-                            String name = (String)map.get(DbProduct.name);
-                            myStringArray.add(name);
+                            if (map.containsValue(DbProduct.name))
+                            {
+                                String name = (String) map.get(DbProduct.name);
+                                myStringArray.add(name);
+                            }
                         }
                     }
                     catch(Exception e)
