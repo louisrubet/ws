@@ -175,7 +175,7 @@ BEGIN
 	update product
 		set lieu_actuel = "frigo",
 			lieu_depuis = date_now_dt,
-			longueur_actuelle = coalesce(longueur_actuelle_ - longueur_consommee_, longueur_initiale_ - longueur_consommee_),
+			longueur_actuelle = coalesce(longueur_actuelle - longueur_consommee_, longueur_initiale - longueur_consommee_),
 			temps_hors_gel_total = coalesce(AddTime(temps_hors_gel_total, tps_hors_gel), tps_hors_gel),
 			lieu_actuel = lieu_actuel_
         where qr_code=qr_code_;
@@ -210,8 +210,8 @@ begin
     # datetime entry in french format, i.e. "23/12/2016 16:57"
     set date_now_dt = str_to_date(date_now_, "%d/%m/%Y %H:%i");
     
-    if lieu_actuel_ == "" then
-    	lieu_actuel_ = null;
+    if lieu_actuel_ = "" then
+    	set lieu_actuel_ = null;
     end if;
 
 	# first update product
