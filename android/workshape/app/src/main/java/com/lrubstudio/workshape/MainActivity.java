@@ -136,12 +136,12 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
             else
             {
                 // toast db error
-                Toast.makeText(this, dbErrorString, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, DbRequest.errorCategory(this, dbError), Toast.LENGTH_LONG).show();
             }
         }
         catch(Exception e)
         {
-            Toast.makeText(this, getResources().getString(R.string.db_err_request), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, DbRequest.errorCategory(this, DbRequest.DBERR_REQUEST_ERROR), Toast.LENGTH_LONG).show();
         }
     }
 

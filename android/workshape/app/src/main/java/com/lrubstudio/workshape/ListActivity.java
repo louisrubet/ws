@@ -77,7 +77,7 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                     }
                     catch(Exception e)
                     {
-                        Toast.makeText(this, R.string.db_err_request, Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, R.string.dbrequest_request_error, Toast.LENGTH_LONG).show();
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myStringArray);
 
@@ -97,7 +97,7 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
         }
         catch(Exception e)
         {
-            Toast.makeText(this, getResources().getString(R.string.db_err_request), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getResources().getString(R.string.dbrequest_request_error), Toast.LENGTH_LONG).show();
         }
     }
 

@@ -51,8 +51,6 @@
     <string name="produit_sauve">Produit sauvé</string>
     <string name="note_sauvee">Note sauvée</string>
     <string name="qrcode_inconnu">QR code inconnu</string>
-    <string name="db_err_request">Erreur de la base de données</string>
-    <string name="db_err_connection_failed">Erreur de connection à la base de données</string>
     <string name="conf_password_title">"Entrer le mot de passe</string>
     <string name="produit_inconnu">"Produit inconnu\nAppuyer sur '+' pour l'ajouter</string>
     <string name="enter">Entrer</string>
@@ -95,5 +93,13 @@
     <string name="title_activity_list">ListActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Main2Activity</string>
+
+    <!-- db error category -->
+    <string name="dbrequest_no_error">Pas d\'erreur</string>
+    <string name="dbrequest_connection_failed">Erreur de connexion à la base de données</string>
+    <string name="dbrequest_request_error">Erreur de la base de données</string>
+    <string name="dbrequest_memory_error">Pas assez de mémoire</string>
+    <string name="dbrequest_unknown">Erreur inconnue d\'accès à la base de données</string>
+    <string name="db_err_connection_failed">Erreur de connection à la base de données</string>
 
 </resources>

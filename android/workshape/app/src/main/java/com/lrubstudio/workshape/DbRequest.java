@@ -1,5 +1,6 @@
 package com.lrubstudio.workshape;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -19,13 +20,14 @@ import java.util.Properties;
  * Created by louis on 23/04/16.
  */
 
-public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map> >
+public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
 {
     // errors
     public static final int DBERR_OK = 0;
     public static final int DBERR_CONNECTION_FAILED = 1;
     public static final int DBERR_REQUEST_ERROR = 2;
     public static final int DBERR_REQUEST_MEMORY_ERROR = 3;
+    public static final int DBERR_UNKNOWN = 4;
 
     // connection internals
     private Connection connection;
@@ -83,6 +85,21 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map> >
     {
         DbRequestException(int reason) { dbRequestReason = reason; }
         public int dbRequestReason;
+    }
+
+    // error category
+    public static String errorCategory(Context context, int error)
+    {
+        String[] category = { context.getString(R.string.dbrequest_no_error),
+                context.getString(R.string.dbrequest_connection_failed),
+                context.getString(R.string.dbrequest_request_error),
+                context.getString(R.string.dbrequest_memory_error),
+                context.getString(R.string.dbrequest_unknown)
+        };
+        if (error >= DBERR_OK && error <= DBERR_UNKNOWN)
+            return category[error];
+        else
+            return category[DBERR_UNKNOWN];
     }
 
     // AsyncTask extents
@@ -177,6 +194,7 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map> >
 
     protected void onPostExecute(ArrayList<Map> result)
     {
+        // call request callback set by caller
         delegate.dbRequestFinished(result, lastError, lastErrorString);
     }
 
