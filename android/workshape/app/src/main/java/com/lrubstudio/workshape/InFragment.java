@@ -77,34 +77,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         ((EditText)view.findViewById(R.id.editInLieuActuel)).setText(ConfigurationActivity.configuration.lieuParDefaut);
 
         // fill hors gel time duration
-        try
-        {
-            // time diff
-            Date currentDate = new Date(System.currentTimeMillis());
-            SimpleDateFormat dateFormat = new SimpleDateFormat(view.getResources().getString(R.string.date_format_to_android));
-            String dateFrom = ((Button)view.findViewById(R.id.buttonInLieuDepuis)).getText().toString();
-            Date dateLieu = dateFormat.parse(dateFrom);
-
-            // building hours
-            long diffS = (currentDate.getTime() - dateLieu.getTime()) / 1000;
-            long hours = diffS / 3600;
-            String hoursString = String.format("%02d", hours);
-
-            // building minutes
-            long minutes = (diffS - 3600 * (diffS / 3600)) / 60;
-            String minutesString = String.format("%02d", minutes);
-
-            String diffString = view.getResources().getString(R.string.time_format_to_android);
-            diffString = diffString.replaceAll("HH", hoursString);
-            diffString = diffString.replaceAll("mm", minutesString);
-
-            // setting text
-            ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setText(diffString);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setText(DbProduct.timeDiffToString(getActivity(), ((Button)view.findViewById(R.id.buttonInLieuDepuis)).getText().toString(), new Date(System.currentTimeMillis())));
 
         super.onActivityCreated(savedInstanceState);
     }

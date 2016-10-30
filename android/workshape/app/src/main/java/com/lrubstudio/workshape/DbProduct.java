@@ -5,7 +5,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -146,6 +148,39 @@ public class DbProduct
         request = request.replaceAll("#date", date);
         request = request.replaceAll("#note", note);
         return request;
+    }
+
+    static public String timeDiffToString(Context context, String dateFrom, Date dateTo)
+    {
+        String diffString = null;
+        try
+        {
+            // time diff
+            SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString(R.string.date_format_to_android));
+            Date dateLieu = dateFormat.parse(dateFrom);
+
+            // building hours
+            long diffS = (dateTo.getTime() - dateLieu.getTime()) / 1000;
+            long hours = diffS / 3600;
+            String hoursString = String.format("%02d", hours);
+
+            // building minutes
+            long minutes = (diffS - 3600 * (diffS / 3600)) / 60;
+            String minutesString = String.format("%02d", minutes);
+
+            diffString = context.getString(R.string.time_format_to_android);
+            diffString = diffString.replaceAll("HH", hoursString);
+            diffString = diffString.replaceAll("mm", minutesString);
+        }
+        catch(Exception e)
+        {
+        }
+        return diffString;
+    }
+
+    static public String timeNowToString(Context context)
+    {
+        return new SimpleDateFormat(context.getString(R.string.date_format_to_mysql)).format(new Date());
     }
 
     static public ArrayList<Map> setDbgValuesNew()
