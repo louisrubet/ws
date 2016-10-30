@@ -115,6 +115,11 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             // yes (new product)
             // mark current product as modified in order to prevent leaving without question
             ((EditAddActivity)getActivity()).setDetailedFragmentModified(true);
+
+            // set defaults
+            String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
+            ((Button)view.findViewById(R.id.buttonDateArrivee)).setText(date);
+            ((EditText)view.findViewById(R.id.editLieuActuel)).setText(ConfigurationActivity.configuration.lieuParDefaut);
         }
 
         // manage button
@@ -143,7 +148,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             String typeDeTissus = ((EditText) getView().findViewById(R.id.editTypeDeTissus)).getText().toString();
             String dateArrivee = ((Button) getView().findViewById(R.id.buttonDateArrivee)).getText().toString();
             String transportFrigo = ((EditText) getView().findViewById(R.id.editTransportFrigo)).getText().toString();
-            String lieuActuel = ConfigurationActivity.configuration.lieuParDefaut;
+            String lieuActuel = ((EditText) getView().findViewById(R.id.editLieuActuel)).getText().toString();
 
             // new product: create it
             if (MainActivity.getLastRequestedProduct().isNewQrCode())

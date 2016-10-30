@@ -56,14 +56,22 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
+                          android:text="@string/lieu_actuel" />
+
+                <EditText style="@style/EditTextForTableRow"
+                          android:id="@+id/editLieuActuel" />
+
+            </TableRow>
+
+            <TableRow style="@style/CommonTableRow">
+
+                <TextView style="@style/TextViewForTableRow"
                           android:text="@string/transport_frigo" />
 
                 <EditText style="@style/EditTextForTableRow"
                           android:id="@+id/editTransportFrigo" />
 
             </TableRow>
-
-            <Space style="@style/ShortVerticalSpace"/>
 
             <TableRow style="@style/CommonTableRow">
 

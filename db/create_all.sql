@@ -154,6 +154,15 @@ BEGIN
     set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
     set date_arrivee_dt_ = str_to_date(date_arrivee_, "%d/%m/%Y %H:%i");
     
+    # nullify some strings
+    if name_ = "" then set name_ = null; end if;
+    if fournisseur_ = "" then set fournisseur_ = null; end if;
+    if ref_fournisseur_ = "" then set ref_fournisseur_ = null; end if;
+    if grammage_ = "" then set grammage_ = null; end if;
+    if type_de_tissus_ = "" then set type_de_tissus_ = null; end if;
+    if transport_frigo_ = "" then set transport_frigo_ = null; end if;
+    if lieu_actuel_ = "" then set lieu_actuel_ = null; end if;
+    
 	# added an entry in product table
     insert into product(qr_code, name, fournisseur, ref_fournisseur, longueur_initiale, longueur_actuelle, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis)
 		values(qr_code_, name_, fournisseur_, ref_fournisseur_, longueur_initiale_dec_, longueur_initiale_dec_, largeur_dec_, grammage_, type_de_tissus_, date_arrivee_dt_, transport_frigo_, lieu_actuel_, date_now_dt_);
@@ -299,6 +308,15 @@ BEGIN
     set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
     set date_arrivee_dt_ = str_to_date(date_arrivee_, "%d/%m/%Y %H:%i");
     
+    # nullify some strings
+    if name_ = "" then set name_ = null; end if;
+    if fournisseur_ = "" then set fournisseur_ = null; end if;
+    if ref_fournisseur_ = "" then set ref_fournisseur_ = null; end if;
+    if grammage_ = "" then set grammage_ = null; end if;
+    if type_de_tissus_ = "" then set type_de_tissus_ = null; end if;
+    if transport_frigo_ = "" then set transport_frigo_ = null; end if;
+    if lieu_actuel_ = "" then set lieu_actuel_ = null; end if;
+
 	# added an entry in product table
 	SET SQL_SAFE_UPDATES = 0;
     update product
