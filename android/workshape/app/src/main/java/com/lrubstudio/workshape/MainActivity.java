@@ -37,13 +37,24 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        String title;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // toolbar
+        // toolbar and title
         Toolbar myToolbar = (Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         //myToolbar.setLogo(R.drawable.ic_action_barcode_2);
+        try
+        {
+            title = getString(R.string.activity_main_title_version) + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        }
+        catch(Exception e)
+        {
+            title = getString(R.string.activity_main_title);
+        }
+        getSupportActionBar().setTitle(title);
 
         // hide floating button
         ((FloatingActionButton)findViewById(R.id.fab)).hide();

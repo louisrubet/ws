@@ -5,6 +5,7 @@
 
     <!-- all activities -->
     <string name="activity_main_title">Workshape</string>
+    <string name="activity_main_title_version">Workshape - V</string>
     <string name="activity_edit_title">Edition</string>
     <string name="activity_list_title">Liste</string>
     <string name="activity_product_out">Sortie d\'un frigo</string>

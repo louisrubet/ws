@@ -5,11 +5,12 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
+        versionCode 1
+        versionName "1.0-RC1"
+
         applicationId "com.lrubstudio.workshape"
         minSdkVersion 21
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
