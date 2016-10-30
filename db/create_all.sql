@@ -121,31 +121,45 @@ SET character_set_client = @saved_cs_client;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`workshape`@`%` PROCEDURE `product_add`(in qr_code_ nvarchar(45), in date_now_ nvarchar(45),
+CREATE DEFINER=`workshape`@`%` PROCEDURE `product_add`(in qr_code_ nvarchar(45),
+	in date_now_ nvarchar(45),
 	in name_ nvarchar(45),
     in fournisseur_ nvarchar(45),
     in ref_fournisseur_ nvarchar(45),
-    in longueur_initiale_ DECIMAL(10,2),
-    in largeur_ DECIMAL(10,2),
+    in longueur_initiale_ nvarchar(45),
+    in largeur_ nvarchar(45),
     in grammage_ nvarchar(45),
     in type_de_tissus_ nvarchar(45),
     in date_arrivee_ nvarchar(45),
-    in transport_frigo_ nvarchar(10),
+    in transport_frigo_ nvarchar(45),
     in lieu_actuel_ nvarchar(45))
 BEGIN
-	declare date_now_dt DateTime;
-	declare date_arrivee_dt DateTime;
+	declare date_now_dt_ DateTime;
+	declare date_arrivee_dt_ DateTime;
+    declare longueur_initiale_dec_ decimal(10,2);
+    declare largeur_dec_ decimal(10,2);
+    
+	# make decimal values from string (null if void)
+	set longueur_initiale_dec_ = 0 + longueur_initiale_;
+	if longueur_initiale_dec_ = 0 then
+		set longueur_initiale_dec_ = null;
+	end if;
+
+	set largeur_dec_ = 0 + largeur_;
+	if largeur_dec_ = 0 then
+		set largeur_dec_ = null;
+	end if;
 
 	# datetime entry in french format, i.e. "23/12/2016 16:57"
-    set date_now_dt = str_to_date(date_now_, "%d/%m/%Y %H:%i");
-    set date_arrivee_dt = str_to_date(date_arrivee_, "%d/%m/%Y %H:%i");
+    set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
+    set date_arrivee_dt_ = str_to_date(date_arrivee_, "%d/%m/%Y %H:%i");
     
 	# added an entry in product table
     insert into product(qr_code, name, fournisseur, ref_fournisseur, longueur_initiale, longueur_actuelle, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis)
-		values(qr_code_, name_, fournisseur_, ref_fournisseur_, longueur_initiale_, longueur_initiale_, largeur_, grammage_, type_de_tissus_, date_arrivee_dt, transport_frigo_, lieu_actuel_, date_now_dt);
+		values(qr_code_, name_, fournisseur_, ref_fournisseur_, longueur_initiale_dec_, longueur_initiale_dec_, largeur_dec_, grammage_, type_de_tissus_, date_arrivee_dt_, transport_frigo_, lieu_actuel_, date_now_dt_);
 
 	# then record an event
-    insert into event(qr_code, event, date) values(qr_code, "new", date_now_dt);
+    insert into event(qr_code, event, date) values(qr_code, "new", date_now_dt_);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -162,30 +176,42 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`workshape`@`%` PROCEDURE `product_in`(in qr_code_ nvarchar(45), in date_now_ nvarchar(45), in longueur_consommee_ decimal(10,2), in temps_hors_gel_ nvarchar(45), in lieu_actuel_ nvarchar(45))
+CREATE DEFINER=`workshape`@`%` PROCEDURE `product_in`(in qr_code_ nvarchar(45),
+	in date_now_ nvarchar(45),
+    in longueur_consommee_ nvarchar(45),
+    in temps_hors_gel_ nvarchar(45),
+    in lieu_actuel_ nvarchar(45))
+
 BEGIN
-	declare date_now_dt DateTime;
-    declare tps_hors_gel time;
+	declare date_now_dt_ DateTime;
+    declare tps_hors_gel_time_ time;
+    declare longueur_consommee_dec_ decimal(10,2);
+
+	# make decimal values from string (null if void)
+	set longueur_consommee_dec_ = 0 + longueur_consommee_;
+	if longueur_consommee_dec_ = 0 then
+		set longueur_consommee_dec_ = null;
+	end if;
 
 	# datetime entry in french format, i.e. "23/12/2016 16:57"
-    set date_now_dt = str_to_date(date_now_, "%d/%m/%Y %H:%i");
-    set tps_hors_gel = convert(temps_hors_gel_, time);
+    set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
+    set tps_hors_gel_time_ = convert(temps_hors_gel_, time);
 
 	# first update product
 	update product
 		set lieu_actuel = "frigo",
-			lieu_depuis = date_now_dt,
-			longueur_actuelle = coalesce(longueur_actuelle - longueur_consommee_, longueur_initiale - longueur_consommee_),
-			temps_hors_gel_total = coalesce(AddTime(temps_hors_gel_total, tps_hors_gel), tps_hors_gel),
+			lieu_depuis = date_now_dt_,
+			longueur_actuelle = coalesce(longueur_actuelle - longueur_consommee_dec_, longueur_initiale - longueur_consommee_dec_),
+			temps_hors_gel_total = coalesce(AddTime(temps_hors_gel_total, tps_hors_gel_time_), tps_hors_gel_time_),
 			lieu_actuel = lieu_actuel_
         where qr_code=qr_code_;
 
 	# then record an event
     insert into event(qr_code, event, date, champ1, valeur1, champ2, valeur2, champ3, valeur3)
-		values(qr_code_, "in", date_now_dt,
+		values(qr_code_, "in", date_now_dt_,
 				"lieu_actuel", "frigo",
-                "longueur_consommee", longueur_consommee_,
-                "temps_hors_gel", temps_hors_gel_);
+                "longueur_consommee", longueur_consommee_dec_,
+                "temps_hors_gel", tps_hors_gel_time_);
 
 END ;;
 DELIMITER ;
@@ -203,22 +229,27 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`workshape`@`%` PROCEDURE `product_out`(in qr_code_ nvarchar(45), in date_now_ nvarchar(45), in lieu_actuel_ nvarchar(45))
+CREATE DEFINER=`workshape`@`%` PROCEDURE `product_out`(in qr_code_ nvarchar(45),
+	in date_now_ nvarchar(45),
+    in lieu_actuel_ nvarchar(45))
 begin
-	declare date_now_dt DateTime;
+	declare date_now_dt_ DateTime;
 
     # datetime entry in french format, i.e. "23/12/2016 16:57"
-    set date_now_dt = str_to_date(date_now_, "%d/%m/%Y %H:%i");
+    set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
     
     if lieu_actuel_ = "" then
     	set lieu_actuel_ = null;
     end if;
 
 	# first update product
-	update product set lieu_actuel=lieu_actuel_, lieu_depuis=date_now_dt where qr_code=qr_code_;
+	update product set
+		lieu_actuel=lieu_actuel_,
+        lieu_depuis=date_now_dt_
+	where qr_code=qr_code_;
 
 	# then record an event
-    insert into event(qr_code, event, date) values(qr_code_, "out", date_now_dt);
+    insert into event(qr_code, event, date) values(qr_code_, "out", date_now_dt_);
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -235,24 +266,38 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update`(in qr_code_ nvarchar(45), in date_now_ nvarchar(45),
+CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update`(in qr_code_ nvarchar(45),
+	in date_now_ nvarchar(45),
 	in name_ nvarchar(45),
     in fournisseur_ nvarchar(45),
     in ref_fournisseur_ nvarchar(45),
-    in longueur_initiale_ DECIMAL(10,2),
-    in largeur_ DECIMAL(10,2),
+    in longueur_initiale_ nvarchar(45),
+    in largeur_ nvarchar(45),
     in grammage_ nvarchar(45),
     in type_de_tissus_ nvarchar(45),
     in date_arrivee_ nvarchar(45),
     in transport_frigo_ nvarchar(10),
     in lieu_actuel_ nvarchar(45))
 BEGIN
-	declare date_now_dt DateTime;
-	declare date_arrivee_dt DateTime;
+	declare date_now_dt_ DateTime;
+	declare date_arrivee_dt_ DateTime;
+    declare longueur_initiale_dec_ decimal(10,2);
+    declare largeur_dec_ decimal(10,2);
+
+	# make decimal values from string (null if void)
+	set longueur_initiale_dec_ = 0 + longueur_initiale_;
+	if longueur_initiale_dec_ = 0 then
+		set longueur_initiale_dec_ = null;
+	end if;
+
+	set largeur_dec_ = 0 + largeur_;
+	if largeur_dec_ = 0 then
+		set largeur_dec_ = null;
+	end if;
 
 	# datetime entry in french format, i.e. "23/12/2016 16:57:00"
-    set date_now_dt = str_to_date(date_now_, "%d/%m/%Y %H:%i");
-    set date_arrivee_dt = str_to_date(date_arrivee_, "%d/%m/%Y %H:%i");
+    set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
+    set date_arrivee_dt_ = str_to_date(date_arrivee_, "%d/%m/%Y %H:%i");
     
 	# added an entry in product table
 	SET SQL_SAFE_UPDATES = 0;
@@ -260,18 +305,18 @@ BEGIN
 		set name = name_,
             fournisseur = fournisseur_,
             ref_fournisseur = ref_fournisseur_,
-            longueur_initiale = longueur_initiale_,
-            largeur = largeur_,
+            longueur_initiale = longueur_initiale_dec_,
+            largeur = largeur_dec_,
             grammage = grammage_,
             type_de_tissus = type_de_tissus_,
-            date_arrivee = date_arrivee_dt,
+            date_arrivee = date_arrivee_dt_,
             transport_frigo = transport_frigo_,
             lieu_actuel = lieu_actuel_
 		where qr_code = qr_code_;
 	SET SQL_SAFE_UPDATES = 1;
 	
     # then record an event
-    insert into event(qr_code, event, date) values(qr_code_, "update", date_now_dt);
+    insert into event(qr_code, event, date) values(qr_code_, "update", date_now_dt_);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -290,16 +335,16 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update_note`(in qr_code_ nvarchar(45), in date_now_ nvarchar(45), in note_ text)
 BEGIN
-	declare date_now_dt DateTime;
+	declare date_now_dt_ DateTime;
 
 	# datetime entry in french format, i.e. "23/12/2016 16:57"
-    set date_now_dt = str_to_date(date_now_, "%d/%m/%Y %H:%i");
+    set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
     
 	# added an entry in product table
     update product set note = note_ where qr_code = qr_code_;
 
 	# then record an event
-    insert into event(qr_code, event, date) values(qr_code_, "update note", date_now_dt);
+    insert into event(qr_code, event, date) values(qr_code_, "update note", date_now_dt_);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;

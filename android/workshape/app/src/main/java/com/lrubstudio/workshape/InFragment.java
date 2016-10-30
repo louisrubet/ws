@@ -86,7 +86,8 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
     public void onClick(View view)
     {
         // check entries
-        if (checkShouldBeDecimal(R.id.editInLongueurConsommee) && checkShouldBeHHmm(R.id.editInTempsHorsGel))
+        if (StringValidation.EditTextShouldBeDecimal((EditText)getView().findViewById(R.id.editInLongueurConsommee))
+                && StringValidation.EditTextShouldBeHHmm((EditText)getView().findViewById(R.id.editInTempsHorsGel)))
         {
             // build and run request
             String qrCode=((EditText)getView().findViewById(R.id.editInQRCode)).getText().toString();
@@ -115,56 +116,5 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             // toast db error
             Toast.makeText(getActivity(), dbErrorString, Toast.LENGTH_LONG).show();
         }
-    }
-
-    private boolean checkShouldBeDecimal(int resource)
-    {
-        boolean ret = false;
-        EditText edit = (EditText)getView().findViewById(resource);
-        if (edit != null)
-        {
-            String entry_string = edit.getText().toString();
-
-            try
-            {
-                float entry_float = Float.parseFloat(entry_string);
-                edit.setError(null);
-                edit.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                ret =true;
-            }
-            catch(Exception e)
-            {
-                edit.setError(getResources().getString(R.string.should_be_decimal));
-                edit.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_error_24dp, 0);
-            }
-        }
-
-        return ret;
-    }
-
-    private boolean checkShouldBeHHmm(int resource)
-    {
-        boolean ret = false;
-        EditText edit = (EditText)getView().findViewById(resource);
-        if (edit != null)
-        {
-            String entry_string = edit.getText().toString();
-
-            try
-            {
-                DateFormat df = new SimpleDateFormat("HH:mm");
-                Date result =  df.parse(edit.getText().toString());
-                edit.setError(null);
-                edit.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                ret =true;
-            }
-            catch(Exception e)
-            {
-                edit.setError(getResources().getString(R.string.should_be_hhmm));
-                edit.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_error_24dp, 0);
-            }
-        }
-
-        return ret;
     }
 }
