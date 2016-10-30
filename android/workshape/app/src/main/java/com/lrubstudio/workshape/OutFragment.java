@@ -66,11 +66,14 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
         // fill MMI views from db fields
         int[] edits = new int [] {
                 R.id.editOutQRCode, R.id.editOutReference, R.id.editOutLongueurInitiale,
-                R.id.editOutLongueurActuelle, R.id.editOutHorsGelTotal, R.id.editOutLieuActuel, R.id.buttonOutLieuDepuis };
+                R.id.editOutLongueurActuelle, R.id.editOutLieuActuel, R.id.buttonOutLieuDepuis };
         String[] dbfields = new String [] {
                 DbProduct.qrCode, DbProduct.name, DbProduct.longueurInitiale,
-                DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuActuel, DbProduct.lieuDepuis };
+                DbProduct.longueurActuelle, DbProduct.lieuActuel, DbProduct.lieuDepuis };
         MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
+
+        // total time in seconds -> "hh:mm"
+        ((EditText)view.findViewById(R.id.editOutHorsGelTotal)).setText(DbProduct.secondsToHHMM(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));
 
         super.onActivityCreated(savedInstanceState);
     }

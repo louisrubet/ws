@@ -150,6 +150,37 @@ public class DbProduct
         return request;
     }
 
+    static public String secondsToHHMM(Context context, String secondsString)
+    {
+        int seconds = Integer.parseInt(secondsString);
+        String hhmm = context.getString(R.string.time_format_to_android);
+        String hoursString = String.format("%02d", seconds / 3600);
+        String minutesString = String.format("%02d", (seconds % 3600) / 60);
+
+        hhmm = hhmm.replaceAll("HH", hoursString);
+        hhmm = hhmm.replaceAll("mm", minutesString);
+
+        return hhmm;
+    }
+
+    static public String HHMMToSeconds(Context context, String hhmmString)
+    {
+        String[] parts = hhmmString.split(":");
+        String seconds = null;
+        int secondsInt = -1;
+
+        try
+        {
+            secondsInt = (Integer.parseInt(parts[0]) * 3600) + (Integer.parseInt(parts[1]) * 60);
+            seconds = String.valueOf(secondsInt);
+        }
+        catch(Exception e)
+        {
+        }
+
+        return seconds;
+    }
+
     static public String timeDiffToString(Context context, String dateFrom, Date dateTo)
     {
         String diffString = null;

@@ -67,14 +67,17 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         // fill MMI views from db fields
         int[] edits = new int [] {
                 R.id.editInQRCode, R.id.editInReference, R.id.editInLongueurInitiale,
-                R.id.editInLongueurActuelle, R.id.editInHorsGelTotal, R.id.buttonInLieuDepuis };
+                R.id.editInLongueurActuelle, R.id.buttonInLieuDepuis };
         String[] dbfields = new String [] {
                 DbProduct.qrCode, DbProduct.name, DbProduct.longueurInitiale,
-                DbProduct.longueurActuelle, DbProduct.tempsHorsGelTotal, DbProduct.lieuDepuis };
+                DbProduct.longueurActuelle, DbProduct.lieuDepuis };
         MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
 
         // fill lieu from global configuration
         ((EditText)view.findViewById(R.id.editInLieuActuel)).setText(ConfigurationActivity.configuration.lieuParDefaut);
+
+        // total time in seconds -> "hh:mm"
+        ((EditText)view.findViewById(R.id.editInHorsGelTotal)).setText(DbProduct.secondsToHHMM(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));
 
         // fill hors gel time duration
         ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setText(DbProduct.timeDiffToString(getActivity(), ((Button)view.findViewById(R.id.buttonInLieuDepuis)).getText().toString(), new Date(System.currentTimeMillis())));
@@ -93,10 +96,16 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             String qrCode=((EditText)getView().findViewById(R.id.editInQRCode)).getText().toString();
             String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
             String longueurConsommee = ((EditText)getView().findViewById(R.id.editInLongueurConsommee)).getText().toString();
-            String temps_hors_gel = ((EditText)getView().findViewById(R.id.editInTempsHorsGel)).getText().toString();
             String lieuActuel= ((EditText)getView().findViewById(R.id.editInLieuActuel)).getText().toString();
 
-            new DbRequest(this).execute(DbProduct.buildRequestProductIn(getActivity(), qrCode, date, longueurConsommee, temps_hors_gel, lieuActuel));
+            // "hh:mm" -> total time in seconds
+            String temps_hors_gel = ((EditText)getView().findViewById(R.id.editInTempsHorsGel)).getText().toString();
+            temps_hors_gel =  DbProduct.HHMMToSeconds(getActivity(), temps_hors_gel);
+
+            if (temps_hors_gel != null)
+                new DbRequest(this).execute(DbProduct.buildRequestProductIn(getActivity(), qrCode, date, longueurConsommee, temps_hors_gel, lieuActuel));
+            else
+                StringValidation.EditTextShouldBeHHmm((EditText)getView().findViewById(R.id.editInTempsHorsGel));
         }
     }
 
