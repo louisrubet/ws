@@ -49,7 +49,9 @@
                           android:text="@string/date_d_arrivee" />
 
                 <Button style="@style/TimeButtonForTableRow"
-                        android:id="@+id/buttonDateArrivee" />
+                        android:id="@+id/buttonDateArrivee"
+                        android:fontFamily="sans-serif"
+                        android:textAllCaps="false"/>
 
             </TableRow>
 
@@ -98,7 +100,8 @@
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/grammage" />
+                          android:text="@string/grammage"
+                    />
 
                 <EditText style="@style/EditTextForTableRow"
                           android:id="@+id/editGrammage" />
