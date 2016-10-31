@@ -36,7 +36,7 @@ CREATE TABLE `event` (
   `champ3` varchar(45) DEFAULT NULL,
   `valeur3` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idevent`,`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,7 +192,6 @@ CREATE DEFINER=`workshape`@`%` PROCEDURE `product_in`(in qr_code_ nvarchar(45),
     in lieu_actuel_ nvarchar(45))
 BEGIN
 	declare date_now_dt_ DateTime;
-    declare tps_hors_gel_time_ int(11);
     declare longueur_consommee_dec_ decimal(10,2);
 
 	# make decimal values from string (null if void)
@@ -205,6 +204,7 @@ BEGIN
     set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
 
 	# first update product
+	SET SQL_SAFE_UPDATES = 0;
 	update product
 		set lieu_actuel = "frigo",
 			lieu_depuis = date_now_dt_,
@@ -212,13 +212,14 @@ BEGIN
 			temps_hors_gel_total = temps_hors_gel_total + temps_hors_gel_,
 			lieu_actuel = lieu_actuel_
         where qr_code=qr_code_;
+	SET SQL_SAFE_UPDATES = 1;
 
 	# then record an event
     insert into event(qr_code, event, date, champ1, valeur1, champ2, valeur2, champ3, valeur3)
 		values(qr_code_, "in", date_now_dt_,
 				"lieu_actuel", "frigo",
                 "longueur_consommee", longueur_consommee_dec_,
-                "temps_hors_gel", tps_hors_gel_time_);
+                "temps_hors_gel", cast(temps_hors_gel_ as nchar));
 
 END ;;
 DELIMITER ;
@@ -413,4 +414,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-30 16:43:35
+-- Dump completed on 2016-10-31 18:28:02
