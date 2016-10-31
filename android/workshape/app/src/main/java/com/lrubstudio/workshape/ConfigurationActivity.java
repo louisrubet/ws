@@ -86,15 +86,21 @@ public class ConfigurationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
 
-        // toolbar
+        // toolbar and its title
+        String title;
         Toolbar myToolbar = (Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        findViewById(R.id.buttonApply).setVisibility(View.GONE);
-
-        // Strings
-        //
+        try
+        {
+            title = getString(R.string.activity_configuration_title_version) + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        }
+        catch(Exception e)
+        {
+            title = getString(R.string.activity_configuration_title);
+        }
+        getSupportActionBar().setTitle(title);
 
         // setup configuration entries in edits
         for (int i = 0; i < idsStrings.length; i++)
@@ -139,6 +145,9 @@ public class ConfigurationActivity extends AppCompatActivity
                     }
                 }
         );
+
+        // button to save configuration
+        findViewById(R.id.buttonApply).setVisibility(View.GONE);
     }
 
     public void onClickApply(View view)
