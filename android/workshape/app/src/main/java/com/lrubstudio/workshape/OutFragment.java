@@ -83,11 +83,11 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
     {
         // build then run request
         String qrCode=((EditText)getView().findViewById(R.id.editOutQRCode)).getText().toString();
-        new DbRequest(this).execute(DbProduct.buildRequestProductOut(getActivity(), qrCode, DbProduct.timeNowToString(getActivity())));
+        new DbRequest(this, null).execute(DbProduct.buildRequestProductOut(getActivity(), qrCode, DbProduct.timeNowToString(getActivity())));
     }
 
     @Override
-    public void dbRequestFinished(ArrayList<Map> result, int dbError, String dbErrorString)
+    public void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString)
     {
         if (dbError == DbRequest.DBERR_OK)
         {

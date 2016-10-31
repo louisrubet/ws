@@ -34,16 +34,17 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
     private int lastError = DBERR_OK;
     private String lastErrorString;
 
-    // default
-    public DbRequest() { }
-    public DbRequest(AsyncResponse delegate)
-    {
-        this.delegate = delegate;
-    }
-
+    // internals
+    private String requestName = null;
     public AsyncResponse delegate = null;
 
-    //
+    // default
+    public DbRequest() { }
+    public DbRequest(AsyncResponse delegate, String requestName)
+    {
+        this.delegate = delegate;
+        this.requestName = requestName;
+    }
 
     // to be overloaded
     public String getDriverClass()
@@ -78,7 +79,7 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
     // DbRequest external user MUST implement this interface
     public interface AsyncResponse
     {
-        void dbRequestFinished(ArrayList<Map> result, int dbError, String dbErrorString);
+        void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString);
     }
 
     private class DbRequestException extends Exception
@@ -195,7 +196,7 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
     protected void onPostExecute(ArrayList<Map> result)
     {
         // call request callback set by caller
-        delegate.dbRequestFinished(result, lastError, lastErrorString);
+        delegate.dbRequestFinished(requestName, result, lastError, lastErrorString);
     }
 
     private boolean connect()

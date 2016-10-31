@@ -27,8 +27,6 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements DbRequest.AsyncResponse
 {
-    private static final int ListActivityId = 0;
-
     //
     private static DbProduct lastRequestedProduct = new DbProduct();
     public static DbProduct getLastRequestedProduct() { return lastRequestedProduct; }
@@ -88,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
     }
 
     @Override
-    public void dbRequestFinished(ArrayList<Map> result, int dbError, String dbErrorString)
+    public void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString)
     {
         try
         {
@@ -154,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
     public void onClickList(View view)
     {
         // start list activity
-        startActivityForResult(new Intent(this, ListActivity.class), ListActivityId);
+        startActivity(new Intent(this, ListActivity.class));
     }
 
     public void onClickGo(View view)
@@ -173,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
                 // build request and run asynchronous request
-                new DbRequest(this).execute(DbProduct.buildRequestProductView(this, qr));
+                new DbRequest(this, null).execute(DbProduct.buildRequestProductView(this, qr));
             }
         }
     }
@@ -275,29 +273,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
                 // run asynchronous request
-                new DbRequest(this).execute(DbProduct.buildRequestProductView(this, result.getContents()));
-            }
-        }
-        // list activity result
-        //
-        else if (requestCode == ListActivityId)
-        {
-            try
-            {
-                // keep qrCode and set it to edit
-                String qrCode = data.getStringExtra(DbProduct.qrCode);
-                MainActivity.getLastRequestedProduct().setQrCode(qrCode);
-                ((EditText) findViewById(R.id.editText)).setText(qrCode);
-
-                // make thing turn
-                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
-
-                // run asynchronous request
-                new DbRequest(this).execute(DbProduct.buildRequestProductView(this, qrCode));
-            }
-            catch(Exception e)
-            {
-                // could happen if list activity is cancelled
+                new DbRequest(this, null).execute(DbProduct.buildRequestProductView(this, result.getContents()));
             }
         }
         else

@@ -85,7 +85,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
         if (qrCode.length() > 0)
         {
             String note = ((EditText)getView().findViewById(R.id.editNote)).getText().toString();
-            new DbRequest(this).execute(DbProduct.buildRequestProductUpdateNote(getActivity(), qrCode, DbProduct.timeNowToString(getActivity()), note));
+            new DbRequest(this, null).execute(DbProduct.buildRequestProductUpdateNote(getActivity(), qrCode, DbProduct.timeNowToString(getActivity()), note));
         }
         else
         {
@@ -95,7 +95,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
     }
 
     @Override
-    public void dbRequestFinished(ArrayList<Map> result, int dbError, String dbErrorString)
+    public void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString)
     {
         if (dbError == DbRequest.DBERR_OK)
         {

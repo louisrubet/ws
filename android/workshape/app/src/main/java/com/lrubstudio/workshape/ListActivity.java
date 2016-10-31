@@ -19,6 +19,9 @@ import java.util.Map;
 
 public class ListActivity extends AppCompatActivity implements DbRequest.AsyncResponse, AdapterView.OnItemClickListener
 {
+    private static final String LIST_REQUEST_NAME = "list";
+    private static final String PRODUCT_REQUEST_NAME = "product";
+
     // result of db request for products
     private ArrayList<Map> mapArrayList;
 
@@ -43,61 +46,73 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
         // run asynchronous request to get products list
-        new DbRequest(this).execute(DbProduct.buildRequestProductList(this));
+        new DbRequest(this, LIST_REQUEST_NAME).execute(DbProduct.buildRequestProductList(this));
     }
 
     @Override
-    public void dbRequestFinished(ArrayList<Map> result, int dbError, String dbErrorString)
+    public void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString)
     {
         try
         {
-            mapArrayList = result;
-
-            // stop the turning thing
-            findViewById(R.id.progressBar).setVisibility(View.GONE);
-
-            if (dbError == DbRequest.DBERR_OK)
+            if (requestName == LIST_REQUEST_NAME)
             {
-                if (mapArrayList == null)
+                mapArrayList = result;
+
+                // stop the turning thing
+                findViewById(R.id.progressBar).setVisibility(View.GONE);
+
+                if (dbError == DbRequest.DBERR_OK)
                 {
-                    // nothing in list
-                }
-                else
-                {
-                    // make a string list for the product listView
-                    ArrayList<String> myStringArray = new ArrayList<String>();
-                    try
+                    if (mapArrayList == null)
                     {
-                        for (int i = 0; i < mapArrayList.size(); i++)
+                        // nothing in list
+                    } else
+                    {
+                        // make a string list for the product listView
+                        ArrayList<String> myStringArray = new ArrayList<String>();
+                        try
                         {
-                            Map map = mapArrayList.get(i);
-
-                            // find field named "name" in request result
-                            if (map.containsKey(DbProduct.name))
+                            for (int i = 0; i < mapArrayList.size(); i++)
                             {
-                                String name = (String) map.get(DbProduct.name);
-                                myStringArray.add(name);
+                                Map map = mapArrayList.get(i);
+
+                                // find field named "name" in request result
+                                if (map.containsKey(DbProduct.name))
+                                {
+                                    String name = (String) map.get(DbProduct.name);
+                                    myStringArray.add(name);
+                                }
                             }
+                        } catch (Exception e)
+                        {
+                            Toast.makeText(this, R.string.dbrequest_request_error, Toast.LENGTH_LONG).show();
                         }
-                    }
-                    catch(Exception e)
-                    {
-                        Toast.makeText(this, R.string.dbrequest_request_error, Toast.LENGTH_LONG).show();
-                    }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myStringArray);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myStringArray);
 
-                    // set it to the listView
-                    ListView listView = (ListView)findViewById(R.id.listProduct);
-                    listView.setAdapter(adapter);
+                        // set it to the listView
+                        ListView listView = (ListView) findViewById(R.id.listProduct);
+                        listView.setAdapter(adapter);
 
-                    // manage click
-                    listView.setOnItemClickListener(this);
+                        // manage click
+                        listView.setOnItemClickListener(this);
+                    }
+                } else
+                {
+                    // toast db error
+                    Toast.makeText(this, DbRequest.errorCategory(this, dbError), Toast.LENGTH_LONG).show();
                 }
             }
-            else
+            else if (requestName == PRODUCT_REQUEST_NAME)
             {
-                // toast db error
-                Toast.makeText(this, DbRequest.errorCategory(this, dbError), Toast.LENGTH_LONG).show();
+                // stop the turning thing
+                findViewById(R.id.progressBar).setVisibility(View.GONE);
+
+                // fill db structure (use MainActivity.getLastRequestedProduct())
+                MainActivity.getLastRequestedProduct().setFromMap(result);
+                MainActivity.getLastRequestedProduct().setNewQrCode(false);
+
+                // -> run edit activity
+                startActivity(new Intent(this, EditAddActivity.class));
             }
         }
         catch(Exception e)
@@ -108,16 +123,15 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        try
-        {
-            // return list item qrCode to main activity
-            Intent intent = new Intent();
-            intent.putExtra(DbProduct.qrCode, (String)mapArrayList.get(position).get(DbProduct.qrCode));
-            setResult(RESULT_OK, intent);
-            finish();
-        }
-        catch(Exception e)
-        {
-        }
+        String qr = (String)mapArrayList.get(position).get(DbProduct.qrCode);
+
+        // keep this qr code
+        MainActivity.getLastRequestedProduct().setQrCode(qr);
+
+        // start the turning thing
+        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+
+        // build request and run asynchronous request
+        new DbRequest(this, PRODUCT_REQUEST_NAME).execute(DbProduct.buildRequestProductView(this, qr));
     }
 }

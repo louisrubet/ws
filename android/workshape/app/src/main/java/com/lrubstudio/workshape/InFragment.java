@@ -103,14 +103,14 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             temps_hors_gel =  DbProduct.HHMMToSeconds(getActivity(), temps_hors_gel);
 
             if (temps_hors_gel != null)
-                new DbRequest(this).execute(DbProduct.buildRequestProductIn(getActivity(), qrCode, date, longueurConsommee, temps_hors_gel, lieuActuel));
+                new DbRequest(this, null).execute(DbProduct.buildRequestProductIn(getActivity(), qrCode, date, longueurConsommee, temps_hors_gel, lieuActuel));
             else
                 StringValidation.EditTextShouldBeHHmm((EditText)getView().findViewById(R.id.editInTempsHorsGel));
         }
     }
 
     @Override
-    public void dbRequestFinished(ArrayList<Map> result, int dbError, String dbErrorString)
+    public void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString)
     {
         if (dbError == DbRequest.DBERR_OK)
         {

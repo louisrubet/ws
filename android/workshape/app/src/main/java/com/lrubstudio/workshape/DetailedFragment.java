@@ -153,14 +153,14 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             // new product: create it
             if (MainActivity.getLastRequestedProduct().isNewQrCode())
                 // build and run request
-                new DbRequest(this).execute(DbProduct.buildRequestProductAdd(getActivity(),
+                new DbRequest(this, null).execute(DbProduct.buildRequestProductAdd(getActivity(),
                         qrCode, date, reference, fournisseur, refFournisseur,
                         longueurInitiale, largeur, grammage,
                         typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
                 // product to update: update it
             else
                 // build and run request
-                new DbRequest(this).execute(DbProduct.buildRequestProductUpdate(getActivity(),
+                new DbRequest(this, null).execute(DbProduct.buildRequestProductUpdate(getActivity(),
                         qrCode, date, reference, fournisseur, refFournisseur,
                         longueurInitiale, largeur, grammage,
                         typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
@@ -183,7 +183,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
-    public void dbRequestFinished(ArrayList<Map> result, int dbError, String dbErrorString)
+    public void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString)
     {
         if (dbError == DbRequest.DBERR_OK)
         {
