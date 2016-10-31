@@ -7,4 +7,13 @@
               android:orientation="vertical"
               android:gravity="center_horizontal">
 
+    <ListView
+        android:id="@+id/listHisto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView style="@style/TextViewForEmptyList"
+              android:id="@+id/textEmpty"
+              android:text="@string/no_histo" />
+
 </LinearLayout>

@@ -77,6 +77,8 @@
     <string name="reponse_rester">Non, rester</string>
     <string name="reponse_abandonner">Oui, abandonner</string>
 
+    <string name="no_histo">Historique vide</string>
+
     <!-- configuration activity -->
     <string name="conf_server_hostname">DB server host</string>
     <string name="conf_server_port">DB server port</string>

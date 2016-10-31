@@ -29,14 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <TextView
+        <TextView style="@style/TextViewForEmptyList"
             android:id="@+id/textEmpty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/no_products"
-            android:textStyle="normal|italic"
-            android:textSize="18sp"
-            android:textAlignment="center"/>
+            android:text="@string/no_products" />
 
     </LinearLayout>
 

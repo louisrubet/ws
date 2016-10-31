@@ -46,20 +46,20 @@
     <!-- Tables
     -->
 
-    <!-- high level table layout -->
+    <!-- TableLayout: high level table layout -->
     <style name="CommonTableLayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <!-- table row (table rows total height matches parent height) -->
+    <!-- TableRow: table rows total height matches parent height -->
     <style name="CommonTableRow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
     </style>
 
-    <!-- text (titles, left side of TableRows) -->
+    <!-- TextView: text (titles, left side of TableRows) -->
     <style name="TextViewForTableRow" parent="android:Widget.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -69,7 +69,7 @@
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
-    <!-- text (titles, left side of TableRows) -->
+    <!-- TextView: text (titles, left side of TableRows) -->
     <style name="TextViewMultilinesForTableRow" parent="android:Widget.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -82,16 +82,16 @@
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
-    <style name="TextViewForTableRowSmall" parent="android:Widget.TextView">
+    <!-- TextView: empty lists management -->
+    <style name="TextViewForEmptyList" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_weight">0</item>
-        <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textStyle">normal|italic</item>
     </style>
 
-    <!-- edit (entry zones, right side of TableRows) -->
+    <!-- EditText: entry zones, right side of TableRows -->
     <style name="EditTextForTableRow" parent="Widget.AppCompat.EditText">
         <item name="android:inputType">text</item>
         <item name="android:layout_height">wrap_content</item>
@@ -102,7 +102,7 @@
         <item name="android:gravity">right</item>
     </style>
 
-    <!-- time button -->
+    <!-- Button: time button -->
     <style name="TimeButtonForTableRow" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">0dp</item>
@@ -117,7 +117,7 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <!-- Switch (entry zones, right side of TableRows) -->
+    <!-- Switch: entry zones, right side of TableRows -->
     <style name="SwitchForTableRow" parent="Widget.AppCompat.CompoundButton.Switch">
         <item name="android:layout_height">48sp</item>
         <item name="android:layout_width">wrap_content</item>
@@ -131,7 +131,7 @@
         <item name="android:layout_marginRight">28dp</item>
     </style>
 
-    <!-- spacing -->
+    <!-- Space -->
     <style name="BigVerticalSpace">
         <item name="android:layout_width">16dp</item>
         <item name="android:layout_height">32dp</item>
@@ -142,7 +142,7 @@
         <item name="android:layout_height">16dp</item>
     </style>
 
-    <!-- large validation button -->
+    <!-- Button: large validation button -->
     <style name="ValidationButton" parent="Widget.AppCompat.Button.Colored">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -150,7 +150,7 @@
         <item name="android:layout_marginLeft">20dp</item>
     </style>
 
-    <!-- scanning button -->
+    <!-- Button: scanning button -->
     <style name="ScanningButton" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">120dp</item>
@@ -159,7 +159,7 @@
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 
-    <!-- other buttons on main activity -->
+    <!-- Button: other buttons on main activity -->
     <style name="MainButton" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
