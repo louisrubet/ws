@@ -61,10 +61,10 @@
 
     <!-- text (titles, left side of TableRows) -->
     <style name="TextViewForTableRow" parent="android:Widget.TextView">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_weight">0</item>
+        <item name="android:layout_weight">0.40</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
@@ -95,22 +95,20 @@
     <style name="EditTextForTableRow" parent="Widget.AppCompat.EditText">
         <item name="android:inputType">text</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_gravity">center_vertical|right</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_weight">0.60</item>
         <item name="android:layout_marginRight">20dp</item>
-        <item name="android:width">200dp</item>
         <item name="android:gravity">right</item>
     </style>
 
     <!-- time button -->
     <style name="TimeButtonForTableRow" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">0.60</item>
         <item name="android:layout_gravity">center_vertical|right</item>
-        <item name="android:layout_weight">1</item>
         <item name="android:layout_marginRight">20dp</item>
-        <item name="android:width">200dp</item>
         <item name="android:gravity">bottom|right</item>
         <item name="android:hint">@string/hint_date</item>
         <item name="android:textColor">?attr/editTextColor</item>
@@ -129,7 +127,6 @@
         <item name="android:layout_gravity">center_vertical|right</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_marginRight">28dp</item>
-        <item name="android:width">200dp</item>
     </style>
 
     <!-- spacing -->
@@ -172,8 +169,6 @@
     <style name="ImageButton" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <!-- <item name="android:layout_marginLeft">32dp</item>
-        <item name="android:layout_marginRight">32dp</item> -->
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 
