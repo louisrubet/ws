@@ -49,9 +49,7 @@
                           android:text="@string/date_d_arrivee" />
 
                 <Button style="@style/TimeButtonForTableRow"
-                        android:id="@+id/buttonDateArrivee"
-                        android:fontFamily="sans-serif"
-                        android:textAllCaps="false"/>
+                        android:id="@+id/buttonDateArrivee" />
 
             </TableRow>
 
