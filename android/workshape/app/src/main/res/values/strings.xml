@@ -6,9 +6,9 @@
     <!-- all activities -->
     <string name="activity_main_title">Workshape</string>
     <string name="activity_edit_title">Edition</string>
-    <string name="activity_list_title">Liste</string>
-    <string name="activity_product_out">Sortie d\'un frigo</string>
-    <string name="activity_product_in">Entrée dans un frigo</string>
+    <string name="activity_list_title">Liste de tous les produits</string>
+    <string name="activity_product_out">Sortir du stock</string>
+    <string name="activity_product_in">Entrer dans le stock</string>
     <string name="activity_edit_detailed_title">Détail</string>
     <string name="activity_edit_note_title">Note</string>
     <string name="activity_add_title">Ajout</string>
@@ -23,6 +23,9 @@
     <string name="turn_off_flashlight">Eteindre le Flash</string>
 
     <string name="list_button">Lister les produits</string>
+    <string name="configurer_button">Configurer</string>
+
+    <string name="no_products">Aucun produit en stock</string>
 
     <!-- edit add activity
     -->

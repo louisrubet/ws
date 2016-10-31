@@ -34,6 +34,11 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.activity_list_title);
 
+        // empty list management
+        View empty = findViewById(R.id.textEmpty);
+        ListView list = (ListView) findViewById(R.id.listProduct);
+        list.setEmptyView(empty);
+
         // start the turning thing
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
@@ -92,7 +97,7 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
             else
             {
                 // toast db error
-                Toast.makeText(this, dbErrorString, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, DbRequest.errorCategory(this, dbError), Toast.LENGTH_LONG).show();
             }
         }
         catch(Exception e)

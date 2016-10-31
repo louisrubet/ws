@@ -19,16 +19,12 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <Button
-        android:layout_width="320dp"
-        android:layout_height="120dp"
-        android:text="@string/scan_button"
-        android:id="@+id/buttonScan"
-        android:onClick="onClickScan"
-        android:nestedScrollingEnabled="false"
-        android:layout_marginTop="64dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/my_AppBarlayout"/>
+    <Button style="@style/ScanningButton"
+            android:text="@string/scan_button"
+            android:id="@+id/buttonScan"
+            android:onClick="onClickScan"
+            android:layout_marginTop="64dp"
+            android:layout_below="@id/my_AppBarlayout"/>
 
     <EditText
         android:layout_width="240dp"
@@ -43,38 +39,36 @@
         android:layout_alignLeft="@+id/buttonScan"
         android:layout_alignStart="@+id/buttonScan"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton style="@style/ImageButton"
         android:id="@+id/imageButton"
         android:src="@drawable/ic_search_black_48dp"
         android:layout_below="@+id/editText"
         android:layout_alignRight="@+id/editText"
         android:layout_alignEnd="@+id/editText"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:onClick="onClickGo"
-        android:tint="@color/abc_input_method_navigation_guard"
-        android:scaleType="fitEnd"/>
-
-    <Button
-        android:layout_width="320dp"
-        android:layout_height="60dp"
-        android:text="@string/list_button"
-        android:id="@+id/buttonList"
-        android:onClick="onClickList"
-        android:nestedScrollingEnabled="false"
-        android:layout_marginTop="64dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/imageButton"/>
+        android:scaleType="fitEnd"
+        android:onClick="onClickGo"/>
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
-        android:layout_below="@+id/buttonList"
+        android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
         android:visibility="gone"/>
+
+    <Button style="@style/MainButton"
+            android:text="@string/list_button"
+            android:id="@+id/buttonList"
+            android:onClick="onClickList"
+            android:layout_marginTop="96dp"
+            android:layout_below="@id/editText"/>
+
+    <Button style="@style/MainButton"
+            android:text="@string/configurer_button"
+            android:id="@+id/buttonConfigure"
+            android:onClick="onClickConfiguration"
+            android:layout_below="@id/buttonList"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -83,7 +77,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_white_48dp"
-        />
+        app:srcCompat="@drawable/ic_add_white_48dp" />
 
 </RelativeLayout>

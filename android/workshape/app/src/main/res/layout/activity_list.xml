@@ -29,6 +29,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
+        <TextView
+            android:id="@+id/textEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/no_products"
+            android:textStyle="normal|italic"
+            android:textSize="18sp"
+            android:textAlignment="center"/>
+
     </LinearLayout>
 
     <ProgressBar
@@ -38,8 +47,8 @@
         android:id="@+id/progressBar"
         android:layout_centerHorizontal="true"
         android:visibility="gone"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="128dp"
         app:layout_anchorGravity="top|left"
-        android:layout_gravity="center_vertical|center_horizontal"/>
+        android:layout_gravity="center"/>
 
 </RelativeLayout>

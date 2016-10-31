@@ -103,7 +103,7 @@
         <item name="android:gravity">right</item>
     </style>
 
-    <!-- tile button -->
+    <!-- time button -->
     <style name="TimeButtonForTableRow" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -149,6 +149,32 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:layout_marginLeft">20dp</item>
+    </style>
+
+    <!-- scanning button -->
+    <style name="ScanningButton" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginRight">32dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <!-- other buttons on main activity -->
+    <style name="MainButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginRight">32dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="ImageButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!-- <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginRight">32dp</item> -->
+        <item name="android:layout_centerHorizontal">true</item>
     </style>
 
 </resources>
