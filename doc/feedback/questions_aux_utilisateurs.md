@@ -10,6 +10,7 @@
 * [P1] Y a-t-il des textes qui sont non compréhensibles ?
 * [P1] Manque-t-il des champs pour représenter les rouleaux ?
 * [P1] Le choix des écrans sans scrolling mais épousant la taille de l'écran est-il le bon ?
+* [P1] Champs trop grands ? Champs trop petits ?
 
 ## Par écran
 
@@ -28,10 +29,9 @@
 * [P1] Les éléments montrés à l'écran sont-ils les bons ?
 
 ### Ecran "Liste de tous les produits"
-* Faut-il montrer autre chose dans la liste ? Par exemple: le QR code, le nom du rouleau, la date d'arrivée du rouleau, le fait que le rouleau soit sorti du stock, le fait que le rouleau soit fini ? Autre ? (sachant que sur une telle liste on ne pourra montrer que 3 ou 4 choses pas trop longues)
+* Quel champ faut-il montrer sur cette liste ? (3 max)
 * Faut-il cacher certains rouleaux ? Sur quels critères ?
 * Comment classer la liste des rouleaux ? Aujourd'hui ils sont affichés par ordre chronologique d'ajout dans la base de données.
-* Faut-il que l'utilisateur puisse
 
 ### Ecran "Sortir du stock"
 * Manque-t-il des informations sur cet écran ?
