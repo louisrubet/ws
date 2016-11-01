@@ -1,15 +1,19 @@
 package com.lrubstudio.workshape;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -52,6 +56,8 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
     @Override
     public void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString)
     {
+        ArrayList<Item> valuesArray;
+
         try
         {
             if (requestName == LIST_REQUEST_NAME)
@@ -66,10 +72,12 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                     if (mapArrayList == null)
                     {
                         // nothing in list
-                    } else
+                    }
+                    else
                     {
                         // make a string list for the product listView
-                        ArrayList<String> myStringArray = new ArrayList<String>();
+                        valuesArray = new ArrayList<Item>();
+                        valuesArray.add(new ListItem(ListAdapterDb.HEADER_ITEM, getString(R.string.qr_code), getString(R.string.name)));
                         try
                         {
                             for (int i = 0; i < mapArrayList.size(); i++)
@@ -77,21 +85,23 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                                 Map map = mapArrayList.get(i);
 
                                 // find field named "name" in request result
-                                if (map.containsKey(DbProduct.name))
+                                if (map.containsKey(DbProduct.qrCode) && map.containsKey(DbProduct.name))
                                 {
+                                    String qrCode = (String) map.get(DbProduct.qrCode);
                                     String name = (String) map.get(DbProduct.name);
-                                    myStringArray.add(name);
+                                    valuesArray.add(new ListItem(ListAdapterDb.LIST_ITEM, qrCode, name));
                                 }
                             }
                         } catch (Exception e)
                         {
                             Toast.makeText(this, R.string.dbrequest_request_error, Toast.LENGTH_LONG).show();
                         }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myStringArray);
 
                         // set it to the listView
-                        ListView listView = (ListView) findViewById(R.id.listProduct);
-                        listView.setAdapter(adapter);
+                        ListView listView = (ListView)findViewById(R.id.listProduct);
+
+                        ListAdapterDb listAdapterDb = new ListAdapterDb(this, R.layout.layout_list_item, valuesArray);
+                        listView.setAdapter(listAdapterDb);
 
                         // manage click
                         listView.setOnItemClickListener(this);
@@ -123,15 +133,150 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        String qr = (String)mapArrayList.get(position).get(DbProduct.qrCode);
+        ListItem item = (ListItem)parent.getItemAtPosition(position);
 
-        // keep this qr code
-        MainActivity.getLastRequestedProduct().setQrCode(qr);
+        if (item != null && item.type == ListAdapterDb.LIST_ITEM)
+        {
+            String qr = item.qrCode;
 
-        // start the turning thing
-        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+            // keep this qr code
+            MainActivity.getLastRequestedProduct().setQrCode(qr);
 
-        // build request and run asynchronous request
-        DbRequest.createRequest(this, PRODUCT_REQUEST_NAME).execute(DbProduct.buildRequestProductView(this, qr));
+            // start the turning thing
+            findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+
+            // build request and run asynchronous request
+            DbRequest.createRequest(this, PRODUCT_REQUEST_NAME).execute(DbProduct.buildRequestProductView(this, qr));
+        }
+    }
+
+    // ListAdapter item
+    public interface Item
+    {
+        public int getViewType();
+        public View getView(LayoutInflater inflater, View convertView);
+    }
+
+    public class ListItem implements Item
+    {
+        private final String qrCode;
+        private final String name;
+        private final int type;
+
+        public ListItem(int type, String qrCode, String name)
+        {
+            this.qrCode = qrCode;
+            this.name = name;
+            this.type = type;
+        }
+
+        @Override
+        public int getViewType()
+        {
+            return type;
+        }
+
+        @Override
+        public View getView(LayoutInflater inflater, View convertView)
+        {
+            View view = null;
+            if (convertView == null)
+            {
+                if (type == ListAdapterDb.LIST_ITEM)
+                    view = (View)inflater.inflate(R.layout.layout_list_item, null);
+                else if (type == ListAdapterDb.HEADER_ITEM)
+                    view = (View)inflater.inflate(R.layout.layout_header_item, null);
+            }
+            else
+            {
+                view = convertView;
+            }
+
+            if (view != null)
+            {
+
+                TextView text = (TextView) view.findViewById(R.id.textListContent1);
+                text.setText(qrCode);
+
+                text = (TextView) view.findViewById(R.id.textListContent2);
+                text.setText(name);
+            }
+
+            return view;
+        }
+    }
+
+    // ListAdapter
+    public class ListAdapterDb extends ArrayAdapter<Item>
+    {
+        public static final int LIST_ITEM = 0;
+        public static final int HEADER_ITEM = 1;
+        public static final int ITEM_TYPE_NB = 2;
+        private ArrayList<Item> classes;
+        private Context context;
+        private LayoutInflater inflater;
+
+        public ListAdapterDb(Context context, int textViewResourceId, ArrayList<Item> classes)
+        {
+            super(context, textViewResourceId, classes);
+            this.context = context;
+            this.classes = classes;
+            this.inflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getViewTypeCount()
+        {
+            return ITEM_TYPE_NB;
+        }
+
+        @Override
+        public int getItemViewType(int position)
+        {
+            return getItem(position).getViewType();
+        }
+
+        /*
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
+            return getItem(position).getView(inflater, convertView);
+        }
+        */
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
+            ViewHolder holder = null;
+            int rowType = getItemViewType(position);
+            View View;
+
+            if (convertView == null)
+            {
+                holder = new ViewHolder();
+                switch (rowType)
+                {
+                    case LIST_ITEM:
+                        convertView = inflater.inflate(R.layout.layout_list_item, null);
+                        holder.View=getItem(position).getView(inflater, convertView);
+                        break;
+                    case HEADER_ITEM:
+                        convertView = inflater.inflate(R.layout.layout_header_item, null);
+                        holder.View=getItem(position).getView(inflater, convertView);
+                        break;
+                }
+                convertView.setTag(holder);
+            }
+            else
+            {
+                holder = (ViewHolder)convertView.getTag();
+            }
+            return convertView;
+        }
+
+        public class ViewHolder
+        {
+            public  View View;
+        }
     }
 }

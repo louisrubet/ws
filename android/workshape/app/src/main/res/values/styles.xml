@@ -69,6 +69,17 @@
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
+    <style name="TextViewForTableRowInverted" parent="android:Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_weight">0.40</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorToolbarItem</item>
+    </style>
+
     <!-- TextView: text (titles, left side of TableRows) -->
     <style name="TextViewMultilinesForTableRow" parent="android:Widget.TextView">
         <item name="android:layout_width">match_parent</item>
