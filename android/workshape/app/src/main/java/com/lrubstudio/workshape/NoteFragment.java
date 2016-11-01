@@ -85,7 +85,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
         if (qrCode.length() > 0)
         {
             String note = ((EditText)getView().findViewById(R.id.editNote)).getText().toString();
-            new DbRequest(this, null).execute(DbProduct.buildRequestProductUpdateNote(getActivity(), qrCode, DbProduct.timeNowToString(getActivity()), note));
+            DbRequest.createRequest(this, null).execute(DbProduct.buildRequestProductUpdateNote(getActivity(), qrCode, DbProduct.timeNowToString(getActivity()), note));
         }
         else
         {

@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
                 // build request and run asynchronous request
-                new DbRequest(this, null).execute(DbProduct.buildRequestProductView(this, qr));
+                DbRequest.createRequest(this, null).execute(DbProduct.buildRequestProductView(this, qr));
             }
         }
     }
@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
                 // run asynchronous request
-                new DbRequest(this, null).execute(DbProduct.buildRequestProductView(this, result.getContents()));
+                DbRequest.createRequest(this, null).execute(DbProduct.buildRequestProductView(this, result.getContents()));
             }
         }
         else

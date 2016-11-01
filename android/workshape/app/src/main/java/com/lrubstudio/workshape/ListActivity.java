@@ -46,7 +46,7 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
         // run asynchronous request to get products list
-        new DbRequest(this, LIST_REQUEST_NAME).execute(DbProduct.buildRequestProductList(this));
+        DbRequest.createRequest(this, LIST_REQUEST_NAME).execute(DbProduct.buildRequestProductList(this));
     }
 
     @Override
@@ -132,6 +132,6 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
         // build request and run asynchronous request
-        new DbRequest(this, PRODUCT_REQUEST_NAME).execute(DbProduct.buildRequestProductView(this, qr));
+        DbRequest.createRequest(this, PRODUCT_REQUEST_NAME).execute(DbProduct.buildRequestProductView(this, qr));
     }
 }

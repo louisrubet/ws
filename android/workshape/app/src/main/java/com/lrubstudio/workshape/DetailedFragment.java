@@ -153,14 +153,14 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             // new product: create it
             if (MainActivity.getLastRequestedProduct().isNewQrCode())
                 // build and run request
-                new DbRequest(this, null).execute(DbProduct.buildRequestProductAdd(getActivity(),
+                DbRequest.createRequest(this, null).execute(DbProduct.buildRequestProductAdd(getActivity(),
                         qrCode, date, reference, fournisseur, refFournisseur,
                         longueurInitiale, largeur, grammage,
                         typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
                 // product to update: update it
             else
                 // build and run request
-                new DbRequest(this, null).execute(DbProduct.buildRequestProductUpdate(getActivity(),
+                DbRequest.createRequest(this, null).execute(DbProduct.buildRequestProductUpdate(getActivity(),
                         qrCode, date, reference, fournisseur, refFournisseur,
                         longueurInitiale, largeur, grammage,
                         typeDeTissus, dateArrivee, transportFrigo, lieuActuel));

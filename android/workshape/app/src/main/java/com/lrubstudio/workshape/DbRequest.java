@@ -30,48 +30,43 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
     public static final int DBERR_UNKNOWN = 4;
 
     // connection internals
-    private Connection connection;
-    private int lastError = DBERR_OK;
-    private String lastErrorString;
+    protected int lastError = DBERR_OK;
+    protected String lastErrorString;
 
     // internals
-    private String requestName = null;
+    protected String requestName = null;
     public AsyncResponse delegate = null;
 
     // default
     public DbRequest() { }
+
     public DbRequest(AsyncResponse delegate, String requestName)
     {
         this.delegate = delegate;
         this.requestName = requestName;
     }
 
+    // factory
+    public static DbRequest createRequest(AsyncResponse delegate, String requestName)
+    {
+        return new DbRequestMySql(delegate, requestName);
+    }
+
     // to be overloaded
     public String getDriverClass()
     {
         // jtds for mysql
-        return new String("com.mysql.jdbc.Driver");
+        return null;
     }
 
     public String getConnectionString()
     {
-        // jtds driver for mysql
-        String connectionString = "jdbc:mysql://"
-                + ConfigurationActivity.configuration.serverIp
-                + ":" + ConfigurationActivity.configuration.serverPort
-                + "/" + ConfigurationActivity.configuration.database;
-        return connectionString;
+        return null;
     }
 
     public Properties getConnectionProperty()
     {
-         // jtds driver for mysql
-        Integer timeoutMs = Integer.parseInt(ConfigurationActivity.configuration.connectionTimeoutS) * 1000;
-        Properties prop = new Properties();
-        prop.setProperty("user", ConfigurationActivity.configuration.user);
-        prop.setProperty("password", ConfigurationActivity.configuration.password);
-        prop.setProperty("connectTimeout", String.valueOf(timeoutMs));
-        return prop;
+        return null;
     }
 
     // helper for callers
@@ -82,7 +77,7 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
         void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString);
     }
 
-    private class DbRequestException extends Exception
+    protected class DbRequestException extends Exception
     {
         DbRequestException(int reason) { dbRequestReason = reason; }
         public int dbRequestReason;
@@ -104,88 +99,13 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
     }
 
     // AsyncTask extents
+    // implementation classes must create a new new ArrayList<Map> and fill with a list of maps
+    // containing couls "column name", "column value", like
+    // { {{"column1 name", "value11"} , {"column2 name", "value12"}},
+    //   {{"column1 name", "value21"} , {"column2 name", "value22"}}
     protected ArrayList<Map> doInBackground(String... request)
     {
-        ResultSet set = null;
-        ArrayList<Map> mapList = null;
-        int columnsCount = 0;
-
-        if (Debug.NO_DB)
-        {
-            if (Debug.SIMULATE_PRODUCT_NEW)
-            {
-                mapList = DbProduct.setDbgValuesNew();
-            }
-            else if (Debug.SIMULATE_PRODUCT_OUT)
-            {
-                mapList = DbProduct.setDbgValuesOut();
-            }
-            else if (Debug.SIMULATE_PRODUCT_IN)
-            {
-                mapList = DbProduct.setDbgValuesIn();
-            }
-        }
-        else
-        {
-            if (connect())
-            {
-                try
-                {
-                    // execute query
-                    PreparedStatement st = connection.prepareStatement(request[0]);
-                    set = st.executeQuery();
-                    if (set == null)
-                        throw (new DbRequestException(DBERR_CONNECTION_FAILED));
-
-                    // there must be columns and rows
-                    ResultSetMetaData rsmd = set.getMetaData();
-                    if (rsmd == null)
-                        throw(new DbRequestException(DBERR_REQUEST_ERROR));
-
-                    // no entry ? ok but result is null
-                    columnsCount = rsmd.getColumnCount();
-                    if (columnsCount <= 0 || !set.first())
-                        throw(new DbRequestException(DBERR_OK));
-
-                    // make result array
-                    int row = 0;
-                    mapList = new ArrayList<Map>();
-                    set.beforeFirst();
-
-                    while(set.next())
-                    {
-                        if (!mapList.add(new HashMap()))
-                            throw(new DbRequestException(DBERR_REQUEST_MEMORY_ERROR));
-
-                        // add columns in result row
-                        int i;
-                        for (i = 1; i <= columnsCount; i++)
-                        {
-                            String columnName = rsmd.getColumnName(i);
-                            if (columnName.length() > 0)
-                                mapList.get(row).put(columnName, set.getString(i));
-                            Log.e("DbRequest", "field:" + columnName + " : " + set.getString(i));
-                        }
-
-                        row++;
-                    }
-                }
-                catch(DbRequestException e)
-                {
-                    lastError = e.dbRequestReason;
-                    lastErrorString = e.getMessage();
-                }
-                catch (Exception e)
-                {
-                    lastError = DBERR_CONNECTION_FAILED;
-                    lastErrorString = e.getMessage();
-                }
-            }
-            else
-                lastError = DBERR_CONNECTION_FAILED;
-        }
-
-        return mapList;
+        return null;
     }
 
     protected void onProgressUpdate(Integer... progress)
@@ -197,36 +117,5 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
     {
         // call request callback set by caller
         delegate.dbRequestFinished(requestName, result, lastError, lastErrorString);
-    }
-
-    private boolean connect()
-    {
-        boolean is_connected;
-
-        if (Debug.NO_DB)
-        {
-            is_connected = true;
-        }
-        else
-        {
-            try
-            {
-                Class.forName(getDriverClass());
-                connection = DriverManager.getConnection(getConnectionString(), getConnectionProperty());
-                is_connected = true;
-            }
-            catch (SQLException e)
-            {
-                is_connected = false;
-                lastErrorString = e.toString();
-            }
-            catch (Exception e)
-            {
-                is_connected = false;
-                lastErrorString = e.toString();
-            }
-        }
-
-        return is_connected;
     }
 }
