@@ -69,18 +69,32 @@ public class DbProduct
     //
     static public String buildRequestProductView(Context context, String qrCode)
     {
-        String request = context.getString(R.string.request_product);
+        String request;
+        if (Debug.NO_DB)
+            request = context.getString(R.string.request_product_SQLite);
+        else
+            request = context.getString(R.string.request_product);
         return request.replaceAll("#qr_code", qrCode);
     }
 
     static public String buildRequestProductList(Context context)
     {
-        return context.getString(R.string.request_product_list);
+        String request;
+        if (Debug.NO_DB)
+            request = context.getString(R.string.request_product_list_SQLite);
+        else
+            request = context.getString(R.string.request_product_list);
+        return request;
     }
 
     static public String buildRequestProductIn(Context context, String qrCode, String date, String longueurConsommee, String temps_hors_gel, String lieuActuel)
     {
-        String request = context.getString(R.string.request_product_in);
+        String request;
+        if (Debug.NO_DB)
+            request = context.getString(R.string.request_product_in_SQLite);
+        else
+            request = context.getString(R.string.request_product_in);
+
         request = request.replaceAll("#qr_code", qrCode);
         request = request.replaceAll("#date", date);
         request = request.replaceAll("#longueur_consommee", longueurConsommee);
@@ -91,22 +105,32 @@ public class DbProduct
 
     static public String buildRequestProductOut(Context context, String qrCode, String date)
     {
-        String request = context.getString(R.string.request_product_out);
+        String request;
+        if (Debug.NO_DB)
+            request = context.getString(R.string.request_product_out_SQLite);
+        else
+            request = context.getString(R.string.request_product_out);
+
         request = request.replaceAll("#qr_code", qrCode);
         request = request.replaceAll("#date", date);
         return request;
     }
 
     static public String buildRequestProductAdd(Context context, String qrCode, String date,
-                                                String reference, String fournisseur, String refFournisseur,
+                                                String name, String fournisseur, String refFournisseur,
                                                 String longueurInitiale, String largeur, String grammage,
                                                 String typeDeTissus, String dateArrivee, String transportFrigo,
                                                 String lieuActuel)
     {
-        String request = context.getString(R.string.request_product_add);
+        String request;
+        if (Debug.NO_DB)
+            request = context.getString(R.string.request_product_add_SQLite);
+        else
+            request = context.getString(R.string.request_product_add);
+
         request = request.replaceAll("#qr_code", qrCode);
         request = request.replaceAll("#date", date);
-        request = request.replaceAll("#reference", reference);
+        request = request.replaceAll("#name", name);
         request = request.replaceAll("#fournisseur", fournisseur);
         request = request.replaceAll("#ref_fournisseur", refFournisseur);
         request = request.replaceAll("#longueur_initiale", longueurInitiale);
@@ -120,15 +144,21 @@ public class DbProduct
     }
 
     static public String buildRequestProductUpdate(Context context, String qrCode, String date,
-                                                String reference, String fournisseur, String refFournisseur,
+                                                String name, String fournisseur, String refFournisseur,
                                                 String longueurInitiale, String largeur, String grammage,
                                                 String typeDeTissus, String dateArrivee, String transportFrigo,
                                                 String lieuActuel)
     {
-        String request = context.getString(R.string.request_product_update);
+        String request;
+        if (Debug.NO_DB)
+            request = context.getString(R.string.request_product_update_SQLite);
+        else
+            request = context.getString(R.string.request_product_update);
+
+        request = context.getString(R.string.request_product_update);
         request = request.replaceAll("#qr_code", qrCode);
         request = request.replaceAll("#date", date);
-        request = request.replaceAll("#reference", reference);
+        request = request.replaceAll("#name", name);
         request = request.replaceAll("#fournisseur", fournisseur);
         request = request.replaceAll("#ref_fournisseur", refFournisseur);
         request = request.replaceAll("#longueur_initiale", longueurInitiale);
@@ -143,7 +173,12 @@ public class DbProduct
 
     static public String buildRequestProductUpdateNote(Context context, String qrCode, String date, String note)
     {
-        String request = context.getString(R.string.request_product_update_note);
+        String request;
+        if (Debug.NO_DB)
+            request = context.getString(R.string.request_product_update_note_SQLite);
+        else
+            request = context.getString(R.string.request_product_update_note);
+
         request = request.replaceAll("#qr_code", qrCode);
         request = request.replaceAll("#date", date);
         request = request.replaceAll("#note", note);
@@ -212,61 +247,6 @@ public class DbProduct
     static public String timeNowToString(Context context)
     {
         return new SimpleDateFormat(context.getString(R.string.date_format_to_mysql)).format(new Date());
-    }
-
-    static public ArrayList<Map> setDbgValuesNew()
-    {
-        return null;
-    }
-
-    static public ArrayList<Map> setDbgValuesOut()
-    {
-        Map tmp_map = new HashMap();
-        tmp_map.put("qr_code", "abcd1234");
-        tmp_map.put("idproduct", "123456");
-        tmp_map.put("reference", "product ref");
-        tmp_map.put("fournisseur", "Fournisseur");
-        tmp_map.put("ref_fournisseur", "Ref Fournisseur");
-        tmp_map.put("longueur_initiale", "25.00");
-        tmp_map.put("longueur_actuelle", "7.50");
-        tmp_map.put("largeur", "1.25");
-        tmp_map.put("grammage", "1 kg / m2");
-        tmp_map.put("type_de_tissus", "Sergé");
-        tmp_map.put("date_arrivee", "01/01/2016");
-        tmp_map.put("transport_frigo", "Oui");
-        tmp_map.put("lieu_actuel", "frigo");
-        tmp_map.put("lieu_depuis", "01/01/2016");
-        tmp_map.put("temps_hors_gel_total", "02:30");
-        tmp_map.put("note", "Note sur la pièce");
-
-        ArrayList<Map> mapList = new ArrayList<Map>();
-        mapList.add(tmp_map);
-        return mapList;
-    }
-
-    static public ArrayList<Map> setDbgValuesIn()
-    {
-        Map tmp_map = new HashMap();
-        tmp_map.put("qr_code", "abcd1234");
-        tmp_map.put("idproduct", "123456");
-        tmp_map.put("reference", "product ref");
-        tmp_map.put("fournisseur", "Fournisseur");
-        tmp_map.put("ref_fournisseur", "Ref Fournisseur");
-        tmp_map.put("longueur_initiale", "25.00");
-        tmp_map.put("longueur_actuelle", "7.50");
-        tmp_map.put("largeur", "1.25");
-        tmp_map.put("grammage", "1 kg / m2");
-        tmp_map.put("type_de_tissus", "Sergé");
-        tmp_map.put("date_arrivee", "01/01/2016");
-        tmp_map.put("transport_frigo", "Oui");
-        tmp_map.put("lieu_actuel", "");
-        tmp_map.put("lieu_depuis", "17/10/2016 15:28");
-        tmp_map.put("temps_hors_gel_total", "02:30");
-        tmp_map.put("note", "Note sur la pièce");
-
-        ArrayList<Map> mapList = new ArrayList<Map>();
-        mapList.add(tmp_map);
-        return mapList;
     }
 
     public boolean isProductOut()

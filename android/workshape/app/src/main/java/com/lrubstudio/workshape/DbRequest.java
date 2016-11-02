@@ -49,7 +49,10 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
     // factory
     public static DbRequest createRequest(AsyncResponse delegate, String requestName)
     {
-        return new DbRequestMySql(delegate, requestName);
+        if (Debug.NO_DB)
+            return new DbRequestSQLite(delegate, requestName);
+        else
+            return new DbRequestMySql(delegate, requestName);
     }
 
     // to be overloaded

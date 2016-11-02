@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.lrubstudio.workshape"
           xmlns:android="http://schemas.android.com/apk/res/android">
+
     # for MySQL JDBC connections
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    # for SQLite db (debug purpose only)
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"

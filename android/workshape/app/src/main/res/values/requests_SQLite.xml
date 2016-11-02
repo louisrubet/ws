@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="request_product_SQLite">select * from product where qr_code=\"#qr_code\"</string>
+    <string name="request_product_list_SQLite">select qr_code, name from product"</string>
+    <string name="request_product_out_SQLite">call product_out(\"#qr_code\",\"#date\",null)</string>
+    <string name="request_product_in_SQLite">call product_in(\"#qr_code\",\"#date\",\"#longueur_consommee\",\"#temps_hors_gel\",\"#lieu_actuel\")</string>
+    <string name="request_product_add_SQLite">
+        insert into product(qr_code, name, fournisseur, ref_fournisseur, longueur_initiale, longueur_actuelle, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis, temps_hors_gel_total)
+		    values(\"#qr_code\", \"#name\", \"#fournisseur\", \"#ref_fournisseur\", \"#longueur_initiale\", \"#longueur_initiale\", \"#largeur\", \"#grammage\", \"#type_de_tissus\", \"#datarrivee\", \"#transport_frigo\", \"#lieu_actuel\", \"#date\", 0);
+    </string>
+    <string name="request_product_update_SQLite">call product_update(\"#qr_code\",\"#date\",\"#reference\",\"#fournisseur\",\"#ref_fournisseur\",\"#longueur_initiale\",\"#largeur\",\"#grammage\",\"#type_de_tissus\",\"#datarrivee\",\"#transport_frigo\",\"#lieu_actuel\");</string>
+    <string name="request_product_update_note_SQLite">call product_update_note(\"#qr_code\",\"#date\",\"#note\")</string>
+</resources>

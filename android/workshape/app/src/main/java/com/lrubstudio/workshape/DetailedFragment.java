@@ -43,7 +43,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         {
             // no, fill MMI views from db fields
             int[] edits = new int [] {
-                    R.id.editReference, R.id.editFournisseur, R.id.editRefFournisseur,
+                    R.id.editName, R.id.editFournisseur, R.id.editRefFournisseur,
                     R.id.editTransportFrigo, R.id.editLongueurInitiale, R.id.buttonDateArrivee,
                     R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus
             };
@@ -139,7 +139,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         {
             String qrCode = MainActivity.getLastRequestedProduct().getQrCode();
             String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
-            String reference = ((EditText) getView().findViewById(R.id.editReference)).getText().toString();
+            String name = ((EditText) getView().findViewById(R.id.editName)).getText().toString();
             String fournisseur = ((EditText) getView().findViewById(R.id.editFournisseur)).getText().toString();
             String refFournisseur = ((EditText) getView().findViewById(R.id.editRefFournisseur)).getText().toString();
             String longueurInitiale = ((EditText) getView().findViewById(R.id.editLongueurInitiale)).getText().toString();
@@ -154,14 +154,14 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             if (MainActivity.getLastRequestedProduct().isNewQrCode())
                 // build and run request
                 DbRequest.createRequest(this, null).execute(DbProduct.buildRequestProductAdd(getActivity(),
-                        qrCode, date, reference, fournisseur, refFournisseur,
+                        qrCode, date, name, fournisseur, refFournisseur,
                         longueurInitiale, largeur, grammage,
                         typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
                 // product to update: update it
             else
                 // build and run request
                 DbRequest.createRequest(this, null).execute(DbProduct.buildRequestProductUpdate(getActivity(),
-                        qrCode, date, reference, fournisseur, refFournisseur,
+                        qrCode, date, name, fournisseur, refFournisseur,
                         longueurInitiale, largeur, grammage,
                         typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
         }

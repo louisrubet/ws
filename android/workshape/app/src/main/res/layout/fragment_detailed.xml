@@ -19,7 +19,7 @@
                           android:text="@string/name" />
 
                 <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editReference" />
+                          android:id="@+id/editName" />
 
             </TableRow>
 

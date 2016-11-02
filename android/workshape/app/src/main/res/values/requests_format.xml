@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="date_format_to_mysql">dd/MM/yyyy HH:mm</string>
+    <string name="date_format_to_android">dd/MM/yyyy HH:mm</string>
+    <string name="time_format_to_android">HH:mm</string>
+    <string name="lieu_de_stockage">frigo</string>
+    <string name="lieu_de_sortie">sortie</string>
+</resources>
