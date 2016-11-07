@@ -8,6 +8,23 @@
         insert into product(qr_code, name, fournisseur, ref_fournisseur, longueur_initiale, longueur_actuelle, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis, temps_hors_gel_total)
 		    values(\"#qr_code\", \"#name\", \"#fournisseur\", \"#ref_fournisseur\", \"#longueur_initiale\", \"#longueur_initiale\", \"#largeur\", \"#grammage\", \"#type_de_tissus\", \"#datarrivee\", \"#transport_frigo\", \"#lieu_actuel\", \"#date\", 0);
     </string>
-    <string name="request_product_update_SQLite">call product_update(\"#qr_code\",\"#date\",\"#reference\",\"#fournisseur\",\"#ref_fournisseur\",\"#longueur_initiale\",\"#largeur\",\"#grammage\",\"#type_de_tissus\",\"#datarrivee\",\"#transport_frigo\",\"#lieu_actuel\");</string>
-    <string name="request_product_update_note_SQLite">call product_update_note(\"#qr_code\",\"#date\",\"#note\")</string>
+    <string name="request_product_update_SQLite">
+        update product
+            set name = \"#name\",
+            fournisseur = \"#fournisseur\",
+            ref_fournisseur = \"#ref_fournisseur\",
+            longueur_initiale = \"#longueur_initiale\",
+            largeur = \"#largeur\",
+            grammage = \"#grammage\",
+            type_de_tissus = \"#type_de_tissus\",
+            date_arrivee = \"#datarrivee\",
+            transport_frigo = \"#transport_frigo\",
+            lieu_actuel = \"#lieu_actuel\"
+		where qr_code = \"#qr_code\";
+    </string>
+    <string name="request_product_update_note_SQLite">
+        update product
+            set note=\"#note\"
+        where qr_code = \"#qr_code\";
+    </string>
 </resources>

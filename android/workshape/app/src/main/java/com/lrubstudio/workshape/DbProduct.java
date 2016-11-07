@@ -155,7 +155,6 @@ public class DbProduct
         else
             request = context.getString(R.string.request_product_update);
 
-        request = context.getString(R.string.request_product_update);
         request = request.replaceAll("#qr_code", qrCode);
         request = request.replaceAll("#date", date);
         request = request.replaceAll("#name", name);
