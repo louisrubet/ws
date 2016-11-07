@@ -3,8 +3,6 @@ package com.lrubstudio.workshape;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -17,8 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class ListActivity extends AppCompatActivity implements DbRequest.AsyncResponse, AdapterView.OnItemClickListener
@@ -185,7 +181,7 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 if (type == ListAdapterDb.LIST_ITEM)
                     view = (View)inflater.inflate(R.layout.layout_list_item, null);
                 else if (type == ListAdapterDb.HEADER_ITEM)
-                    view = (View)inflater.inflate(R.layout.layout_header_item, null);
+                    view = (View)inflater.inflate(R.layout.layout_list_header_item, null);
             }
             else
             {
@@ -261,7 +257,7 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                         holder.View=getItem(position).getView(inflater, convertView);
                         break;
                     case HEADER_ITEM:
-                        convertView = inflater.inflate(R.layout.layout_header_item, null);
+                        convertView = inflater.inflate(R.layout.layout_list_header_item, null);
                         holder.View=getItem(position).getView(inflater, convertView);
                         break;
                 }

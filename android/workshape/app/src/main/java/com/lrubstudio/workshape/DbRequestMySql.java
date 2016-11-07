@@ -105,6 +105,9 @@ public class DbRequestMySql extends DbRequest
 
                     row++;
                 }
+
+                //TODO
+                // clear des objets créés
             }
             catch(DbRequestException e)
             {

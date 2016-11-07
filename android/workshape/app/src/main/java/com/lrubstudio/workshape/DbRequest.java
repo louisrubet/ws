@@ -55,6 +55,14 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
             return new DbRequestMySql(delegate, requestName);
     }
 
+    public static DbRequest createCommand(AsyncResponse delegate, String requestName)
+    {
+        if (Debug.NO_DB)
+            return new DbRequestSQLite(delegate, requestName, true);
+        else
+            return new DbRequestMySql(delegate, requestName);
+    }
+
     // to be overloaded
     public String getDriverClass()
     {

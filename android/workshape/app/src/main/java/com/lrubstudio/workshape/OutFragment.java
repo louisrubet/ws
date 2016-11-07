@@ -83,7 +83,7 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
     {
         // build then run request
         String qrCode=((EditText)getView().findViewById(R.id.editOutQRCode)).getText().toString();
-        DbRequest.createRequest(this, null).execute(DbProduct.buildRequestProductOut(getActivity(), qrCode, DbProduct.timeNowToString(getActivity())));
+        DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductOut(getActivity(), qrCode, DbProduct.timeNowToString(getActivity())));
     }
 
     @Override

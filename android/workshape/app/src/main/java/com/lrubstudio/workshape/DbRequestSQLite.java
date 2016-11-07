@@ -21,11 +21,28 @@ import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
 public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorFactory
 {
     SQLiteDatabase database;
+    boolean isCommand = false;
 
     // construction
     public DbRequestSQLite(AsyncResponse delegate, String requestName)
     {
         super(delegate, requestName);
+
+        // open
+        try
+        {
+            database = openOrCreateDatabase("/data/data/com.lrubstudio.workshape/local.db", this, null);
+            createStructure();
+        }
+        catch (Exception e)
+        {
+        }
+    }
+
+    public DbRequestSQLite(AsyncResponse delegate, String requestName, boolean isCommand)
+    {
+        super(delegate, requestName);
+        this.isCommand = isCommand;
 
         // open
         try
@@ -85,6 +102,14 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
     // AsyncTask extents
     protected ArrayList<Map> doInBackground(String... request)
     {
+        if (isCommand)
+            return doCommand(request);
+        else
+            return doRequest(request);
+    }
+
+    protected ArrayList<Map> doRequest(String... request)
+    {
         ArrayList<Map> mapList = null;
 
         try
@@ -101,7 +126,7 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
                 int row = 0;
 
                 cursor.moveToFirst();
-                while(!cursor.isLast())
+                while(!cursor.isAfterLast())
                 {
                     if (mapList == null)
                         mapList = new ArrayList<Map>();
@@ -122,6 +147,7 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
                     cursor.moveToNext();
                 }
             }
+            cursor.close();
         }
         catch (DbRequestException e)
         {
@@ -140,5 +166,26 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
         }
 
         return mapList;
+    }
+
+    protected ArrayList<Map> doCommand(String... request)
+    {
+        try
+        {
+            // execute command
+            database.execSQL(request[0]);
+        }
+        catch(SQLiteException e)
+        {
+            lastError = DBERR_REQUEST_ERROR;
+            lastErrorString = e.getMessage();
+        }
+        catch (Exception e)
+        {
+            lastError = DBERR_CONNECTION_FAILED;
+            lastErrorString = e.getMessage();
+        }
+
+        return null;
     }
 }
