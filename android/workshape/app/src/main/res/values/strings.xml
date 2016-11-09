@@ -11,6 +11,7 @@
     <string name="activity_product_in">Entrer dans le stock</string>
     <string name="activity_edit_detailed_title">Détail</string>
     <string name="activity_edit_note_title">Note</string>
+    <string name="activity_edit_histo_title">Historique</string>
     <string name="activity_add_title">Ajout</string>
     <string name="activity_configuration_title">Configuration</string>
     <string name="activity_configuration_title_version">Configuration - V</string>

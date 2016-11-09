@@ -7,5 +7,5 @@ package com.lrubstudio.workshape;
 public final class Debug
 {
     // db simulation
-    public static boolean NO_DB = false;
+    public static boolean NO_DB = true;
 }
