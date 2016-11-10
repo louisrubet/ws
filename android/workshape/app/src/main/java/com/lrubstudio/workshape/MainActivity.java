@@ -197,11 +197,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 MainActivity.getLastRequestedProduct().setNewQrCode(true);
 
                 // -> run edit activity (cause: add)
-                Intent intent = new Intent(this, EditAddActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("mode", EditAddActivity.MODE_ADD);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                startActivity(new Intent(this, EditAddActivity.class));
             }
         }
     }

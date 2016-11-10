@@ -13,24 +13,31 @@ public class EditAddActivity extends AppCompatActivity
         implements ViewPager.OnPageChangeListener, SyncDialog.NoticeSyncDialogListener
 {
     // mode (add or edit)
-    public static final int MODE_NONE = 0;
-    public static final int MODE_ADD = 1;
-    public static final int MODE_EDIT_OUT = 2;
-    public static final int MODE_EDIT_IN = 3;
-    private int mode = MODE_NONE;
+    public enum Mode
+    {
+        none,
+        add,
+        edit_out,
+        edit_in
+    }
+    private Mode mode = Mode.none;
 
     // mode edit (product to be put out or in): fragments to be shown by the pager
-    private static final int EDIT_PAGE_IN_OUT = 0;
-    private static final int EDIT_PAGE_DETAILED = 1;
-    private static final int EDIT_PAGE_NOTE = 2;
-    private static final int EDIT_PAGE_HISTO = 3;
-    private static final int EDIT_PAGES_NB = 4;
-    private static final int EDIT_DEFAULT_PAGE = EDIT_PAGE_IN_OUT;
+    private enum EditPage
+    {
+        in_out,
+        detailed,
+        note,
+        histo
+    }
+    private static final EditPage editDefaultPage = EditPage.in_out;
 
     // mode add: fragments to be shown by the pager
-    private static final int ADD_PAGE_DETAILED = 0;
-    private static final int ADD_PAGES_NB = 1;
-    private static final int ADD_DEFAULT_PAGE = ADD_PAGE_DETAILED;
+    private enum AddPage
+    {
+        detailed
+    }
+    private static final AddPage addDefaultPage = AddPage.detailed;
 
     // fragments in a pager
     CollectionPagerAdapter collectionPagerAdapter;
@@ -57,11 +64,11 @@ public class EditAddActivity extends AppCompatActivity
 
         // determine mode: add, edit for out, edit for in
         if (MainActivity.getLastRequestedProduct().isNewQrCode())
-            mode = MODE_ADD;
+            mode = Mode.add;
         else if (MainActivity.getLastRequestedProduct().isProductOut())
-            mode = MODE_EDIT_IN;
+            mode = Mode.edit_in;
         else
-            mode = MODE_EDIT_OUT;
+            mode = Mode.edit_out;
 
         // pager
         collectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager(), this);
@@ -78,16 +85,16 @@ public class EditAddActivity extends AppCompatActivity
         // set pager title
         switch(mode)
         {
-            case MODE_ADD:
-                viewPager.setCurrentItem(ADD_DEFAULT_PAGE);
+            case add:
+                viewPager.setCurrentItem(addDefaultPage.ordinal());
                 getSupportActionBar().setTitle(R.string.activity_add_title);
                 break;
-            case MODE_EDIT_OUT:
-                viewPager.setCurrentItem(EDIT_DEFAULT_PAGE);
+            case edit_out:
+                viewPager.setCurrentItem(editDefaultPage.ordinal());
                 getSupportActionBar().setTitle(R.string.activity_product_out);
                 break;
-            case MODE_EDIT_IN:
-                viewPager.setCurrentItem(EDIT_DEFAULT_PAGE);
+            case edit_in:
+                viewPager.setCurrentItem(editDefaultPage.ordinal());
                 getSupportActionBar().setTitle(R.string.activity_product_in);
                 break;
             default:
@@ -110,50 +117,51 @@ public class EditAddActivity extends AppCompatActivity
 
     public void onPageSelected (int position)
     {
-        if (mode == MODE_EDIT_OUT)
+        EditPage page = EditPage.values()[position];
+        switch(mode)
         {
-            switch (position)
-            {
-                case EDIT_PAGE_IN_OUT:
-                    getSupportActionBar().setTitle(R.string.activity_product_out);
-                    break;
-                case EDIT_PAGE_DETAILED:
-                    getSupportActionBar().setTitle(R.string.activity_edit_detailed_title);
-                    break;
-                case EDIT_PAGE_NOTE:
-                    getSupportActionBar().setTitle(R.string.activity_edit_note_title);
-                    break;
-                case EDIT_PAGE_HISTO:
-                    getSupportActionBar().setTitle(R.string.activity_edit_histo_title);
-                    break;
-            }
-        }
-        else if (mode == MODE_EDIT_IN)
-        {
-            switch (position)
-            {
-                case EDIT_PAGE_IN_OUT:
-                    getSupportActionBar().setTitle(R.string.activity_product_in);
-                    break;
-                case EDIT_PAGE_DETAILED:
-                    getSupportActionBar().setTitle(R.string.activity_edit_detailed_title);
-                    break;
-                case EDIT_PAGE_NOTE:
-                    getSupportActionBar().setTitle(R.string.activity_edit_note_title);
-                    break;
-                case EDIT_PAGE_HISTO:
-                    getSupportActionBar().setTitle(R.string.activity_edit_histo_title);
-                    break;
-            }
-        }
-        else if (mode == MODE_ADD)
-        {
-            switch (position)
-            {
-                case ADD_PAGE_DETAILED:
-                    getSupportActionBar().setTitle(R.string.activity_add_title);
-                    break;
-            }
+            case edit_out:
+                switch (page)
+                {
+                    case in_out:
+                        getSupportActionBar().setTitle(R.string.activity_product_out);
+                        break;
+                    case detailed:
+                        getSupportActionBar().setTitle(R.string.activity_edit_detailed_title);
+                        break;
+                    case note:
+                        getSupportActionBar().setTitle(R.string.activity_edit_note_title);
+                        break;
+                    case histo:
+                        getSupportActionBar().setTitle(R.string.activity_edit_histo_title);
+                        break;
+                }
+                break;
+            case edit_in:
+                switch (page)
+                {
+                    case in_out:
+                        getSupportActionBar().setTitle(R.string.activity_product_in);
+                        break;
+                    case detailed:
+                        getSupportActionBar().setTitle(R.string.activity_edit_detailed_title);
+                        break;
+                    case note:
+                        getSupportActionBar().setTitle(R.string.activity_edit_note_title);
+                        break;
+                    case histo:
+                        getSupportActionBar().setTitle(R.string.activity_edit_histo_title);
+                        break;
+                }
+                break;
+            case add:
+                switch (page)
+                {
+                    case detailed:
+                        getSupportActionBar().setTitle(R.string.activity_add_title);
+                        break;
+                }
+                break;
         }
     }
 
@@ -204,59 +212,59 @@ public class EditAddActivity extends AppCompatActivity
         }
 
         @Override
-        public Fragment getItem(int i)
+        public Fragment getItem(int item)
         {
-            // mode edit
-            if (parentActivity.mode == MODE_EDIT_OUT)
+            EditPage page = EditPage.values()[item];
+            switch(parentActivity.mode)
             {
-                switch (i)
-                {
-                    // main fragment
-                    case EditAddActivity.EDIT_PAGE_IN_OUT:
-                        return new OutFragment();
-                    // detailed
-                    case EditAddActivity.EDIT_PAGE_DETAILED:
-                        return new DetailedFragment();
-                    // note
-                    case EditAddActivity.EDIT_PAGE_NOTE:
-                        return new NoteFragment();
-                    // histo
-                    case EditAddActivity.EDIT_PAGE_HISTO:
-                        return new HistoFragment();
-                    default:
-                        break;
-                }
-            }
-            else if (parentActivity.mode == MODE_EDIT_IN)
-            {
-                switch (i)
-                {
-                    // main fragment
-                    case EditAddActivity.EDIT_PAGE_IN_OUT:
-                        return new InFragment();
-                    // detailed
-                    case EditAddActivity.EDIT_PAGE_DETAILED:
-                        return new DetailedFragment();
-                    // note
-                    case EditAddActivity.EDIT_PAGE_NOTE:
-                        return new NoteFragment();
-                    // histo
-                    case EditAddActivity.EDIT_PAGE_HISTO:
-                        return new HistoFragment();
-                    default:
-                        break;
-                }
-            }
-            else if (parentActivity.mode == MODE_ADD)
-            {
-                switch (i)
-                {
-                    // main fragment
-                    case EditAddActivity.ADD_PAGE_DETAILED:
-                        return new DetailedFragment();
-                    default:
-                        break;
-                }
+                case edit_out:
+                    switch (page)
+                    {
+                        // main fragment
+                        case in_out:
+                            return new OutFragment();
+                        // detailed
+                        case detailed:
+                            return new DetailedFragment();
+                        // note
+                        case note:
+                            return new NoteFragment();
+                        // histo
+                        case histo:
+                            return new HistoFragment();
+                        default:
+                            break;
+                    }
+                    break;
+                case edit_in:
+                    switch (page)
+                    {
+                        // main fragment
+                        case in_out:
+                            return new InFragment();
+                        // detailed
+                        case detailed:
+                            return new DetailedFragment();
+                        // note
+                        case note:
+                            return new NoteFragment();
+                        // histo
+                        case histo:
+                            return new HistoFragment();
+                        default:
+                            break;
+                    }
+                    break;
+                case add:
+                    switch (page)
+                    {
+                        // main fragment
+                        case detailed:
+                            return new DetailedFragment();
+                        default:
+                            break;
+                    }
+                    break;
             }
             return null;
         }
@@ -264,10 +272,16 @@ public class EditAddActivity extends AppCompatActivity
         @Override
         public int getCount()
         {
-            if (parentActivity.mode == MODE_ADD)
-                return parentActivity.ADD_PAGES_NB;
-            else
-                return parentActivity.EDIT_PAGES_NB;
+            int count = 0;
+            switch(parentActivity.mode)
+            {
+                case add:
+                    count = AddPage.values().length;
+                case edit_in:
+                case edit_out:
+                    count = EditPage.values().length;
+            }
+            return count;
         }
 
         @Override
