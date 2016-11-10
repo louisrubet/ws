@@ -100,6 +100,7 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
     }
 
     // AsyncTask extents
+    @Override
     protected ArrayList<Map> doInBackground(String... request)
     {
         if (isCommand)
@@ -108,7 +109,7 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
             return doRequest(request);
     }
 
-    protected ArrayList<Map> doRequest(String... request)
+    private ArrayList<Map> doRequest(String... request)
     {
         ArrayList<Map> mapList = null;
 
@@ -168,7 +169,7 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
         return mapList;
     }
 
-    protected ArrayList<Map> doCommand(String... request)
+    private ArrayList<Map> doCommand(String... request)
     {
         try
         {

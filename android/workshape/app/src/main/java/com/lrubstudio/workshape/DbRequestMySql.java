@@ -45,6 +45,7 @@ public class DbRequestMySql extends DbRequest
         return connectionString;
     }
 
+    @Override
     public Properties getConnectionProperty()
     {
         // jtds driver for mysql
@@ -57,6 +58,7 @@ public class DbRequestMySql extends DbRequest
     }
 
     // AsyncTask extents
+    @Override
     protected ArrayList<Map> doInBackground(String... request)
     {
         ResultSet set = null;
