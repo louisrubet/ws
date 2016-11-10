@@ -50,7 +50,7 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
     }
 
     @Override
-    public void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString)
+    public void dbRequestFinished(String requestName, ArrayList<Map> result, DbRequest.Error dbError, String dbErrorString)
     {
         ArrayList<Item> valuesArray;
 
@@ -63,7 +63,7 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 // stop the turning thing
                 findViewById(R.id.progressBar).setVisibility(View.GONE);
 
-                if (dbError == DbRequest.DBERR_OK)
+                if (dbError == DbRequest.Error.ok)
                 {
                     if (mapArrayList == null)
                     {

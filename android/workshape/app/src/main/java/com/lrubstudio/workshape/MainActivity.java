@@ -86,14 +86,14 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
     }
 
     @Override
-    public void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString)
+    public void dbRequestFinished(String requestName, ArrayList<Map> result, DbRequest.Error dbError, String dbErrorString)
     {
         try
         {
             // stop the turning thing
             findViewById(R.id.progressBar).setVisibility(View.GONE);
 
-            if (dbError == DbRequest.DBERR_OK)
+            if (dbError == DbRequest.Error.ok)
             {
                 if (result == null)
                 {
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         }
         catch(Exception e)
         {
-            Toast.makeText(this, DbRequest.errorCategory(this, DbRequest.DBERR_REQUEST_ERROR), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, DbRequest.errorCategory(this, DbRequest.Error.request_error), Toast.LENGTH_LONG).show();
         }
     }
 

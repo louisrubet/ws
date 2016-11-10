@@ -67,21 +67,21 @@ public class DbRequestMySql extends DbRequest
         {
             try
             {
-                // execute query
+                // execute query (first string only)
                 PreparedStatement st = connection.prepareStatement(request[0]);
                 set = st.executeQuery();
                 if (set == null)
-                    throw (new DbRequestException(DBERR_CONNECTION_FAILED));
+                    throw (new DbRequestException(Error.connection_failed));
 
                 // there must be columns and rows
                 ResultSetMetaData rsmd = set.getMetaData();
                 if (rsmd == null)
-                    throw(new DbRequestException(DBERR_REQUEST_ERROR));
+                    throw(new DbRequestException(Error.request_error));
 
                 // no entry ? ok but result is null
                 columnsCount = rsmd.getColumnCount();
                 if (columnsCount <= 0 || !set.first())
-                    throw(new DbRequestException(DBERR_OK));
+                    throw(new DbRequestException(Error.ok));
 
                 // make result array
                 int row = 0;
@@ -91,7 +91,7 @@ public class DbRequestMySql extends DbRequest
                 while(set.next())
                 {
                     if (!mapList.add(new HashMap()))
-                        throw(new DbRequestException(DBERR_REQUEST_MEMORY_ERROR));
+                        throw(new DbRequestException(Error.request_memory_error));
 
                     // add columns in result row
                     int i;
@@ -116,12 +116,12 @@ public class DbRequestMySql extends DbRequest
             }
             catch (Exception e)
             {
-                lastError = DBERR_CONNECTION_FAILED;
+                lastError = Error.connection_failed;
                 lastErrorString = e.getMessage();
             }
         }
         else
-            lastError = DBERR_CONNECTION_FAILED;
+            lastError = Error.connection_failed;
 
         return mapList;
     }

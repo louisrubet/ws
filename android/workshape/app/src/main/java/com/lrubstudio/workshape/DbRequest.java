@@ -23,14 +23,17 @@ import java.util.Properties;
 public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
 {
     // errors
-    public static final int DBERR_OK = 0;
-    public static final int DBERR_CONNECTION_FAILED = 1;
-    public static final int DBERR_REQUEST_ERROR = 2;
-    public static final int DBERR_REQUEST_MEMORY_ERROR = 3;
-    public static final int DBERR_UNKNOWN = 4;
+    public enum Error
+    {
+        ok,
+        connection_failed,
+        request_error,
+        request_memory_error,
+        unknown
+    }
 
     // connection internals
-    protected int lastError = DBERR_OK;
+    protected Error lastError = Error.ok;
     protected String lastErrorString;
 
     // internals
@@ -85,17 +88,17 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
     // DbRequest external user MUST implement this interface
     public interface AsyncResponse
     {
-        void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString);
+        void dbRequestFinished(String requestName, ArrayList<Map> result, DbRequest.Error dbError, String dbErrorString);
     }
 
     protected class DbRequestException extends Exception
     {
-        DbRequestException(int reason) { dbRequestReason = reason; }
-        public int dbRequestReason;
+        DbRequestException(Error reason) { dbRequestReason = reason; }
+        public Error dbRequestReason;
     }
 
     // error category
-    public static String errorCategory(Context context, int error)
+    public static String errorCategory(Context context, Error error)
     {
         String[] category = { context.getString(R.string.dbrequest_no_error),
                 context.getString(R.string.dbrequest_connection_failed),
@@ -103,10 +106,10 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
                 context.getString(R.string.dbrequest_memory_error),
                 context.getString(R.string.dbrequest_unknown)
         };
-        if (error >= DBERR_OK && error <= DBERR_UNKNOWN)
-            return category[error];
+        if (error.ordinal() >= 0 && error.ordinal() <= Error.values().length)
+            return category[error.ordinal()];
         else
-            return category[DBERR_UNKNOWN];
+            return category[Error.unknown.ordinal()];
     }
 
     // AsyncTask extents

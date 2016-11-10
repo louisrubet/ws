@@ -120,7 +120,7 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
             {
                 int columnsCount = cursor.getColumnCount();
                 if (columnsCount <= 0)
-                    throw(new DbRequestException(DBERR_OK));
+                    throw(new DbRequestException(Error.ok));
 
                 // make result array
                 int row = 0;
@@ -131,7 +131,7 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
                     if (mapList == null)
                         mapList = new ArrayList<Map>();
                     if (!mapList.add(new HashMap()))
-                        throw(new DbRequestException(DBERR_REQUEST_MEMORY_ERROR));
+                        throw(new DbRequestException(Error.request_memory_error));
 
                     // add columns in result row
                     int i;
@@ -156,12 +156,12 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
         }
         catch(SQLiteException e)
         {
-            lastError = DBERR_REQUEST_ERROR;
+            lastError = Error.request_error;
             lastErrorString = e.getMessage();
         }
         catch (Exception e)
         {
-            lastError = DBERR_CONNECTION_FAILED;
+            lastError = Error.connection_failed;
             lastErrorString = e.getMessage();
         }
 
@@ -177,12 +177,12 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
         }
         catch(SQLiteException e)
         {
-            lastError = DBERR_REQUEST_ERROR;
+            lastError = Error.request_error;
             lastErrorString = e.getMessage();
         }
         catch (Exception e)
         {
-            lastError = DBERR_CONNECTION_FAILED;
+            lastError = Error.connection_failed;
             lastErrorString = e.getMessage();
         }
 

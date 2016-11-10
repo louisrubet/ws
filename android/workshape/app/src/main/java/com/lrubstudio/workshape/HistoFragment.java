@@ -43,9 +43,9 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
     }
 
     @Override
-    public void dbRequestFinished(String requestName, ArrayList<Map> result, int dbError, String dbErrorString)
+    public void dbRequestFinished(String requestName, ArrayList<Map> result, DbRequest.Error dbError, String dbErrorString)
     {
-        if (dbError == DbRequest.DBERR_OK)
+        if (dbError == DbRequest.Error.ok)
         {
             // toast ok !
             Toast.makeText(getActivity(), getActivity().getString(R.string.note_sauvee), Toast.LENGTH_LONG).show();
