@@ -214,11 +214,12 @@ public class EditAddActivity extends AppCompatActivity
         @Override
         public Fragment getItem(int item)
         {
-            EditPage page = EditPage.values()[item];
             switch(parentActivity.mode)
             {
                 case edit_out:
-                    switch (page)
+                {
+                    EditPage editPage = EditPage.values()[item];
+                    switch (editPage)
                     {
                         // main fragment
                         case in_out:
@@ -235,9 +236,12 @@ public class EditAddActivity extends AppCompatActivity
                         default:
                             break;
                     }
-                    break;
+                }
+                break;
                 case edit_in:
-                    switch (page)
+                {
+                    EditPage editPage = EditPage.values()[item];
+                    switch (editPage)
                     {
                         // main fragment
                         case in_out:
@@ -254,9 +258,12 @@ public class EditAddActivity extends AppCompatActivity
                         default:
                             break;
                     }
-                    break;
+                }
+                break;
                 case add:
-                    switch (page)
+                {
+                    AddPage addPage = AddPage.values()[item];
+                    switch (addPage)
                     {
                         // main fragment
                         case detailed:
@@ -264,7 +271,8 @@ public class EditAddActivity extends AppCompatActivity
                         default:
                             break;
                     }
-                    break;
+                }
+                break;
             }
             return null;
         }
@@ -277,9 +285,11 @@ public class EditAddActivity extends AppCompatActivity
             {
                 case add:
                     count = AddPage.values().length;
+                    break;
                 case edit_in:
                 case edit_out:
                     count = EditPage.values().length;
+                    break;
             }
             return count;
         }
