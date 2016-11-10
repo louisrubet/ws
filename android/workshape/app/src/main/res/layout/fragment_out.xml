@@ -9,9 +9,7 @@
 
     <LinearLayout style="@style/Vertical_80Purcent">
 
-        <TableLayout style="@style/CommonTableLayout"
-                     xmlns:android="http://schemas.android.com/apk/res/android"
-                     xmlns:tools="http://schemas.android.com/tools">
+        <TableLayout style="@style/CommonTableLayout">
 
             <TableRow style="@style/CommonTableRow">
 

@@ -25,15 +25,11 @@
                       android:focusable="true"
                       android:focusableInTouchMode="true" >
 
-            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                         xmlns:tools="http://schemas.android.com/tools"
-                         style="@style/CommonTableLayout"
-                         android:layout_below="@id/my_AppBarlayout">
+            <TableLayout style="@style/CommonTableLayout">
 
                 <TableRow style="@style/CommonTableRow" >
 
                     <TextView style="@style/TextViewForTableRow"
-                        android:id="@+id/textView1000"
                         android:text="@string/conf_server_hostname" />
 
                     <EditText style="@style/EditTextForTableRow"
@@ -45,7 +41,6 @@
                 <TableRow style="@style/CommonTableRow" >
 
                     <TextView style="@style/TextViewForTableRow"
-                        android:id="@+id/textView1001"
                         android:text="@string/conf_server_port" />
 
                     <EditText style="@style/EditTextForTableRow"
@@ -57,7 +52,6 @@
                 <TableRow style="@style/CommonTableRow" >
 
                     <TextView style="@style/TextViewForTableRow"
-                        android:id="@+id/textView1002"
                         android:text="@string/conf_database_name" />
 
                     <EditText style="@style/EditTextForTableRow"
@@ -69,7 +63,6 @@
                 <TableRow style="@style/CommonTableRow" >
 
                     <TextView style="@style/TextViewForTableRow"
-                        android:id="@+id/textView1003"
                         android:text="@string/conf_database_user" />
 
                     <EditText style="@style/EditTextForTableRow"
@@ -81,7 +74,6 @@
                 <TableRow style="@style/CommonTableRow" >
 
                     <TextView style="@style/TextViewForTableRow"
-                        android:id="@+id/textView1004"
                         android:text="@string/conf_database_password" />
 
                     <EditText style="@style/EditTextForTableRow"
@@ -93,7 +85,6 @@
                 <TableRow style="@style/CommonTableRow" >
 
                     <TextView style="@style/TextViewForTableRow"
-                        android:id="@+id/textView1005"
                         android:text="@string/conf_database_timeout" />
 
                     <EditText style="@style/EditTextForTableRow"
@@ -105,7 +96,6 @@
                 <TableRow style="@style/CommonTableRow" >
 
                     <TextView style="@style/TextViewForTableRow"
-                        android:id="@+id/textView1006"
                         android:text="@string/conf_lieu_par_defaut" />
 
                     <EditText style="@style/EditTextForTableRow"
@@ -117,7 +107,6 @@
                 <TableRow style="@style/CommonTableRow" >
 
                     <TextView style="@style/TextViewForTableRow"
-                              android:id="@+id/textView1008"
                               android:text="@string/conf_flash_par_defaut" />
 
                     <Switch style="@style/SwitchForTableRow"
@@ -130,7 +119,6 @@
                 <TableRow style="@style/CommonTableRow" >
 
                     <TextView style="@style/TextViewForTableRow"
-                        android:id="@+id/textView1007"
                         android:text="@string/conf_password" />
 
                     <EditText style="@style/EditTextForTableRow"

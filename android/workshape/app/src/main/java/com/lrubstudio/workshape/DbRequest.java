@@ -86,7 +86,7 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
     }
 
     // AsyncTask extents
-    // implementation classes must create a new new ArrayList<Map> and fill with a list of maps
+    // implementation classes must create a new ArrayList<Map> and fill with a list of maps
     // containing couls "column name", "column value", like
     // { {{"column1 name", "value11"} , {"column2 name", "value12"}},
     //   {{"column1 name", "value21"} , {"column2 name", "value22"}}
