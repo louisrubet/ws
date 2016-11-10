@@ -33,4 +33,35 @@
         insert into event(qr_code, event, date)
             values(\"#qr_code\", "update note", \"#date\");
     </string>
+
+    <string name="create_db_SQLite">
+            CREATE TABLE IF NOT EXISTS product(
+                    qr_code VARCHAR(45),
+                    name VARCHAR(45),
+                    fournisseur VARCHAR(45),
+                    ref_fournisseur VARCHAR(45),
+                    longueur_initiale DECIMAL(10,2),
+                    longueur_actuelle DECIMAL(10,2),
+                    largeur DECIMAL(10,2),
+                    grammage VARCHAR(45),
+                    type_de_tissus VARCHAR(45),
+                    date_arrivee DATETIME,
+                    transport_frigo VARCHAR(10),
+                    lieu_actuel VARCHAR(45),
+                    lieu_depuis DATETIME,
+                    temps_hors_gel_total INT(11),
+                    nb_decongelation INT(11),
+                    note TEXT);
+            CREATE TABLE IF NOT EXISTS event(
+                    idevent INT(11),
+                    qr_code VARCHAR(45),
+                    date DATETIME,
+                    champ1 VARCHAR(45),
+                    valeur1 VARCHAR(45),
+                    champ2 VARCHAR(45),
+                    valeur2 VARCHAR(45),
+                    champ3 VARCHAR(45),
+                    valeur3 VARCHAR(45));
+    </string>
+
 </resources>

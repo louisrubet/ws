@@ -1,5 +1,6 @@
 package com.lrubstudio.workshape;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteCursorDriver;
@@ -23,6 +24,15 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
     SQLiteDatabase database;
     boolean isCommand = false;
 
+    static String initDbCommand = null;
+    static boolean initDbCommandDone = false;
+
+    // set the command to construct once the database
+    public static void setInitDbCommand(String initDbCommand)
+    {
+        DbRequestSQLite.initDbCommand = initDbCommand;
+    }
+
     // construction
     public DbRequestSQLite(AsyncResponse delegate, String requestName)
     {
@@ -31,8 +41,12 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
         // open
         try
         {
+            // open or create and open
             database = openOrCreateDatabase("/data/data/com.lrubstudio.workshape/local.db", this, null);
-            createStructure();
+
+            // init once
+            if (!DbRequestSQLite.initDbCommandDone && DbRequestSQLite.initDbCommand != null)
+                doInitDb();
         }
         catch (Exception e)
         {
@@ -47,8 +61,12 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
         // open
         try
         {
+            // open or create and open
             database = openOrCreateDatabase("/data/data/com.lrubstudio.workshape/local.db", this, null);
-            createStructure();
+
+            // init once
+            if (!DbRequestSQLite.initDbCommandDone && DbRequestSQLite.initDbCommand != null)
+                doInitDb();
         }
         catch (Exception e)
         {
@@ -60,42 +78,24 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
         return new SQLiteCursor(db, masterQuery, editTable, query);
     }
 
-    private void createStructure()
+    //
+    private void doInitDb()
     {
         try
         {
-            database.execSQL("CREATE TABLE IF NOT EXISTS product(" +
-                    "qr_code VARCHAR(45)," +
-                    "name VARCHAR(45)," +
-                    "fournisseur VARCHAR(45)," +
-                    "ref_fournisseur VARCHAR(45)," +
-                    "longueur_initiale DECIMAL(10,2)," +
-                    "longueur_actuelle DECIMAL(10,2)," +
-                    "largeur DECIMAL(10,2)," +
-                    "grammage VARCHAR(45)," +
-                    "type_de_tissus VARCHAR(45)," +
-                    "date_arrivee DATETIME," +
-                    "transport_frigo VARCHAR(10)," +
-                    "lieu_actuel VARCHAR(45)," +
-                    "lieu_depuis DATETIME," +
-                    "temps_hors_gel_total INT(11)," +
-                    "nb_decongelation INT(11)," +
-                    "note TEXT" +
-                    ");");
-            database.execSQL("CREATE TABLE IF NOT EXISTS event(" +
-                    "idevent INT(11)," +
-                    "qr_code VARCHAR(45)," +
-                    "date DATETIME," +
-                    "champ1 VARCHAR(45)," +
-                    "valeur1 VARCHAR(45)," +
-                    "champ2 VARCHAR(45)," +
-                    "valeur2 VARCHAR(45)," +
-                    "champ3 VARCHAR(45)," +
-                    "valeur3 VARCHAR(45)" +
-                    ");");
+            // execute command
+            database.execSQL(DbRequestSQLite.initDbCommand);
+            initDbCommandDone = true;
+        }
+        catch(SQLiteException e)
+        {
+            lastError = Error.request_error;
+            lastErrorString = e.getMessage();
         }
         catch (Exception e)
         {
+            lastError = Error.connection_failed;
+            lastErrorString = e.getMessage();
         }
     }
 
