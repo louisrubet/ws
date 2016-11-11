@@ -36,7 +36,7 @@ CREATE TABLE `event` (
   `champ3` varchar(45) DEFAULT NULL,
   `valeur3` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idevent`,`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +168,7 @@ BEGIN
 		values(qr_code_, name_, fournisseur_, ref_fournisseur_, longueur_initiale_dec_, longueur_initiale_dec_, largeur_dec_, grammage_, type_de_tissus_, date_arrivee_dt_, transport_frigo_, lieu_actuel_, date_now_dt_, 0);
 
 	# then record an event
-    insert into event(qr_code, event, date, champ1, valeur1) values(qr_code_, "new", date_now_dt_, "name", name_);
+    insert into event(qr_code, event, date, champ1, valeur1) values(qr_code_, "new", date_now_dt_, "Nom", name_);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -189,6 +189,7 @@ CREATE DEFINER=`workshape`@`%` PROCEDURE `product_in`(in qr_code_ nvarchar(45),
 	in date_now_ nvarchar(45),
     in longueur_consommee_ nvarchar(45),
     in temps_hors_gel_ int(11),
+    in string_temps_hors_gel_ nvarchar(45),
     in lieu_actuel_ nvarchar(45))
 BEGIN
 	declare date_now_dt_ DateTime;
@@ -217,9 +218,9 @@ BEGIN
 	# then record an event
     insert into event(qr_code, event, date, champ1, valeur1, champ2, valeur2, champ3, valeur3)
 		values(qr_code_, "in", date_now_dt_,
-				"lieu_actuel", "frigo",
-                "longueur_consommee", longueur_consommee_dec_,
-                "temps_hors_gel", cast(temps_hors_gel_ as nchar));
+				"Lieu", "frigo",
+                "Consommé", longueur_consommee_dec_,
+                "Hors gel", string_temps_hors_gel_);
 
 END ;;
 DELIMITER ;
@@ -414,4 +415,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-01 23:00:47
+-- Dump completed on 2016-11-11 13:15:22

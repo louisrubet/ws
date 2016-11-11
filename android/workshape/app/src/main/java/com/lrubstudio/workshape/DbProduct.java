@@ -87,7 +87,17 @@ public class DbProduct
         return request;
     }
 
-    static public String buildRequestProductIn(Context context, String qrCode, String date, String longueurConsommee, String temps_hors_gel, String lieuActuel)
+    static public String buildRequestEventList(Context context, String qrCode)
+    {
+        String request;
+        if (Debug.NO_DB)
+            request = context.getString(R.string.request_event_list_SQLite);
+        else
+            request = context.getString(R.string.request_event_list);
+        return request.replaceAll("#qr_code", qrCode);
+    }
+
+    static public String buildRequestProductIn(Context context, String qrCode, String date, String longueurConsommee, String temps_hors_gel, String string_temps_hors_gel, String lieuActuel)
     {
         String request;
         if (Debug.NO_DB)
@@ -99,6 +109,7 @@ public class DbProduct
         request = request.replaceAll("#date", date);
         request = request.replaceAll("#longueur_consommee", longueurConsommee);
         request = request.replaceAll("#temps_hors_gel", temps_hors_gel);
+        request = request.replaceAll("#string_temps_hors_gel", string_temps_hors_gel);
         request = request.replaceAll("#lieu_actuel", lieuActuel);
         return request;
     }

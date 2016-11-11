@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout style="@style/Vertical_ListView_Item"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView style="@style/TextViewForHistoDate"
+              android:id="@+id/textDate" />
+
+    <TableLayout style="@style/CommonTableLayout">
+
+        <TableRow style="@style/CommonTableRow">
+
+            <TextView style="@style/TextViewForTableRowHistoLeft"
+                      android:text="@string/qr_code" />
+
+            <TextView style="@style/TextViewForTableRowHistoRight"
+                      android:id="@+id/textListQrCode"/>
+
+        </TableRow>
+
+        <TableRow style="@style/CommonTableRow">
+
+            <TextView style="@style/TextViewForTableRowHistoLeft"
+                      android:id="@+id/textListContent1" />
+
+            <TextView style="@style/TextViewForTableRowHistoRight"
+                      android:id="@+id/textListValue1" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <Space style="@style/ShortVerticalSpace"/>
+
+</LinearLayout>

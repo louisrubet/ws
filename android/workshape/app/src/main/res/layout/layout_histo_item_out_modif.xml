@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout style="@style/Vertical_ListView_Item"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView style="@style/TextViewForHistoDate"
+              android:id="@+id/textDate" />
+
+    <Space style="@style/ShortVerticalSpace"/>
+
+ </LinearLayout>

@@ -109,4 +109,10 @@
     <string name="dbrequest_unknown">Erreur inconnue d\'accès à la base de données</string>
     <string name="db_err_connection_failed">Erreur de connection à la base de données</string>
 
+    <!-- histo list titles -->
+    <string name="histo_list_creation">Création</string>
+    <string name="histo_list_update">Modif.</string>
+    <string name="histo_list_in">Entrée</string>
+    <string name="histo_list_out">Sortie</string>
+
 </resources>

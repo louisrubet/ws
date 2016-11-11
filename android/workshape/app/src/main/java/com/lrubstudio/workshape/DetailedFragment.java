@@ -73,7 +73,7 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
                                 public void afterTextChanged(Editable s)
                                 {
                                     String entry = ((EditText)view.findViewById(id)).getText().toString();
-                                    if (entry.equals(originalString))
+                                    if (entry.equals(originalString) || (originalString==null && entry.length()==0))
                                     {
                                         ((EditAddActivity)getActivity()).setDetailedFragmentModified(false);
                                         view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
