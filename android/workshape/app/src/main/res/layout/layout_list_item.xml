@@ -7,10 +7,10 @@
     <TableRow style="@style/CommonTableRow">
 
         <TextView style="@style/TextViewForTableRowHistoLeft"
-                  android:id="@+id/textListContent1" />
+                  android:id="@+id/textListContent2" />
 
         <TextView style="@style/TextViewForTableRowHistoRight"
-                  android:id="@+id/textListContent2" />
+                  android:id="@+id/textListContent1" />
 
     </TableRow>
 

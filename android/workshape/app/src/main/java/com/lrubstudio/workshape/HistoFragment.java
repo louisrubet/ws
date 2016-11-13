@@ -57,6 +57,7 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
         Map map = new HashMap<String, String>();
         map.put(ListItemType.creation.name(), getActivity().getString(R.string.histo_list_creation));
         map.put(ListItemType.update.name(), getActivity().getString(R.string.histo_list_update));
+        map.put(ListItemType.update_note.name(), getActivity().getString(R.string.histo_list_update_note));
         map.put(ListItemType.in.name(), getActivity().getString(R.string.histo_list_in));
         map.put(ListItemType.out.name(), getActivity().getString(R.string.histo_list_out));
         ListItemType.setNames(map);
@@ -136,6 +137,7 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
     {
         creation,
         update,
+        update_note,
         in,
         out;
 
@@ -185,6 +187,7 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
             {
                 case "new": this.type = ListItemType.creation; break;
                 case "update": this.type = ListItemType.update; break;
+                case "update note": this.type = ListItemType.update_note; break;
                 case "in": this.type = ListItemType.in; break;
                 case "out": this.type = ListItemType.out; break;
                 default: this.type = ListItemType.update; break;
@@ -211,6 +214,7 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
                         view = (View)inflater.inflate(R.layout.layout_histo_item_in, null);
                         break;
                     case update:
+                    case update_note:
                     case out:
                         view = (View)inflater.inflate(R.layout.layout_histo_item_out_modif, null);
                         break;
@@ -332,6 +336,7 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
                         holder.View=getItem(position).getView(inflater, convertView);
                         break;
                     case update:
+                    case update_note:
                     case out:
                         convertView = (View)inflater.inflate(R.layout.layout_histo_item_out_modif, null);
                         holder.View=getItem(position).getView(inflater, convertView);

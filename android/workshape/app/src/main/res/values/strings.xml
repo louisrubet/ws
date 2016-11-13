@@ -30,7 +30,7 @@
 
     <!-- edit add activity
     -->
-    <string name="name">Nom du rouleau</string>
+    <string name="name">Nom</string>
     <string name="qr_code">QR code</string>
     <string name="fournisseur">Fournisseur</string>
     <string name="ref_fourn">Ref. fourn.</string>
@@ -111,7 +111,8 @@
 
     <!-- histo list titles -->
     <string name="histo_list_creation">Création</string>
-    <string name="histo_list_update">Modif.</string>
+    <string name="histo_list_update">Données modifiées</string>
+    <string name="histo_list_update_note">Note modifiée</string>
     <string name="histo_list_in">Entrée</string>
     <string name="histo_list_out">Sortie</string>
 

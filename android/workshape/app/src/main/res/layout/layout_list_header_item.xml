@@ -9,11 +9,11 @@
 
     <TableRow style="@style/CommonTableRow">
 
-        <TextView style="@style/TextViewForTableRowInverted40p"
-                  android:id="@+id/textListContent1" />
-
-        <TextView style="@style/TextViewForTableRowInverted60p"
+        <TextView style="@style/TextViewForListHeaderLeft"
                   android:id="@+id/textListContent2" />
+
+        <TextView style="@style/TextViewForListHeaderRight"
+                  android:id="@+id/textListContent1" />
 
     </TableRow>
 

@@ -11,30 +11,30 @@
 
         <TableRow style="@style/CommonTableRow">
 
-            <TextView style="@style/TextViewForTableRowHistoLeft"
+            <TextView style="@style/TextViewForTableRowHistoLeft60p"
                       android:id="@+id/textListContent1" />
 
-            <TextView style="@style/TextViewForTableRowHistoRight"
+            <TextView style="@style/TextViewForTableRowHistoRight40p"
                       android:id="@+id/textListValue1" />
 
         </TableRow>
 
         <TableRow style="@style/CommonTableRow">
 
-            <TextView style="@style/TextViewForTableRowHistoLeft"
+            <TextView style="@style/TextViewForTableRowHistoLeft60p"
                       android:id="@+id/textListContent2" />
 
-            <TextView style="@style/TextViewForTableRowHistoRight"
+            <TextView style="@style/TextViewForTableRowHistoRight40p"
                       android:id="@+id/textListValue2" />
 
         </TableRow>
 
         <TableRow style="@style/CommonTableRow">
 
-            <TextView style="@style/TextViewForTableRowHistoLeft"
+            <TextView style="@style/TextViewForTableRowHistoLeft60p"
                       android:id="@+id/textListContent3" />
 
-            <TextView style="@style/TextViewForTableRowHistoRight"
+            <TextView style="@style/TextViewForTableRowHistoRight40p"
                       android:id="@+id/textListValue3" />
 
         </TableRow>

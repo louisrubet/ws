@@ -36,8 +36,28 @@ CREATE TABLE `event` (
   `champ3` varchar(45) DEFAULT NULL,
   `valeur3` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idevent`,`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `event_list`
+--
+
+DROP TABLE IF EXISTS `event_list`;
+/*!50001 DROP VIEW IF EXISTS `event_list`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `event_list` AS SELECT 
+ 1 AS `event`,
+ 1 AS `qr_code`,
+ 1 AS `date`,
+ 1 AS `champ1`,
+ 1 AS `valeur1`,
+ 1 AS `champ2`,
+ 1 AS `valeur2`,
+ 1 AS `champ3`,
+ 1 AS `valeur3`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `product`
@@ -49,6 +69,7 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `qr_code` varchar(45) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
+  `date_creation` datetime DEFAULT NULL,
   `fournisseur` varchar(45) DEFAULT NULL,
   `ref_fournisseur` varchar(45) DEFAULT NULL,
   `longueur_initiale` decimal(10,2) DEFAULT NULL,
@@ -164,8 +185,8 @@ BEGIN
     if lieu_actuel_ = "" then set lieu_actuel_ = null; end if;
     
 	# added an entry in product table
-    insert into product(qr_code, name, fournisseur, ref_fournisseur, longueur_initiale, longueur_actuelle, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis, temps_hors_gel_total)
-		values(qr_code_, name_, fournisseur_, ref_fournisseur_, longueur_initiale_dec_, longueur_initiale_dec_, largeur_dec_, grammage_, type_de_tissus_, date_arrivee_dt_, transport_frigo_, lieu_actuel_, date_now_dt_, 0);
+    insert into product(qr_code, name, date_creation, fournisseur, ref_fournisseur, longueur_initiale, longueur_actuelle, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis, temps_hors_gel_total)
+		values(qr_code_, name_, date_now_dt_, fournisseur_, ref_fournisseur_, longueur_initiale_dec_, longueur_initiale_dec_, largeur_dec_, grammage_, type_de_tissus_, date_arrivee_dt_, transport_frigo_, lieu_actuel_, date_now_dt_, 0);
 
 	# then record an event
     insert into event(qr_code, event, date, champ1, valeur1) values(qr_code_, "new", date_now_dt_, "Nom", name_);
@@ -218,9 +239,9 @@ BEGIN
 	# then record an event
     insert into event(qr_code, event, date, champ1, valeur1, champ2, valeur2, champ3, valeur3)
 		values(qr_code_, "in", date_now_dt_,
-				"Lieu", "frigo",
-                "Consommé", longueur_consommee_dec_,
-                "Hors gel", string_temps_hors_gel_);
+				"Lieu de stockage", "frigo",
+                "Longueur consommée (m)", longueur_consommee_dec_,
+                "Temps hors gel (hh:mm)", string_temps_hors_gel_);
 
 END ;;
 DELIMITER ;
@@ -371,6 +392,24 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
+-- Final view structure for view `event_list`
+--
+
+/*!50001 DROP VIEW IF EXISTS `event_list`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`workshape`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `event_list` AS select `event`.`event` AS `event`,`event`.`qr_code` AS `qr_code`,date_format(`event`.`date`,'%d/%m/%Y %H:%i') AS `date`,`event`.`champ1` AS `champ1`,`event`.`valeur1` AS `valeur1`,`event`.`champ2` AS `champ2`,`event`.`valeur2` AS `valeur2`,`event`.`champ3` AS `champ3`,`event`.`valeur3` AS `valeur3` from `event` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `product_list`
 --
 
@@ -383,7 +422,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`workshape`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `product_list` AS select `product`.`qr_code` AS `qr_code`,coalesce(`product`.`name`,`product`.`qr_code`) AS `name` from `product` */;
+/*!50001 VIEW `product_list` AS select `product`.`qr_code` AS `qr_code`,coalesce(`product`.`name`,`product`.`qr_code`) AS `name` from `product` order by `product`.`date_creation` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -415,4 +454,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-11 13:15:22
+-- Dump completed on 2016-11-13 13:48:16

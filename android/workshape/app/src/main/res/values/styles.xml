@@ -75,44 +75,64 @@
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
-    <!-- TextView: histo, left side of TableRows (30% weight) -->
+    <!-- TextView: histo, left side of TableRows (short) -->
     <style name="TextViewForTableRowHistoLeft" parent="android:Widget.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_weight">0.40</item>
+        <item name="android:layout_weight">0.30</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
-    <!-- TextView: histo, right side of TableRows (70% weight) -->
+    <!-- TextView: histo, left side of TableRows (large) -->
+    <style name="TextViewForTableRowHistoLeft60p" parent="android:Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_weight">0.70</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+    <!-- TextView: histo, right side of TableRows (large) -->
     <style name="TextViewForTableRowHistoRight" parent="android:Widget.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_weight">0.60</item>
+        <item name="android:layout_weight">0.70</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
-    <!-- TextView: left side of TableRows (40% weight) -->
-    <style name="TextViewForTableRowInverted40p" parent="android:Widget.TextView">
+    <!-- TextView: histo, right side of TableRows (short) -->
+    <style name="TextViewForTableRowHistoRight40p" parent="android:Widget.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_weight">0.40</item>
+        <item name="android:layout_weight">0.30</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+    <!-- TextView: left side of TableRows (30% weight) -->
+    <style name="TextViewForListHeaderLeft" parent="android:Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_weight">0.30</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorToolbarItem</item>
     </style>
 
-    <!-- TextView: left side of TableRows (60% weight) -->
-    <style name="TextViewForTableRowInverted60p" parent="android:Widget.TextView">
+    <!-- TextView: left side of TableRows (70% weight) -->
+    <style name="TextViewForListHeaderRight" parent="android:Widget.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_weight">0.60</item>
+        <item name="android:layout_weight">0.70</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:background">@color/colorPrimary</item>
