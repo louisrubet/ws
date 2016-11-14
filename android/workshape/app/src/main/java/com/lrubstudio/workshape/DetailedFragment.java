@@ -45,12 +45,12 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             int[] edits = new int [] {
                     R.id.editName, R.id.editFournisseur, R.id.editRefFournisseur,
                     R.id.editTransportFrigo, R.id.editLongueurInitiale, R.id.buttonDateArrivee,
-                    R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus
+                    R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus, R.id.editLieuActuel
             };
             String[] dbfields = new String [] {
                     DbProduct.name, DbProduct.fournisseur, DbProduct.refFournisseur,
                     DbProduct.transportFrigo, DbProduct.longueurInitiale, DbProduct.dateArrivee,
-                    DbProduct.largeur, DbProduct.grammage, DbProduct.typeDeTissus
+                    DbProduct.largeur, DbProduct.grammage, DbProduct.typeDeTissus, DbProduct.lieuActuel
             };
             MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
 
