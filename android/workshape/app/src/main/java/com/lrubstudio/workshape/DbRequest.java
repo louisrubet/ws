@@ -54,7 +54,7 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
     // factory
     public static DbRequest createRequest(AsyncResponse delegate, String requestName)
     {
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
             return new DbRequestSQLite(delegate, requestName);
         else
             return new DbRequestMySql(delegate, requestName);
@@ -62,7 +62,7 @@ public class DbRequest extends AsyncTask<String, Integer, ArrayList<Map>>
 
     public static DbRequest createCommand(AsyncResponse delegate, String requestName)
     {
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
             return new DbRequestSQLite(delegate, requestName, true);
         else
             return new DbRequestMySql(delegate, requestName);

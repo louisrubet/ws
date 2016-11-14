@@ -30,6 +30,17 @@
                 <TableRow style="@style/CommonTableRow" >
 
                     <TextView style="@style/TextViewForTableRow"
+                              android:text="@string/conf_database_local" />
+
+                    <Switch style="@style/SwitchForTableRow"
+                            android:id="@+id/switchLocalDb"
+                            android:onClick="onClickLocalDb"/>
+
+                </TableRow>
+
+                <TableRow style="@style/CommonTableRow" >
+
+                    <TextView style="@style/TextViewForTableRow"
                         android:text="@string/conf_server_hostname" />
 
                     <EditText style="@style/EditTextForTableRow"
@@ -114,8 +125,6 @@
 
                 </TableRow>
 
-                <Space style="@style/BigVerticalSpace"/>
-
                 <TableRow style="@style/CommonTableRow" >
 
                     <TextView style="@style/TextViewForTableRow"
@@ -127,7 +136,7 @@
 
                 </TableRow>
 
-                <Space style="@style/BigVerticalSpace"/>
+                <Space style="@style/ShortVerticalSpace"/>
 
             </TableLayout>
 

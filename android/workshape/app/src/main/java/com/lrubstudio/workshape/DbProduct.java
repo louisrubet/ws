@@ -70,7 +70,7 @@ public class DbProduct
     static public String buildRequestProductView(Context context, String qrCode)
     {
         String request;
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
             request = context.getString(R.string.request_product_SQLite);
         else
             request = context.getString(R.string.request_product);
@@ -80,7 +80,7 @@ public class DbProduct
     static public String buildRequestProductList(Context context)
     {
         String request;
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
             request = context.getString(R.string.request_product_list_SQLite);
         else
             request = context.getString(R.string.request_product_list);
@@ -90,7 +90,7 @@ public class DbProduct
     static public String buildRequestEventList(Context context, String qrCode)
     {
         String request;
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
             request = context.getString(R.string.request_event_list_SQLite);
         else
             request = context.getString(R.string.request_event_list);
@@ -100,7 +100,7 @@ public class DbProduct
     static public String buildRequestProductIn(Context context, String qrCode, String date, String longueurConsommee, String temps_hors_gel, String string_temps_hors_gel, String lieuActuel)
     {
         String request;
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
             request = context.getString(R.string.request_product_in_SQLite);
         else
             request = context.getString(R.string.request_product_in);
@@ -117,7 +117,7 @@ public class DbProduct
     static public String buildRequestProductOut(Context context, String qrCode, String date)
     {
         String request;
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
             request = context.getString(R.string.request_product_out_SQLite);
         else
             request = context.getString(R.string.request_product_out);
@@ -134,7 +134,7 @@ public class DbProduct
                                                 String lieuActuel)
     {
         String request;
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
             request = context.getString(R.string.request_product_add_SQLite);
         else
             request = context.getString(R.string.request_product_add);
@@ -161,7 +161,7 @@ public class DbProduct
                                                 String lieuActuel)
     {
         String request;
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
             request = context.getString(R.string.request_product_update_SQLite);
         else
             request = context.getString(R.string.request_product_update);
@@ -184,7 +184,7 @@ public class DbProduct
     static public String buildRequestProductUpdateNote(Context context, String qrCode, String date, String note)
     {
         String request;
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
             request = context.getString(R.string.request_product_update_note_SQLite);
         else
             request = context.getString(R.string.request_product_update_note);

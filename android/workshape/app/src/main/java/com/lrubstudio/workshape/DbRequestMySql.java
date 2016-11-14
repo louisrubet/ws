@@ -132,7 +132,7 @@ public class DbRequestMySql extends DbRequest
     {
         boolean is_connected;
 
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
         {
             is_connected = true;
         }

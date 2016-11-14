@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         );
 
         // debug: create a db if not done
-        if (Debug.NO_DB)
+        if (ConfigurationActivity.configuration.localDb)
             DbRequestSQLite.setInitDbCommand(getString(R.string.create_db_SQLite));
     }
 

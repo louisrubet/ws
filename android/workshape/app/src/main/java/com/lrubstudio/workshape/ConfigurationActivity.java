@@ -29,6 +29,7 @@ public class ConfigurationActivity extends AppCompatActivity
         String lieuParDefaut;
         String confPassword;
         boolean flashParDefaut;
+        boolean localDb;
     }
 
     public static Configuration configuration;
@@ -59,6 +60,7 @@ public class ConfigurationActivity extends AppCompatActivity
                     configuration.lieuParDefaut = sharedPref.getString(context.getString(R.string.conf_lieu_par_defaut), "frigo");
                     configuration.flashParDefaut = sharedPref.getBoolean(context.getString(R.string.conf_flash_par_defaut), true);
                     configuration.confPassword = sharedPref.getString(context.getString(R.string.conf_password), "");
+                    configuration.localDb = sharedPref.getBoolean(context.getString(R.string.conf_database_local), false);
                 }
                 catch(Exception e)
                 {
@@ -132,7 +134,7 @@ public class ConfigurationActivity extends AppCompatActivity
         // Booleans
         //
         final Boolean originalFlashParDefaut = configuration.flashParDefaut;
-        ((Switch)findViewById(R.id.switchFlashParDefaut)).setChecked(configuration.flashParDefaut);
+        ((Switch)findViewById(R.id.switchFlashParDefaut)).setChecked(originalFlashParDefaut);
         ((Switch)findViewById(R.id.switchFlashParDefaut)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener()
                 {
@@ -146,8 +148,50 @@ public class ConfigurationActivity extends AppCompatActivity
                 }
         );
 
+        final Boolean originalLocalDb = configuration.localDb;
+        ((Switch)findViewById(R.id.switchLocalDb)).setChecked(originalLocalDb);
+        ((Switch)findViewById(R.id.switchLocalDb)).setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener()
+                {
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+                    {
+                        if (isChecked == originalLocalDb)
+                            findViewById(R.id.buttonApply).setVisibility(View.GONE);
+                        else
+                            findViewById(R.id.buttonApply).setVisibility(View.VISIBLE);
+                    }
+                }
+        );
+
         // button to save configuration
         findViewById(R.id.buttonApply).setVisibility(View.GONE);
+
+        // DB fields
+        setDbStateFromLocalDb(!configuration.localDb);
+    }
+
+    public void onClickLocalDb(View view)
+    {
+        Switch switchh = (Switch) view;
+        if (switchh != null)
+        {
+            // configuration
+            configuration.localDb = !switchh.isChecked();
+            setDbStateFromLocalDb(configuration.localDb);
+        }
+    }
+
+    private void setDbStateFromLocalDb(boolean localDb)
+    {
+        boolean enable = localDb;
+
+        // enable or disable db entries
+        findViewById(R.id.editServerHostname).setEnabled(enable);
+        findViewById(R.id.editServerPort).setEnabled(enable);
+        findViewById(R.id.editDatabaseName).setEnabled(enable);
+        findViewById(R.id.editDatabaseUser).setEnabled(enable);
+        findViewById(R.id.editDatabasePassword).setEnabled(enable);
+        findViewById(R.id.editDatabaseTimeout).setEnabled(enable);
     }
 
     public void onClickApply(View view)
@@ -160,6 +204,9 @@ public class ConfigurationActivity extends AppCompatActivity
             {
                 // save all parameters
                 SharedPreferences.Editor editor = sharedPref.edit();
+
+                configuration.localDb = ((Switch)findViewById(R.id.switchLocalDb)).isChecked();
+                editor.putBoolean(context.getString(R.string.conf_database_local), configuration.localDb);
 
                 configuration.serverIp = ((EditText)findViewById(R.id.editServerHostname)).getText().toString();
                 editor.putString(context.getString(R.string.conf_server_hostname), configuration.serverIp);
