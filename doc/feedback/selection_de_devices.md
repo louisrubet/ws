@@ -24,8 +24,5 @@ Blackview BV6000 IP68 Android 6.0 Smartphone étanche Outdoor 3GB RAM + 32Go ave
 
 [KENXINDA W8](https://www.amazon.fr/W8-CoreAndroid-Imperm%C3%A9able-Antipoussi%C3%A8re-Smartphone/dp/B01G56WBJA/ref=sr_1_11?s=electronics&ie=UTF8&qid=1477990638&sr=1-11&keywords=ip68) 5,5 Pouce 4G FDD-LTE Octa CoreAndroid 5,1 IP68 Imperméable étanche Antichoc Antipoussière Outdoor Smartphone 2GB RAM 16GB ROM Double SIM Card Double Camera Bluetooth FM MP3 MP4 Alarm(Jaune). 176€
 
-<<<<<<< HEAD
 [Land Rover A8 Smartphone](https://www.amazon.fr/Smartphone-Poussi%C3%A8re-Imperm%C3%A9able-antichoc-D%C3%A9bloqu%C3%A9/dp/B00EZNSUPU/ref=sr_1_14?s=electronics&ie=UTF8&qid=1477990638&sr=1-14&keywords=ip68) A8 Smartphone IP68 Étanche à La Poussière,Imperméable,antichoc 4 Pouces Android 4.4 5MP Caméra Dual SIM 3G WCDMA Débloqué(Jaune). 109€
-=======
-[A8 Smartphone](https://www.amazon.fr/Smartphone-Poussi%C3%A8re-Imperm%C3%A9able-antichoc-D%C3%A9bloqu%C3%A9/dp/B00EZNSUPU/ref=sr_1_14?s=electronics&ie=UTF8&qid=1477990638&sr=1-14&keywords=ip68) A8 Smartphone IP68 Étanche à La Poussière,Imperméable,antichoc 4 Pouces Android 4.4 5MP Caméra Dual SIM 3G WCDMA Débloqué(Jaune). 109€
->>>>>>> 49c01a7... selection
+
