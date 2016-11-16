@@ -54,7 +54,8 @@
                     nb_decongelation INT(11),
                     note TEXT);
             CREATE TABLE IF NOT EXISTS event(
-                    idevent INT(11),
+                    idevent INT(11) PRIMARY KEY AUTOINCREMENT,
+                    event VARCHAR(45),
                     qr_code VARCHAR(45),
                     date DATETIME,
                     champ1 VARCHAR(45),

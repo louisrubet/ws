@@ -104,7 +104,15 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
     protected ArrayList<Map> doInBackground(String... request)
     {
         if (isCommand)
-            return doCommand(request);
+        {
+            // request is a string array containing only 1 entry
+            // request[0] is a string eventually containing several commands
+            // separated by ";"
+            String[] commands = request[0].split(";");
+            for (int i = 0; i < commands.length; i++)
+                commands[i] = commands[i].concat(";");
+            return doCommand(commands);
+        }
         else
             return doRequest(request);
     }
@@ -169,12 +177,13 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
         return mapList;
     }
 
-    private ArrayList<Map> doCommand(String... request)
+    private ArrayList<Map> doCommand(String... commands)
     {
         try
         {
             // execute command
-            database.execSQL(request[0]);
+            for (String command : commands)
+                database.execSQL(command);
         }
         catch(SQLiteException e)
         {
