@@ -83,8 +83,15 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
     {
         try
         {
-            // execute command
-            database.execSQL(DbRequestSQLite.initDbCommand);
+            // request is a string array containing only 1 entry
+            // request[0] is a string eventually containing several commands
+            // separated by ";"
+            String[] commands = DbRequestSQLite.initDbCommand.split(";");
+            for (int i = 0; i < commands.length; i++)
+            {
+                commands[i] = commands[i].concat(";");
+                database.execSQL(commands[i]);
+            }
             initDbCommandDone = true;
         }
         catch(SQLiteException e)

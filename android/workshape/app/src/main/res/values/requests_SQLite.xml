@@ -9,7 +9,7 @@
         insert into product(qr_code, name, fournisseur, ref_fournisseur, longueur_initiale, longueur_actuelle, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis, temps_hors_gel_total)
 		    values(\"#qr_code\", \"#name\", \"#fournisseur\", \"#ref_fournisseur\", \"#longueur_initiale\", \"#longueur_initiale\", \"#largeur\", \"#grammage\", \"#type_de_tissus\", \"#datarrivee\", \"#transport_frigo\", \"#lieu_actuel\", \"#date\", 0);
         insert into event(qr_code, event, date, champ1, valeur1)
-            values(\"#qr_code\", "new", \"#date\", "name", \"#name\");
+            values(\"#qr_code\", \"new\", \"#date\", \"name\", \"#name\");
     </string>
     <string name="request_product_update_SQLite">
         update product
@@ -25,19 +25,30 @@
             lieu_actuel = \"#lieu_actuel\"
 		where qr_code = \"#qr_code\";
         insert into event(qr_code, event, date)
-            values(\"#qr_code\", "update", \"#date\");
+            values(\"#qr_code\", \"update\", \"#date\");
     </string>
     <string name="request_product_update_note_SQLite">
         update product
             set note=\"#note\"
         where qr_code = \"#qr_code\";
         insert into event(qr_code, event, date)
-            values(\"#qr_code\", "update note", \"#date\");
+            values(\"#qr_code\", \"update note\", \"#date\");
     </string>
 
     <string name="create_db_SQLite">
-            CREATE TABLE IF NOT EXISTS product(
+            CREATE TABLE IF NOT EXISTS event(
+                    idevent INTEGER PRIMARY KEY AUTOINCREMENT,
+                    event VARCHAR(45),
                     qr_code VARCHAR(45),
+                    date DATETIME,
+                    champ1 VARCHAR(45),
+                    valeur1 VARCHAR(45),
+                    champ2 VARCHAR(45),
+                    valeur2 VARCHAR(45),
+                    champ3 VARCHAR(45),
+                    valeur3 VARCHAR(45));
+            CREATE TABLE IF NOT EXISTS product(
+                    qr_code VARCHAR(45) PRIMARY KEY,
                     name VARCHAR(45),
                     fournisseur VARCHAR(45),
                     ref_fournisseur VARCHAR(45),
@@ -53,17 +64,6 @@
                     temps_hors_gel_total INT(11),
                     nb_decongelation INT(11),
                     note TEXT);
-            CREATE TABLE IF NOT EXISTS event(
-                    idevent INT(11) PRIMARY KEY AUTOINCREMENT,
-                    event VARCHAR(45),
-                    qr_code VARCHAR(45),
-                    date DATETIME,
-                    champ1 VARCHAR(45),
-                    valeur1 VARCHAR(45),
-                    champ2 VARCHAR(45),
-                    valeur2 VARCHAR(45),
-                    champ3 VARCHAR(45),
-                    valeur3 VARCHAR(45));
     </string>
 
 </resources>
