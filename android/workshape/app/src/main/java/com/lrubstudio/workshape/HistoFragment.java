@@ -312,48 +312,5 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
         {
             return getItem(position).getView(inflater, convertView);
         }
-
-        /*
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            HistoFragment.ListAdapterDb.ViewHolder holder = null;
-            ListItemType rowType = getItemType(position);
-            View View;
-
-            if (convertView == null)
-            {
-                holder = new HistoFragment.ListAdapterDb.ViewHolder();
-                switch (rowType)
-                {
-                    case creation:
-                        convertView = (View)inflater.inflate(R.layout.layout_histo_item_creation, null);
-                        holder.View=getItem(position).getView(inflater, convertView);
-                        break;
-                    case in:
-                        convertView = (View)inflater.inflate(R.layout.layout_histo_item_in, null);
-                        holder.View=getItem(position).getView(inflater, convertView);
-                        break;
-                    case update:
-                    case update_note:
-                    case out:
-                        convertView = (View)inflater.inflate(R.layout.layout_histo_item_out_modif, null);
-                        holder.View=getItem(position).getView(inflater, convertView);
-                        break;
-                }
-                convertView.setTag(holder);
-            }
-            else
-            {
-                holder = (HistoFragment.ListAdapterDb.ViewHolder)convertView.getTag();
-            }
-            return convertView;
-        }
-        */
-
-        public class ViewHolder
-        {
-            public  View View;
-        }
     }
 }
