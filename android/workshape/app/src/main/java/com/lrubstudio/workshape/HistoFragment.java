@@ -203,26 +203,21 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
         public View getView(LayoutInflater inflater, View convertView)
         {
             View view = null;
-            if (convertView == null)
+
+            // note convertView is not used here, because confusions were seen on BlackView BV6000 (bad view type used)
+            switch(type)
             {
-                switch(type)
-                {
-                    case creation:
-                        view = (View)inflater.inflate(R.layout.layout_histo_item_creation, null);
-                        break;
-                    case in:
-                        view = (View)inflater.inflate(R.layout.layout_histo_item_in, null);
-                        break;
-                    case update:
-                    case update_note:
-                    case out:
-                        view = (View)inflater.inflate(R.layout.layout_histo_item_out_modif, null);
-                        break;
-                }
-            }
-            else
-            {
-                view = convertView;
+                case creation:
+                    view = (View)inflater.inflate(R.layout.layout_histo_item_creation, null);
+                    break;
+                case in:
+                    view = (View)inflater.inflate(R.layout.layout_histo_item_in, null);
+                    break;
+                case update:
+                case update_note:
+                case out:
+                    view = (View)inflater.inflate(R.layout.layout_histo_item_out_modif, null);
+                    break;
             }
 
             if (view != null)
