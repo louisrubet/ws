@@ -404,7 +404,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`workshape`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `event_list` AS select `event`.`event` AS `event`,`event`.`qr_code` AS `qr_code`,date_format(`event`.`date`,'%d/%m/%Y %H:%i') AS `date`,`event`.`champ1` AS `champ1`,`event`.`valeur1` AS `valeur1`,`event`.`champ2` AS `champ2`,`event`.`valeur2` AS `valeur2`,`event`.`champ3` AS `champ3`,`event`.`valeur3` AS `valeur3` from `event` order by `event`.`date` desc */;
+/*!50001 VIEW `event_list` AS select `event`.`event` AS `event`,`event`.`qr_code` AS `qr_code`,date_format(`event`.`date`,'%d/%m/%Y %H:%i') AS `date`,`event`.`champ1` AS `champ1`,`event`.`valeur1` AS `valeur1`,`event`.`champ2` AS `champ2`,`event`.`valeur2` AS `valeur2`,`event`.`champ3` AS `champ3`,`event`.`valeur3` AS `valeur3` from `event` order by `event`.`idevent` desc,`event`.`date` desc */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -454,4 +454,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-07 15:39:02
+-- Dump completed on 2017-01-07 16:22:51
