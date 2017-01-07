@@ -82,7 +82,7 @@
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_weight">0.30</item>
         <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
     </style>
 
     <!-- TextView: histo, left side of TableRows (large) -->
@@ -92,7 +92,7 @@
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_weight">0.70</item>
         <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
     </style>
 
     <!-- TextView: histo, right side of TableRows (large) -->
