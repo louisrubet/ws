@@ -4,7 +4,7 @@ USE `workshapedb`;
 --
 -- Host: 192.168.1.13    Database: workshapedb
 -- ------------------------------------------------------
--- Server version	5.7.16-0ubuntu0.16.04.1-log
+-- Server version	5.7.16-0ubuntu0.16.10.1-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -36,7 +36,7 @@ CREATE TABLE `event` (
   `champ3` varchar(45) DEFAULT NULL,
   `valeur3` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idevent`,`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -404,7 +404,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`workshape`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `event_list` AS select `event`.`event` AS `event`,`event`.`qr_code` AS `qr_code`,date_format(`event`.`date`,'%d/%m/%Y %H:%i') AS `date`,`event`.`champ1` AS `champ1`,`event`.`valeur1` AS `valeur1`,`event`.`champ2` AS `champ2`,`event`.`valeur2` AS `valeur2`,`event`.`champ3` AS `champ3`,`event`.`valeur3` AS `valeur3` from `event` order by date_format(`event`.`date`,'%d/%m/%Y %H:%i') */;
+/*!50001 VIEW `event_list` AS select `event`.`event` AS `event`,`event`.`qr_code` AS `qr_code`,date_format(`event`.`date`,'%d/%m/%Y %H:%i') AS `date`,`event`.`champ1` AS `champ1`,`event`.`valeur1` AS `valeur1`,`event`.`champ2` AS `champ2`,`event`.`valeur2` AS `valeur2`,`event`.`champ3` AS `champ3`,`event`.`valeur3` AS `valeur3` from `event` order by `event`.`date` desc */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -454,4 +454,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-13 13:54:49
+-- Dump completed on 2017-01-07 15:39:02
