@@ -307,14 +307,13 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
             return getItem(position).getViewType();
         }
 
-        /*
         @Override
         public View getView(int position, View convertView, ViewGroup parent)
         {
             return getItem(position).getView(inflater, convertView);
         }
-        */
 
+        /*
         @Override
         public View getView(int position, View convertView, ViewGroup parent)
         {
@@ -350,6 +349,7 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
             }
             return convertView;
         }
+        */
 
         public class ViewHolder
         {
