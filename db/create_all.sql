@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `workshapedb` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `workshapedb`;
--- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
 --
 -- Host: 192.168.1.13    Database: workshapedb
 -- ------------------------------------------------------
--- Server version	5.7.16-0ubuntu0.16.10.1-log
+-- Server version	5.7.17-0ubuntu0.16.10.1-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -132,6 +132,77 @@ SET character_set_client = @saved_cs_client;
 --
 -- Dumping routines for database 'workshapedb'
 --
+/*!50003 DROP FUNCTION IF EXISTS `inner_nullify_str` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`workshape`@`%` FUNCTION `inner_nullify_str`(str_to_nullify_ nvarchar(45)) RETURNS int(11)
+BEGIN
+
+    if str_to_nullify_ = "" then
+    	return null;
+	else
+		return str_to_nullify_;
+    end if;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `inner_str_to_date` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`workshape`@`%` FUNCTION `inner_str_to_date`(date_str_ nvarchar(45)) RETURNS datetime
+BEGIN
+	# french date format
+    RETURN str_to_date(date_str_, "%d/%m/%Y %H:%i");
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `inner_str_to_decimal` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`workshape`@`%` FUNCTION `inner_str_to_decimal`(str_int_ nvarchar(45)) RETURNS decimal(10,2)
+BEGIN
+
+	declare ret_dec_ decimal(10,2);
+	set ret_dec_ = 0 + str_int_;
+	if ret_dec_ = 0 then
+		set ret_dec_ = null;
+	end if;
+	return ret_dec_;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `product_add` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -160,30 +231,25 @@ BEGIN
     declare longueur_initiale_dec_ decimal(10,2);
     declare largeur_dec_ decimal(10,2);
     
-	# make decimal values from string (null if void)
-	set longueur_initiale_dec_ = 0 + longueur_initiale_;
-	if longueur_initiale_dec_ = 0 then
-		set longueur_initiale_dec_ = null;
-	end if;
+	# longueur_initiale_ in decimal value
+	set longueur_initiale_dec_ = inner_str_to_decimal(longueur_initiale_);
 
-	set largeur_dec_ = 0 + largeur_;
-	if largeur_dec_ = 0 then
-		set largeur_dec_ = null;
-	end if;
+	# largeur_ in decimal value
+	set largeur_dec_ = inner_str_to_decimal(largeur_);
 
-	# datetime entry in french format, i.e. "23/12/2016 16:57"
-    set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
-    set date_arrivee_dt_ = str_to_date(date_arrivee_, "%d/%m/%Y %H:%i");
+	# datetime entry
+    set date_now_dt_ = inner_str_to_date(date_now_);
+    set date_arrivee_dt_ = inner_str_to_date(date_arrivee_);
     
     # nullify some strings
-    if name_ = "" then set name_ = null; end if;
-    if fournisseur_ = "" then set fournisseur_ = null; end if;
-    if ref_fournisseur_ = "" then set ref_fournisseur_ = null; end if;
-    if grammage_ = "" then set grammage_ = null; end if;
-    if type_de_tissus_ = "" then set type_de_tissus_ = null; end if;
-    if transport_frigo_ = "" then set transport_frigo_ = null; end if;
-    if lieu_actuel_ = "" then set lieu_actuel_ = null; end if;
-    
+    set name_ = inner_nullify_str(name_);
+    set fournisseur_ = inner_nullify_str(fournisseur_);
+    set ref_fournisseur_ = inner_nullify_str(ref_fournisseur_);
+    set grammage_ = inner_nullify_str(grammage_);
+    set type_de_tissus_ = inner_nullify_str(type_de_tissus_);
+    set transport_frigo_ = inner_nullify_str(transport_frigo_);
+    set lieu_actuel_ = inner_nullify_str(lieu_actuel_);
+
 	# added an entry in product table
     insert into product(qr_code, name, date_creation, fournisseur, ref_fournisseur, longueur_initiale, longueur_actuelle, largeur, grammage, type_de_tissus, date_arrivee, transport_frigo, lieu_actuel, lieu_depuis, temps_hors_gel_total)
 		values(qr_code_, name_, date_now_dt_, fournisseur_, ref_fournisseur_, longueur_initiale_dec_, longueur_initiale_dec_, largeur_dec_, grammage_, type_de_tissus_, date_arrivee_dt_, transport_frigo_, lieu_actuel_, date_now_dt_, 0);
@@ -216,19 +282,19 @@ BEGIN
 	declare date_now_dt_ DateTime;
     declare longueur_consommee_dec_ decimal(10,2);
 
-	# make decimal values from string (null if void)
-	set longueur_consommee_dec_ = 0 + longueur_consommee_;
-	if longueur_consommee_dec_ = 0 then
-		set longueur_consommee_dec_ = null;
-	end if;
+	# longueur_consommee_ in decimal value
+	set longueur_consommee_dec_ = inner_str_to_decimal(longueur_consommee_);
 
-	# datetime entry in french format, i.e. "23/12/2016 16:57"
-    set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
+	# datetime entry
+    set date_now_dt_ = inner_str_to_date(date_now_);
+
+    # nullify some strings
+    set lieu_actuel_ = inner_nullify_str(lieu_actuel_);
 
 	# first update product
 	SET SQL_SAFE_UPDATES = 0;
 	update product
-		set lieu_actuel = "frigo",
+		set lieu_actuel = lieu_actuel_,
 			lieu_depuis = date_now_dt_,
 			longueur_actuelle = coalesce(longueur_actuelle - longueur_consommee_dec_, longueur_initiale - longueur_consommee_dec_),
 			temps_hors_gel_total = temps_hors_gel_total + temps_hors_gel_,
@@ -239,7 +305,7 @@ BEGIN
 	# then record an event
     insert into event(qr_code, event, date, champ1, valeur1, champ2, valeur2, champ3, valeur3)
 		values(qr_code_, "in", date_now_dt_,
-				"Lieu de stockage", "frigo",
+				"Lieu de stockage", lieu_actuel_,
                 "Longueur consommée (m)", longueur_consommee_dec_,
                 "Temps hors gel (hh:mm)", string_temps_hors_gel_);
 
@@ -265,12 +331,11 @@ CREATE DEFINER=`workshape`@`%` PROCEDURE `product_out`(in qr_code_ nvarchar(45),
 begin
 	declare date_now_dt_ DateTime;
 
-    # datetime entry in french format, i.e. "23/12/2016 16:57"
-    set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
+	# datetime entry
+    set date_now_dt_ = inner_str_to_date(date_now_);
     
-    if lieu_actuel_ = "" then
-    	set lieu_actuel_ = null;
-    end if;
+    # nullify some strings
+    set lieu_actuel_ = inner_nullify_str(lieu_actuel_);
 
 	# first update product
 	update product set
@@ -314,29 +379,26 @@ BEGIN
     declare longueur_initiale_dec_ decimal(10,2);
     declare largeur_dec_ decimal(10,2);
 
-	# make decimal values from string (null if void)
-	set longueur_initiale_dec_ = 0 + longueur_initiale_;
-	if longueur_initiale_dec_ = 0 then
-		set longueur_initiale_dec_ = null;
-	end if;
+	# longueur_initiale_ in decimal value
+	set longueur_initiale_dec_ = inner_str_to_decimal(longueur_initiale_);
 
 	set largeur_dec_ = 0 + largeur_;
 	if largeur_dec_ = 0 then
 		set largeur_dec_ = null;
 	end if;
 
-	# datetime entry in french format, i.e. "23/12/2016 16:57:00"
-    set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
-    set date_arrivee_dt_ = str_to_date(date_arrivee_, "%d/%m/%Y %H:%i");
-    
+	# datetime entry
+    set date_now_dt_ = inner_str_to_date(date_now_);
+    set date_arrivee_dt_ = inner_str_to_date(date_arrivee_);
+
     # nullify some strings
-    if name_ = "" then set name_ = null; end if;
-    if fournisseur_ = "" then set fournisseur_ = null; end if;
-    if ref_fournisseur_ = "" then set ref_fournisseur_ = null; end if;
-    if grammage_ = "" then set grammage_ = null; end if;
-    if type_de_tissus_ = "" then set type_de_tissus_ = null; end if;
-    if transport_frigo_ = "" then set transport_frigo_ = null; end if;
-    if lieu_actuel_ = "" then set lieu_actuel_ = null; end if;
+    set name_ = inner_nullify_str(name_);
+    set fournisseur_ = inner_nullify_str(fournisseur_);
+    set ref_fournisseur_ = inner_nullify_str(ref_fournisseur_);
+    set grammage_ = inner_nullify_str(grammage_);
+    set type_de_tissus_ = inner_nullify_str(type_de_tissus_);
+    set transport_frigo_ = inner_nullify_str(transport_frigo_);
+    set lieu_actuel_ = inner_nullify_str(lieu_actuel_);
 
 	# added an entry in product table
 	SET SQL_SAFE_UPDATES = 0;
@@ -376,9 +438,9 @@ CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update_note`(in qr_code_ nvarc
 BEGIN
 	declare date_now_dt_ DateTime;
 
-	# datetime entry in french format, i.e. "23/12/2016 16:57"
-    set date_now_dt_ = str_to_date(date_now_, "%d/%m/%Y %H:%i");
-    
+   	# datetime entry
+    set date_now_dt_ = inner_str_to_date(date_now_);
+
 	# added an entry in product table
     update product set note = note_ where qr_code = qr_code_;
 
@@ -454,4 +516,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-07 16:22:51
+-- Dump completed on 2017-01-21 13:42:31
