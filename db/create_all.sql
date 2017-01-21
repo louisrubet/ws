@@ -142,7 +142,7 @@ SET character_set_client = @saved_cs_client;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`workshape`@`%` FUNCTION `inner_nullify_str`(str_to_nullify_ nvarchar(45)) RETURNS int(11)
+CREATE DEFINER=`workshape`@`%` FUNCTION `inner_nullify_str`(str_to_nullify_ nvarchar(45)) RETURNS varchar(45) CHARSET utf8
 BEGIN
 
     if str_to_nullify_ = "" then
@@ -516,4 +516,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-21 13:42:31
+-- Dump completed on 2017-01-21 14:58:46
