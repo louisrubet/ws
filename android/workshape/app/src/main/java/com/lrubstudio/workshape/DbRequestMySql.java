@@ -102,7 +102,6 @@ public class DbRequestMySql extends DbRequest
                         String columnName = rsmd.getColumnName(i);
                         if (columnName.length() > 0)
                             mapList.get(row).put(columnName, set.getString(i));
-                        Log.e("DbRequest", "field:" + columnName + " : " + set.getString(i));
                     }
 
                     row++;

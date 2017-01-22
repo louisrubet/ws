@@ -268,29 +268,53 @@ public class DbProduct
         return true;
     }
 
-    public void fillFragmentEditsFromFields(View fragment, int[] edits, String[] dbfields)
+    public void fillFragmentFromFields(View fragment, int[] edits, String[] dbfields)
     {
         int text_id = 0;
         for (int id : edits)
         {
             try
             {
-                // fill an EditText
+                // db value
                 String value = this.get(dbfields[text_id]);
-                ((EditText)fragment.findViewById(id)).setText(value);
+
+                // set text of EditText or Button widget
+                View view = fragment.findViewById(id);
+                if (view instanceof EditText)
+                    ((EditText)view).setText(value);
+                else if (view instanceof Button)
+                    ((Button)view).setText(value);
             }
             catch(Exception eEdit)
             {
-                // fill a Button
-                try
-                {
-                    String value = this.get(dbfields[text_id]);
-                    ((Button) fragment.findViewById(id)).setText(value);
-                }
-                catch(Exception eButton)
-                {
-                    // nothing
-                }
+                // nothing
+            }
+            text_id += 1;
+        }
+    }
+
+    public void fillFieldsFromFragment(View fragment, int[] edits, String[] dbfields)
+    {
+        int text_id = 0;
+        for (int id : edits)
+        {
+            try
+            {
+                // EditText or Button text
+                String value = null;
+                View view = fragment.findViewById(id);
+                if (view instanceof EditText)
+                    value = ((EditText)view).getText().toString();
+                else if (view instanceof Button)
+                    value = ((Button)view).getText().toString();
+
+                // fill db field from widget value
+                if (value != null)
+                    this.set(dbfields[text_id], value);
+            }
+            catch(Exception eEdit)
+            {
+                // nothing
             }
             text_id += 1;
         }
@@ -316,6 +340,18 @@ public class DbProduct
         catch (Exception e)
         {
             return "";
+        }
+    }
+
+    public void set(String fieldName, String fieldValue)
+    {
+        try
+        {
+            if (mapArray.get(0).containsKey(fieldName))
+                mapArray.get(0).put(fieldName, fieldValue);
+        }
+        catch (Exception e)
+        {
         }
     }
 

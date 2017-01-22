@@ -6,13 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 
 
@@ -70,7 +67,7 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
         String[] dbfields = new String [] {
                 DbProduct.qrCode, DbProduct.name, DbProduct.longueurInitiale,
                 DbProduct.longueurActuelle, DbProduct.lieuActuel, DbProduct.lieuDepuis };
-        MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
+        MainActivity.getLastRequestedProduct().fillFragmentFromFields(view, edits, dbfields);
 
         // total time in seconds -> "hh:mm"
         ((EditText)view.findViewById(R.id.editOutHorsGelTotal)).setText(DbProduct.secondsToHHMM(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));

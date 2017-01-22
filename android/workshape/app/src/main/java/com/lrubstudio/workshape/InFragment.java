@@ -1,7 +1,6 @@
 package com.lrubstudio.workshape;
 
 import android.os.Bundle;
-import android.preference.EditTextPreference;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,7 +69,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         String[] dbfields = new String [] {
                 DbProduct.qrCode, DbProduct.name, DbProduct.longueurInitiale,
                 DbProduct.longueurActuelle, DbProduct.lieuDepuis };
-        MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
+        MainActivity.getLastRequestedProduct().fillFragmentFromFields(view, edits, dbfields);
 
         // fill lieu from global configuration
         ((EditText)view.findViewById(R.id.editInLieuActuel)).setText(ConfigurationActivity.configuration.lieuParDefaut);

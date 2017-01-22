@@ -50,10 +50,19 @@ public class EditAddActivity extends AppCompatActivity
         isDetailedFragmentModified = modified;
     }
 
+    public boolean isDetailedFragmentModified()
+    {
+        return isDetailedFragmentModified;
+    }
+
     boolean isNoteFragmentModified = false;
     public void setNoteFragmentModified(boolean modified)
     {
         isNoteFragmentModified = modified;
+    }
+    public boolean isNoteFragmentModified()
+    {
+        return isNoteFragmentModified;
     }
 
     @Override

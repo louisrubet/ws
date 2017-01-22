@@ -2,12 +2,10 @@ package com.lrubstudio.workshape;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,16 +19,21 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailedFragment extends Fragment implements View.OnClickListener, DbRequest.AsyncResponse, DateTimeGetter.onDateTimeGetter
+public class DetailedFragment extends DataFragment implements View.OnClickListener, DbRequest.AsyncResponse, DateTimeGetter.onDateTimeGetter
 {
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        // fragment should scroll when editing a view
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+    // widget ids to be filled with db fields
+    int[] _ids = new int [] {
+            R.id.editName, R.id.editFournisseur, R.id.editRefFournisseur,
+            R.id.editTransportFrigo, R.id.editLongueurInitiale, R.id.buttonDateArrivee,
+            R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus, R.id.editLieuActuel
+    };
 
-        super.onCreate(savedInstanceState);
-    }
+    // db fields to populate widgets
+    String[] _fields = new String [] {
+            DbProduct.name, DbProduct.fournisseur, DbProduct.refFournisseur,
+            DbProduct.transportFrigo, DbProduct.longueurInitiale, DbProduct.dateArrivee,
+            DbProduct.largeur, DbProduct.grammage, DbProduct.typeDeTissus, DbProduct.lieuActuel
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -42,73 +45,16 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         if(! MainActivity.getLastRequestedProduct().isNewQrCode())
         {
             // no, fill MMI views from db fields
-            int[] edits = new int [] {
-                    R.id.editName, R.id.editFournisseur, R.id.editRefFournisseur,
-                    R.id.editTransportFrigo, R.id.editLongueurInitiale, R.id.buttonDateArrivee,
-                    R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus, R.id.editLieuActuel
-            };
-            String[] dbfields = new String [] {
-                    DbProduct.name, DbProduct.fournisseur, DbProduct.refFournisseur,
-                    DbProduct.transportFrigo, DbProduct.longueurInitiale, DbProduct.dateArrivee,
-                    DbProduct.largeur, DbProduct.grammage, DbProduct.typeDeTissus, DbProduct.lieuActuel
-            };
-            MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, edits, dbfields);
+            MainActivity.getLastRequestedProduct().fillFragmentFromFields(view, _ids, _fields);
 
-            // set save button invisible
-            view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
+            // record Edits to watch for modification
+            ViewWatcher.AddMultipleWidgetsToWatcher(this, view, _ids);
 
-            // setup TextChangedListener handlers on each edit
-            for (int i = 0; i < edits.length; i++)
-            {
-                final String originalString = MainActivity.getLastRequestedProduct().get(dbfields[i]);
-                final int id = edits[i];
-                View widget = view.findViewById(id);
-
-                if (widget instanceof  EditText)
-                    ((EditText)view.findViewById(id)).addTextChangedListener(
-                            new TextWatcher()
-                            {
-                                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-                                public void onTextChanged(CharSequence s, int start, int before, int count) { }
-                                public void afterTextChanged(Editable s)
-                                {
-                                    String entry = ((EditText)view.findViewById(id)).getText().toString();
-                                    if (entry.equals(originalString) || (originalString==null && entry.length()==0))
-                                    {
-                                        ((EditAddActivity)getActivity()).setDetailedFragmentModified(false);
-                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
-                                    }
-                                    else
-                                    {
-                                        ((EditAddActivity)getActivity()).setDetailedFragmentModified(true);
-                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
-                                    }
-                                }
-                            }
-                    );
-                else if (widget instanceof Button)
-                    ((Button)view.findViewById(id)).addTextChangedListener(
-                            new TextWatcher()
-                            {
-                                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-                                public void onTextChanged(CharSequence s, int start, int before, int count) { }
-                                public void afterTextChanged(Editable s)
-                                {
-                                    String entry = ((Button)view.findViewById(id)).getText().toString();
-                                    if (entry.equals(originalString))
-                                    {
-                                        ((EditAddActivity)getActivity()).setDetailedFragmentModified(false);
-                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
-                                    }
-                                    else
-                                    {
-                                        ((EditAddActivity)getActivity()).setDetailedFragmentModified(true);
-                                        view.findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
-                                    }
-                                }
-                            }
-                    );
-            }
+            // set save button state
+            if (((EditAddActivity)getActivity()).isDetailedFragmentModified())
+                view.findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
+            else
+                view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
         }
         else
         {
@@ -174,12 +120,20 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
         }
     }
 
+    @Override
+    public void wasModified()
+    {
+        // user modified an Edit
+        // show or hide modified button
+        getView().findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
+
+        ((EditAddActivity) getActivity()).setDetailedFragmentModified(true);
+    }
+
     public void onDateTimeGetter(int id, String dateTime)
     {
         if (id == R.id.buttonDateArrivee)
-        {
             ((Button)getView().findViewById(R.id.buttonDateArrivee)).setText(dateTime);
-        }
     }
 
     @Override
@@ -202,6 +156,11 @@ public class DetailedFragment extends Fragment implements View.OnClickListener, 
             // after creation: back to home
             if (MainActivity.getLastRequestedProduct().isNewQrCode())
                 getActivity().finish();
+            else
+            {
+                // else correct db data
+                MainActivity.getLastRequestedProduct().fillFieldsFromFragment(getView(),  _ids, _fields);
+            }
         }
         else
         {

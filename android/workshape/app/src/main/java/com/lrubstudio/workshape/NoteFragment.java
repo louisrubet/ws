@@ -6,75 +6,58 @@ package com.lrubstudio.workshape;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NoteFragment extends Fragment implements View.OnClickListener, DbRequest.AsyncResponse
+public class NoteFragment extends DataFragment implements View.OnClickListener, DbRequest.AsyncResponse
 {
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        // keep instance, ie be sure not to go again to onCreateView
-        // in order to keep EditAddActivity.isModified state
-        setRetainInstance(true);
+    // widget ids to be filled with db fields
+    int[] _ids = new int [] { R.id.editNote };
 
-        super.onCreate(savedInstanceState);
-    }
+    // db fields to populate widgets
+    String[] _fields = new String [] { DbProduct.note };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_note, container, false);
+        View view = inflater.inflate(R.layout.fragment_note, container, false);
+
         // fill with db field
-        MainActivity.getLastRequestedProduct().fillFragmentEditsFromFields(view, new int [] { R.id.editNote }, new String [] { DbProduct.note } );
+        MainActivity.getLastRequestedProduct().fillFragmentFromFields(view, _ids, _fields );
 
-        // set save button invisible
-        view.findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
+        // record Edits to watch for modification
+        ViewWatcher.AddMultipleWidgetsToWatcher(this, view, _ids);
 
-        // setup TextChangedListener handlers on edit
-        final String originalString = ((EditText)view.findViewById(R.id.editNote)).getText().toString();
-
-        ((EditText)view.findViewById(R.id.editNote)).addTextChangedListener(
-                new TextWatcher()
-                {
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-                    public void onTextChanged(CharSequence s, int start, int before, int count) { }
-                    public void afterTextChanged(Editable s)
-                    {
-                        String entry = ((EditText)view.findViewById(R.id.editNote)).getText().toString();
-                        if (entry.equals(originalString))
-                        {
-                            ((EditAddActivity)getActivity()).setNoteFragmentModified(false);
-                            view.findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
-                        }
-                        else
-                        {
-                            ((EditAddActivity)getActivity()).setNoteFragmentModified(true);
-                            view.findViewById(R.id.buttonActionNote).setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
-        );
+        // set save button state
+        if (((EditAddActivity)getActivity()).isNoteFragmentModified())
+            view.findViewById(R.id.buttonActionNote).setVisibility(View.VISIBLE);
+        else
+            view.findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
 
         // manage button
         view.findViewById(R.id.buttonActionNote).setOnClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void wasModified()
+    {
+        // user modified an Edit
+        // show or hide modified button
+        getView().findViewById(R.id.buttonActionNote).setVisibility(View.VISIBLE);
+        ((EditAddActivity)getActivity()).setNoteFragmentModified(true);
     }
 
     @Override
@@ -104,7 +87,15 @@ public class NoteFragment extends Fragment implements View.OnClickListener, DbRe
 
             // don't see button
             getView().findViewById(R.id.buttonActionNote).setVisibility(View.GONE);
+
+            // not modified anymore
             ((EditAddActivity)getActivity()).setNoteFragmentModified(false);
+
+            // correct db data
+            MainActivity.getLastRequestedProduct().fillFieldsFromFragment(getView(),  _ids, _fields);
+
+            // record Edits to watch for modification
+            ViewWatcher.AddMultipleWidgetsToWatcher(this, getView(), _ids);
         }
         else
         {
