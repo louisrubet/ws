@@ -7,13 +7,13 @@
               android:orientation="vertical"
               android:gravity="center_horizontal">
 
-        <LinearLayout style="@style/Vertical_80Purcent">
+        <ScrollView style="@style/ScrollView_80Purcent">
 
                 <EditText style="@style/TextViewMultilinesForTableRow"
-                    android:id="@+id/editNote"
-                    android:inputType="text|textMultiLine" />
+                            android:id="@+id/editNote"
+                            android:inputType="text|textMultiLine" />
 
-        </LinearLayout>
+        </ScrollView>
 
         <LinearLayout style="@style/Vertical_20Purcent">
 
