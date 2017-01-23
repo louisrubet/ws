@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -163,7 +164,10 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
             else
             {
                 // else correct db data
-                MainActivity.getLastRequestedProduct().fillFieldsFromFragment(getView(),  _ids, _fields);
+                MainActivity.getLastRequestedProduct().fillFieldsFromFragment(getView(), _ids, _fields);
+
+                // record Edits to watch for modification
+                ViewWatcher.AddMultipleWidgetsToWatcher(this, getView(), _ids);
             }
         }
         else

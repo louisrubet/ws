@@ -16,14 +16,14 @@ public class ViewWatcher implements TextWatcher
     private DataFragment _dataFragment;
     private View _view;
     private String _originalString;
-    private boolean _skipFirstTime;
+    private boolean _currentlyModified;
 
     public ViewWatcher(DataFragment dataFragment, View view, String originalString)
     {
         _dataFragment = dataFragment;
         _view = view;
         _originalString = originalString;
-        _skipFirstTime = true;
+        _currentlyModified = false;
     }
 
     static void AddMultipleWidgetsToWatcher(DataFragment dataFragment, View parentView, int[] ids)
@@ -53,20 +53,21 @@ public class ViewWatcher implements TextWatcher
     public void onTextChanged(CharSequence s, int start, int before, int count) { }
     public void afterTextChanged(Editable s)
     {
-        if (_skipFirstTime)
-            _skipFirstTime = false;
-        else
-        {
-            boolean modified = false;
+        boolean modified = false;
 
-            // check this View was modified
-            if (_view instanceof EditText)
-                modified = !_originalString.equals(((EditText)_view).getText().toString());
-            else if (_view instanceof Button)
-                modified = !_originalString.equals(((Button)_view).getText().toString());
+        // check this View was modified
+        if (_view instanceof EditText)
+            modified = !_originalString.equals(((EditText)_view).getText().toString());
+        else if (_view instanceof Button)
+            modified = !_originalString.equals(((Button)_view).getText().toString());
 
-            // yes, call DataFragment back
+        // call DataFragment back
+        if (modified || (!modified && _currentlyModified))
             _dataFragment.wasModified(modified);
+
+        if (modified)
+        {
+            _currentlyModified = true;
         }
     }
 }
