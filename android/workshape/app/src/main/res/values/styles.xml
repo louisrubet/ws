@@ -43,6 +43,12 @@
         <item name="android:layout_weight">0.20</item>
     </style>
 
+    <style name="Vertical_Match">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
     <style name="Vertical_ListView_Item">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">match_parent</item>

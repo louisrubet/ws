@@ -7,111 +7,111 @@
               android:orientation="vertical"
               android:gravity="center_horizontal">
 
-    <LinearLayout style="@style/Vertical_80Purcent">
+    <ScrollView style="@style/ScrollView_80Purcent">
 
-        <TableLayout style="@style/CommonTableLayout">
+        <LinearLayout style="@style/Vertical_Match">
 
-            <TableRow style="@style/CommonTableRow">
+            <TableLayout style="@style/CommonTableLayout">
 
-                <TextView style="@style/TextViewForTableRow"
-                         android:text="@string/qr_code" />
+                <TableRow style="@style/CommonTableRow">
 
-                <EditText style="@style/EditTextForTableRow"
-                         android:id="@+id/editInQRCode" />
+                    <TextView style="@style/TextViewForTableRow"
+                             android:text="@string/qr_code" />
 
-            </TableRow>
+                    <EditText style="@style/EditTextForTableRow"
+                             android:id="@+id/editInQRCode" />
 
-            <TableRow style="@style/CommonTableRow">
+                </TableRow>
 
-                <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/name" />
+                <TableRow style="@style/CommonTableRow">
 
-                <EditText style="@style/EditTextForTableRow"
-                         android:id="@+id/editInReference" />
+                    <TextView style="@style/TextViewForTableRow"
+                              android:text="@string/name" />
 
-            </TableRow>
+                    <EditText style="@style/EditTextForTableRow"
+                             android:id="@+id/editInReference" />
 
-            <TableRow style="@style/CommonTableRow">
+                </TableRow>
 
-                <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/lieu_depuis_in" />
+                <TableRow style="@style/CommonTableRow">
 
-                <Button style="@style/TimeButtonForTableRow"
-                        android:id="@+id/buttonInLieuDepuis" />
+                    <TextView style="@style/TextViewForTableRow"
+                              android:text="@string/lieu_depuis_in" />
 
-            </TableRow>
+                    <Button style="@style/TimeButtonForTableRow"
+                            android:id="@+id/buttonInLieuDepuis" />
 
-            <TableRow style="@style/CommonTableRow">
+                </TableRow>
 
-                <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/longueur_initiale" />
+                <TableRow style="@style/CommonTableRow">
 
-                <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editInLongueurInitiale"
-                          android:inputType="numberDecimal" />
-            </TableRow>
+                    <TextView style="@style/TextViewForTableRow"
+                              android:text="@string/longueur_initiale" />
 
-            <TableRow style="@style/CommonTableRow">
+                    <EditText style="@style/EditTextForTableRow"
+                              android:id="@+id/editInLongueurInitiale"
+                              android:inputType="numberDecimal" />
+                </TableRow>
 
-                <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/longueur_actuelle"  />
+                <TableRow style="@style/CommonTableRow">
 
-                <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editInLongueurActuelle"
-                          android:inputType="numberDecimal" />
-            </TableRow>
+                    <TextView style="@style/TextViewForTableRow"
+                              android:text="@string/longueur_actuelle"  />
 
-            <TableRow style="@style/CommonTableRow">
+                    <EditText style="@style/EditTextForTableRow"
+                              android:id="@+id/editInLongueurActuelle"
+                              android:inputType="numberDecimal" />
+                </TableRow>
 
-                <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/temps_hors_gel_total" />
+                <TableRow style="@style/CommonTableRow">
 
-                <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editInHorsGelTotal"
-                          android:inputType="time" />
-            </TableRow>
+                    <TextView style="@style/TextViewForTableRow"
+                              android:text="@string/temps_hors_gel_total" />
 
-            <Space style="@style/BigVerticalSpace"/>
-            <Space style="@style/ShortVerticalSpace"/>
+                    <EditText style="@style/EditTextForTableRow"
+                              android:id="@+id/editInHorsGelTotal"
+                              android:inputType="time" />
+                </TableRow>
 
+                <TableRow style="@style/CommonTableRow">
 
-            <TableRow style="@style/CommonTableRow">
+                    <TextView style="@style/TextViewForTableRow"
+                              android:text="@string/longueur_consommee" />
 
-                <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/longueur_consommee" />
+                    <EditText style="@style/EditTextForTableRow"
+                              android:id="@+id/editInLongueurConsommee"
+                              android:inputType="numberDecimal" />
 
-                <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editInLongueurConsommee"
-                          android:inputType="numberDecimal" />
+                </TableRow>
 
-            </TableRow>
+                <TableRow style="@style/CommonTableRow">
 
-            <TableRow style="@style/CommonTableRow">
+                    <TextView style="@style/TextViewForTableRow"
+                              android:text="@string/hors_gel" />
 
-                <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/hors_gel" />
+                    <EditText style="@style/EditTextForTableRow"
+                              android:id="@+id/editInTempsHorsGel"
+                              android:inputType="time" />
 
-                <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editInTempsHorsGel"
-                          android:inputType="time" />
+                </TableRow>
 
-            </TableRow>
+                <TableRow style="@style/CommonTableRow">
 
-            <TableRow style="@style/CommonTableRow">
+                    <TextView style="@style/TextViewForTableRow"
+                              android:text="@string/lieu_actuel_in" />
 
-                <TextView style="@style/TextViewForTableRow"
-                          android:text="@string/lieu_actuel_in" />
+                    <EditText style="@style/EditTextForTableRow"
+                              android:id="@+id/editInLieuActuel" />
 
-                <EditText style="@style/EditTextForTableRow"
-                          android:id="@+id/editInLieuActuel" />
+                </TableRow>
 
-            </TableRow>
+                <Space style="@style/BigVerticalSpace"/>
 
-            <Space style="@style/BigVerticalSpace"/>
+            </TableLayout>
 
-        </TableLayout>
+        </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
     <LinearLayout style="@style/Vertical_20Purcent">
 
