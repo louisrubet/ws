@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 
 public class EditAddActivity extends AppCompatActivity
         implements ViewPager.OnPageChangeListener, SyncDialog.NoticeSyncDialogListener
@@ -114,9 +115,19 @@ public class EditAddActivity extends AppCompatActivity
     /*
      * For interface ViewPager.OnPageChangeListener
      */
+    @Override
     public void onPageScrollStateChanged (int state)
     {
-        // nothing
+        // hide keyboard if shown
+        if (state == ViewPager.SCROLL_STATE_IDLE)
+        {
+            int page = viewPager.getCurrentItem();
+            if (mode == Mode.edit_out || mode == Mode.edit_in)
+            {
+                // Hide the keyboard.
+                ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(viewPager.getWindowToken(), 0);
+            }
+        }
     }
 
     public void onPageScrolled (int position, float positionOffset, int positionOffsetPixels)
@@ -212,6 +223,7 @@ public class EditAddActivity extends AppCompatActivity
     public static class CollectionPagerAdapter extends FragmentPagerAdapter
     {
         EditAddActivity parentActivity =  null;
+
 
         //
         public CollectionPagerAdapter(FragmentManager fm, EditAddActivity parentActivity)

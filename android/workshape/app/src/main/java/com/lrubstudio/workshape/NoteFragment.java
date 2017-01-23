@@ -88,6 +88,9 @@ public class NoteFragment extends DataFragment implements View.OnClickListener, 
     {
         if (dbError == DbRequest.Error.ok)
         {
+            // hide shown keyboard
+            hideKeyboard();
+
             // toast ok !
             Toast.makeText(getActivity(), getActivity().getString(R.string.note_sauvee), Toast.LENGTH_LONG).show();
 

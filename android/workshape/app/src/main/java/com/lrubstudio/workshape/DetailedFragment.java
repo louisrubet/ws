@@ -158,6 +158,9 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
             // not modified anymore
             ((EditAddActivity)getActivity()).setDetailedFragmentModified(false);
 
+            // hide shown keyboard
+            hideKeyboard();
+
             // after creation: back to home
             if (MainActivity.getLastRequestedProduct().isNewQrCode())
                 getActivity().finish();
