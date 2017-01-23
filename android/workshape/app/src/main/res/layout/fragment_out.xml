@@ -31,8 +31,6 @@
 
             </TableRow>
 
-            <Space style="@style/BigVerticalSpace"/>
-
             <TableRow style="@style/CommonTableRow">
 
                 <TextView style="@style/TextViewForTableRow"
@@ -53,6 +51,7 @@
 
             </TableRow>
 
+            <Space style="@style/BigVerticalSpace"/>
             <Space style="@style/BigVerticalSpace"/>
 
             <TableRow style="@style/CommonTableRow">
