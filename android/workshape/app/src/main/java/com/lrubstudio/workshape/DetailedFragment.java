@@ -121,13 +121,17 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
     }
 
     @Override
-    public void wasModified()
+    public void wasModified(boolean modified)
     {
-        // user modified an Edit
-        // show or hide modified button
-        getView().findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
+        if (((EditAddActivity) getActivity()).isDetailedFragmentModified() != modified)
+        {
+            // user modified an Edit (or cancelled a previous modification)
+            // show or hide modified button
+            getView().findViewById(R.id.buttonAddModify).setVisibility(modified ? View.VISIBLE : View.GONE);
 
-        ((EditAddActivity) getActivity()).setDetailedFragmentModified(true);
+            // mark this fragment as modified
+            ((EditAddActivity) getActivity()).setDetailedFragmentModified(modified);
+        }
     }
 
     public void onDateTimeGetter(int id, String dateTime)

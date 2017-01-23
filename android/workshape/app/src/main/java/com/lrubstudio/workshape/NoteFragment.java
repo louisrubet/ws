@@ -52,12 +52,17 @@ public class NoteFragment extends DataFragment implements View.OnClickListener, 
     }
 
     @Override
-    public void wasModified()
+    public void wasModified(boolean modified)
     {
-        // user modified an Edit
-        // show or hide modified button
-        getView().findViewById(R.id.buttonActionNote).setVisibility(View.VISIBLE);
-        ((EditAddActivity)getActivity()).setNoteFragmentModified(true);
+        if (((EditAddActivity) getActivity()).isNoteFragmentModified() != modified)
+        {
+            // user modified an Edit (or cancelled a previous modification)
+            // show or hide modified button
+            getView().findViewById(R.id.buttonActionNote).setVisibility(modified ? View.VISIBLE : View.GONE);
+
+            // mark this fragment as modified
+            ((EditAddActivity) getActivity()).setNoteFragmentModified(modified);
+        }
     }
 
     @Override

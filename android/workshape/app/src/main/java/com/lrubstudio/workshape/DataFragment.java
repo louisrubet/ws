@@ -10,7 +10,7 @@ import android.support.v4.app.Fragment;
 public class DataFragment extends Fragment
 {
     // to override
-    public void wasModified()
+    public void wasModified(boolean modified)
     {
         // this method is called whenever a data was modified by MMI
     }
