@@ -5,16 +5,12 @@ package com.lrubstudio.workshape;
  */
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -210,13 +206,13 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
                 case creation:
                     view = (View)inflater.inflate(R.layout.layout_histo_item_creation, null);
                     break;
+                case out:
                 case in:
-                    view = (View)inflater.inflate(R.layout.layout_histo_item_in, null);
+                    view = (View)inflater.inflate(R.layout.layout_histo_item_in_out, null);
                     break;
                 case update:
                 case update_note:
-                case out:
-                    view = (View)inflater.inflate(R.layout.layout_histo_item_out_modif, null);
+                    view = (View)inflater.inflate(R.layout.layout_histo_item_modif, null);
                     break;
             }
 
@@ -250,6 +246,7 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
                         break;
 
                     case in:
+                    case out:
                         // content 1
                         text = (TextView) view.findViewById(R.id.textListContent1);
                         if (text != null)

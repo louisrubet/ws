@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -80,7 +81,12 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
     {
         // build then run request
         String qrCode=((EditText)getView().findViewById(R.id.editOutQRCode)).getText().toString();
-        DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductOut(getActivity(), qrCode, DbProduct.timeNowToString(getActivity())));
+        String editOutLongueurActuelle = ((EditText)getView().findViewById(R.id.editOutLongueurActuelle)).getText().toString();
+        String editOutHorsGelTotal = ((EditText)getView().findViewById(R.id.editOutHorsGelTotal)).getText().toString();
+        String buttonOutLieuDepuis = ((Button)getView().findViewById(R.id.buttonOutLieuDepuis)).getText().toString();
+
+        DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductOut(getActivity(), qrCode, DbProduct.timeNowToString(getActivity()),
+                buttonOutLieuDepuis, editOutLongueurActuelle, editOutHorsGelTotal));
     }
 
     @Override

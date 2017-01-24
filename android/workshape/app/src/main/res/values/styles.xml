@@ -109,12 +109,18 @@
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
     </style>
 
+    <!-- TextView: histo left, date -->
+    <style name="TextViewForHistoDate" parent="TextViewForTableRowHistoLeft60p">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
     <!-- TextView: histo, right side of TableRows (large) -->
     <style name="TextViewForTableRowHistoRight" parent="android:Widget.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_weight">0.70</item>
+        <item name="android:layout_weight">0.30</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
@@ -124,9 +130,14 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_weight">0.30</item>
+        <item name="android:layout_weight">0.60</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+    <!-- TextView: histo right, event title -->
+    <style name="TextViewForHistoTitle" parent="TextViewForTableRowHistoRight40p">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- TextView: left side of TableRows (30% weight) -->
@@ -173,29 +184,6 @@
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textStyle">normal|italic</item>
-    </style>
-
-    <!-- TextView: histo date -->
-    <style name="TextViewForHistoDate" parent="android:Widget.TextView">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">0.25</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_vertical|left</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-        <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-    </style>
-
-    <!-- TextView: histo title -->
-    <style name="TextViewForHistoTitle" parent="android:Widget.TextView">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">0.75</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- EditText: entry zones, right side of TableRows (60% weight) -->

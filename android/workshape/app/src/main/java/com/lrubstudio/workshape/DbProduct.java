@@ -114,7 +114,7 @@ public class DbProduct
         return request;
     }
 
-    static public String buildRequestProductOut(Context context, String qrCode, String date)
+    static public String buildRequestProductOut(Context context, String qrCode, String date, String storedSince, String currentLength, String totalHorsGel)
     {
         String request;
         if (ConfigurationActivity.configuration.localDb)
@@ -124,6 +124,10 @@ public class DbProduct
 
         request = request.replaceAll("#qr_code", qrCode);
         request = request.replaceAll("#date", date);
+        request = request.replaceAll("#en_stock_depuis", storedSince);
+        request = request.replaceAll("#longueur_actuelle", currentLength);
+        request = request.replaceAll("#total_hors_gel", totalHorsGel);
+
         return request;
     }
 
