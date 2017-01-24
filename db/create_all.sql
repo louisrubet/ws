@@ -36,7 +36,7 @@ CREATE TABLE `event` (
   `champ3` varchar(45) DEFAULT NULL,
   `valeur3` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idevent`,`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -327,7 +327,10 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`workshape`@`%` PROCEDURE `product_out`(in qr_code_ nvarchar(45),
 	in date_now_ nvarchar(45),
-    in lieu_actuel_ nvarchar(45))
+	in lieu_actuel_ nvarchar(45),
+    in en_stock_depuis_ nvarchar(45),
+    in longueur_actuelle_ nvarchar(45),
+    in string_total_hors_gel_ nvarchar(45))
 begin
 	declare date_now_dt_ DateTime;
 
@@ -344,7 +347,14 @@ begin
 	where qr_code=qr_code_;
 
 	# then record an event
-    insert into event(qr_code, event, date) values(qr_code_, "out", date_now_dt_);
+    # stocké depuis
+    # longueur actuelle
+    # Total hors gel
+    insert into event(qr_code, event, date, champ1, valeur1, champ2, valeur2, champ3, valeur3)
+		values(qr_code_, "out", date_now_dt_,
+				"En stock depuis", en_stock_depuis_,
+                "Longueur restante (m)", longueur_actuelle_,
+                "Total hors gel (hh:mm)", string_total_hors_gel_);
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -516,4 +526,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-21 14:58:46
+-- Dump completed on 2017-01-24 22:42:21
