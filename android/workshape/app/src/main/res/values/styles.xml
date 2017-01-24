@@ -33,14 +33,14 @@
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">0.80</item>
+        <item name="android:layout_weight">0.85</item>
     </style>
 
     <style name="Vertical_20Purcent">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">0.20</item>
+        <item name="android:layout_weight">0.15</item>
     </style>
 
     <style name="Vertical_Match">
@@ -60,7 +60,7 @@
     <style name="ScrollView_80Purcent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">0.80</item>
+        <item name="android:layout_weight">0.85</item>
     </style>
 
     <!-- Tables
@@ -75,8 +75,7 @@
     <!-- TableRow: table rows total height matches parent height -->
     <style name="CommonTableRow">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <!-- TextView: left side of TableRows (40% weight) -->
@@ -87,6 +86,7 @@
         <item name="android:layout_weight">0.40</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:padding">6dp</item>
     </style>
 
     <!-- TextView: histo, left side of TableRows (short) -->
@@ -194,6 +194,7 @@
         <item name="android:layout_weight">0.60</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:gravity">right</item>
+        <item name="android:padding">6dp</item>
     </style>
 
     <!-- Button: time button, right side of TableRows (60% weight) -->
