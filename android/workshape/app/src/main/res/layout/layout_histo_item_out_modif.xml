@@ -4,8 +4,18 @@
               xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView style="@style/TextViewForHistoDate"
-              android:id="@+id/textDate" />
+    <TableLayout style="@style/CommonTableLayout">
+
+        <TableRow style="@style/CommonTableRow">
+
+            <TextView style="@style/TextViewForHistoDate"
+                      android:id="@+id/textDate" />
+
+            <TextView style="@style/TextViewForHistoTitle"
+                      android:id="@+id/textTitle" />
+
+        </TableRow>
+    </TableLayout>
 
     <Space style="@style/ShortVerticalSpace"/>
 

@@ -177,9 +177,22 @@
 
     <!-- TextView: histo date -->
     <style name="TextViewForHistoDate" parent="android:Widget.TextView">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">0.25</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical|left</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <!-- TextView: histo title -->
+    <style name="TextViewForHistoTitle" parent="android:Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">0.75</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:textStyle">bold</item>

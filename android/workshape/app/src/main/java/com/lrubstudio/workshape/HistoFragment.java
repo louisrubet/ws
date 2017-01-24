@@ -222,10 +222,15 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
 
             if (view != null)
             {
-                // date + event
+                // date
                 TextView text = (TextView)view.findViewById(R.id.textDate);
                 if (text != null)
-                    text.setText(date + " - " + type.getName());
+                    text.setText(date);
+
+                // event
+                text = (TextView)view.findViewById(R.id.textTitle);
+                if (text != null)
+                    text.setText(type.getName());
 
                 switch(type)
                 {

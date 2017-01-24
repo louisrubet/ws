@@ -114,7 +114,7 @@
     <string name="histo_list_creation">Création</string>
     <string name="histo_list_update">Données modifiées</string>
     <string name="histo_list_update_note">Note modifiée</string>
-    <string name="histo_list_in">Entrée</string>
-    <string name="histo_list_out">Sortie</string>
+    <string name="histo_list_in">Entrée au frigo</string>
+    <string name="histo_list_out">Sortie du frigo</string>
 
 </resources>
