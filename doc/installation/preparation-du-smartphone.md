@@ -1,10 +1,18 @@
 # Préparation du smartphone BlackView BV6000 avant installation
-- Configuration du réseau Wifi
+- Désinstaller les applications suivantes:
+    - Xender, Twitter
 - Configuration
-    - Désactivation du Bluetooth
-    - Désactivation de l'auto-rotatation (mode portrait uniquement)
-    - Configuration de la langue française dans le menu Settings->Language & input
-        - Language: Français
-        - Correcteur orthographique activé
-    - Activation des Developper Options
-- Nettoyage des icônes sur le premier panneau, mise de l'icône 'Workshape' sur la barre d'outils rapides en bas
+    - Passer en français :
+        - Settings->Language & input : choisir la langue française
+    - Figer le mode portrait :
+        - Paramètres->Affichage: menu 'Lorsque l'utilisateur fait pivoter l'appareil': choisir 'Rester en mode portrait'
+    - Désastiver le Bluetooth :
+        - Paramètres->Bluetooth : Choisir 'Désactivé'
+    - Passer en mode développeur
+        - Paramètres->A propos du téléphone : cliquer une dizaine de fois sur 'Numéro de build'
+    - Désactiver l'assistant Google:
+        - faire une recherche dans le panneau de droite, 'Recherche' en haut de l'écran
+        - choisir 'Ne pas laisser l'assistant Google' etc.
+    - Configuration du réseau Wifi:
+        - Paramètres->Wifi : 'Activé' puis choisir le réseau et entrer le mot de passe
+- Nettoyage des icônes sur le premier panneau
