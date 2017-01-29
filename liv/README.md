@@ -1,3 +1,0 @@
-# Installation sur site
-
-TODO
