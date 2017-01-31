@@ -181,6 +181,7 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
 
             switch(event)
             {
+                // TODO no hardcoded string here (performance ?)
                 case "new": this.type = ListItemType.creation; break;
                 case "update": this.type = ListItemType.update; break;
                 case "update note": this.type = ListItemType.update_note; break;

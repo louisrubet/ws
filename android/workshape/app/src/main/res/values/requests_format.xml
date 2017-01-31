@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- conversion formats -->
     <string name="date_format_to_mysql">dd/MM/yyyy HH:mm</string>
     <string name="date_format_to_android">dd/MM/yyyy HH:mm</string>
     <string name="time_format_to_android">HH:mm</string>
-    <string name="lieu_de_stockage">frigo</string>
-    <string name="lieu_de_sortie">sortie</string>
+
+    <!-- events -->
+    <string name="event_label_add">new</string>
+    <string name="name_label_add">Nom</string>
+
+    <string name="event_label_in">in</string>
+    <string name="lieu_actuel_label_in">Lieu de stockage</string>
+    <string name="longueur_consommee_label_in">Consommée (m)</string>
+    <string name="temps_hors_gel_label_in">Temps hors gel (hh:mm)</string>
+
+    <string name="event_label_out">out</string>
+    <string name="en_stock_depuis_label_out">En stock depuis</string>
+    <string name="longueur_actuelle_label_out">Longueur restante (m)</string>
+    <string name="string_total_hors_gel_label_out">Total hors gel (hh:mm)</string>
+
+    <string name="event_label_update">update</string>
+
+    <string name="event_label_update_note">update_note</string>
+
 </resources>

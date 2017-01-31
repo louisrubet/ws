@@ -74,7 +74,8 @@ public class NoteFragment extends DataFragment implements View.OnClickListener, 
         if (qrCode.length() > 0)
         {
             String note = ((EditText)getView().findViewById(R.id.editNote)).getText().toString();
-            DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductUpdateNote(getActivity(), qrCode, DbProduct.timeNowToString(getActivity()), note));
+            DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductUpdateNote(getActivity(), qrCode, DbProduct.timeNowToString(getActivity()), note,
+                    getResources().getString(R.string.event_label_update_note)));
         }
         else
         {

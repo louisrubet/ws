@@ -101,7 +101,10 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             String temps_hors_gel =  DbProduct.HHMMToSeconds(getActivity(), string_temps_hors_gel);
 
             if (temps_hors_gel != null)
-                DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductIn(getActivity(), qrCode, date, longueurConsommee, temps_hors_gel, string_temps_hors_gel, lieuActuel));
+                DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductIn(getActivity(), qrCode, date,
+                        longueurConsommee, temps_hors_gel, string_temps_hors_gel,
+                        lieuActuel, getResources().getString(R.string.event_label_in), getResources().getString(R.string.lieu_actuel_label_in),
+                        getResources().getString(R.string.longueur_consommee_label_in), getResources().getString(R.string.temps_hors_gel_label_in)));
             else
                 StringValidation.EditTextShouldBeHHmm((EditText)getView().findViewById(R.id.editInTempsHorsGel));
         }

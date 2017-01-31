@@ -86,7 +86,9 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
         String buttonOutLieuDepuis = ((Button)getView().findViewById(R.id.buttonOutLieuDepuis)).getText().toString();
 
         DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductOut(getActivity(), qrCode, DbProduct.timeNowToString(getActivity()),
-                buttonOutLieuDepuis, editOutLongueurActuelle, editOutHorsGelTotal));
+                buttonOutLieuDepuis, editOutLongueurActuelle, editOutHorsGelTotal,
+                getResources().getString(R.string.event_label_out), getResources().getString(R.string.en_stock_depuis_label_out),
+                getResources().getString(R.string.longueur_actuelle_label_out), getResources().getString(R.string.string_total_hors_gel_label_out)));
     }
 
     @Override

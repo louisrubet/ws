@@ -103,14 +103,16 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
                 DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductAdd(getActivity(),
                         qrCode, date, name, fournisseur, refFournisseur,
                         longueurInitiale, largeur, grammage,
-                        typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
+                        typeDeTissus, dateArrivee, transportFrigo, lieuActuel,
+                        getResources().getString(R.string.event_label_add), getResources().getString(R.string.name_label_add)));
                 // product to update: update it
             else
                 // build and run request
                 DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductUpdate(getActivity(),
                         qrCode, date, name, fournisseur, refFournisseur,
                         longueurInitiale, largeur, grammage,
-                        typeDeTissus, dateArrivee, transportFrigo, lieuActuel));
+                        typeDeTissus, dateArrivee, transportFrigo, lieuActuel,
+                        getResources().getString(R.string.event_label_update)));
         }
         else if(view.getId() == R.id.buttonDateArrivee)
         {

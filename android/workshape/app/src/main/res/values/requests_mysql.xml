@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="request_product">select * from product_view where qr_code=\"#qr_code\"</string>
+    <string name="request_product">select * from product_view where qr_code=\"#qr_code#\"</string>
     <string name="request_product_list">select * from product_list"</string>
-    <string name="request_event_list">select * from event_list where qr_code=\"#qr_code\"</string>
-    <string name="request_product_out">call product_out(\"#qr_code\",\"#date\",null,\"#en_stock_depuis\",\"#longueur_actuelle\",\"#total_hors_gel\")</string>
-    <string name="request_product_in">call product_in(\"#qr_code\",\"#date\",\"#longueur_consommee\",\"#temps_hors_gel\",\"#string_temps_hors_gel\",\"#lieu_actuel\")</string>
-    <string name="request_product_add">call product_add(\"#qr_code\",\"#date\",\"#name\",\"#fournisseur\",\"#ref_fournisseur\",\"#longueur_initiale\",\"#largeur\",\"#grammage\",\"#type_de_tissus\",\"#datarrivee\",\"#transport_frigo\",\"#lieu_actuel\")</string>
-    <string name="request_product_update">call product_update(\"#qr_code\",\"#date\",\"#name\",\"#fournisseur\",\"#ref_fournisseur\",\"#longueur_initiale\",\"#largeur\",\"#grammage\",\"#type_de_tissus\",\"#datarrivee\",\"#transport_frigo\",\"#lieu_actuel\")</string>
-    <string name="request_product_update_note">call product_update_note(\"#qr_code\",\"#date\",\"#note\")</string>
+    <string name="request_event_list">select * from event_list where qr_code=\"#qr_code#\"</string>
+    <string name="request_product_out">call product_out(\"#qr_code#\",\"#date#\",null,\"#en_stock_depuis#\",\"#longueur_actuelle#\",\"#total_hors_gel#\",\"#event_label#\",\"#en_stock_depuis_label#\",\"#longueur_actuelle_label#\",\"#string_total_hors_gel_label#\")</string>
+    <string name="request_product_in">call product_in(\"#qr_code#\",\"#date#\",\"#longueur_consommee#\",\"#temps_hors_gel#\",\"#string_temps_hors_gel#\",\"#lieu_actuel#\",\"#event_label#\",\"#lieu_actuel_label#\",\"#longueur_consommee_label#\",\"#temps_hors_gel_label#\")</string>
+    <string name="request_product_add">call product_add(\"#qr_code#\",\"#date#\",\"#name#\",\"#fournisseur#\",\"#ref_fournisseur#\",\"#longueur_initiale#\",\"#largeur#\",\"#grammage#\",\"#type_de_tissus#\",\"#datarrivee#\",\"#transport_frigo#\",\"#lieu_actuel#\",\"#event_label#\",\"#name_label#\")</string>
+    <string name="request_product_update">call product_update(\"#qr_code#\",\"#date#\",\"#name#\",\"#fournisseur#\",\"#ref_fournisseur#\",\"#longueur_initiale#\",\"#largeur#\",\"#grammage#\",\"#type_de_tissus#\",\"#datarrivee#\",\"#transport_frigo#\",\"#lieu_actuel#\",\"#event_label#\")</string>
+    <string name="request_product_update_note">call product_update_note(\"#qr_code#\",\"#date#\",\"#note#\",\"#event_label#\")</string>
 </resources>

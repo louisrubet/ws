@@ -74,7 +74,7 @@ public class DbProduct
             request = context.getString(R.string.request_product_SQLite);
         else
             request = context.getString(R.string.request_product);
-        return request.replaceAll("#qr_code", qrCode);
+        return request.replaceAll("#qr_code#", qrCode);
     }
 
     static public String buildRequestProductList(Context context)
@@ -94,10 +94,14 @@ public class DbProduct
             request = context.getString(R.string.request_event_list_SQLite);
         else
             request = context.getString(R.string.request_event_list);
-        return request.replaceAll("#qr_code", qrCode);
+        return request.replaceAll("#qr_code#", qrCode);
     }
 
-    static public String buildRequestProductIn(Context context, String qrCode, String date, String longueurConsommee, String temps_hors_gel, String string_temps_hors_gel, String lieuActuel)
+    static public String buildRequestProductIn(Context context, String qrCode, String date,
+                                               String longueurConsommee, String temps_hors_gel,
+                                               String string_temps_hors_gel, String lieuActuel,
+                                               String event_label, String lieuActuelLabel,
+                                               String LongueurConsommeeLabel, String tempsHorsGelLabel)
     {
         String request;
         if (ConfigurationActivity.configuration.localDb)
@@ -105,16 +109,22 @@ public class DbProduct
         else
             request = context.getString(R.string.request_product_in);
 
-        request = request.replaceAll("#qr_code", qrCode);
-        request = request.replaceAll("#date", date);
-        request = request.replaceAll("#longueur_consommee", longueurConsommee);
-        request = request.replaceAll("#temps_hors_gel", temps_hors_gel);
-        request = request.replaceAll("#string_temps_hors_gel", string_temps_hors_gel);
-        request = request.replaceAll("#lieu_actuel", lieuActuel);
+        request = request.replaceAll("#qr_code#", qrCode);
+        request = request.replaceAll("#date#", date);
+        request = request.replaceAll("#longueur_consommee#", longueurConsommee);
+        request = request.replaceAll("#temps_hors_gel#", temps_hors_gel);
+        request = request.replaceAll("#string_temps_hors_gel#", string_temps_hors_gel);
+        request = request.replaceAll("#lieu_actuel#", lieuActuel);
+        request = request.replaceAll("#event_label#", event_label);
+        request = request.replaceAll("#lieu_actuel_label#", lieuActuelLabel);
+        request = request.replaceAll("#longueur_consommee_label#", LongueurConsommeeLabel);
+        request = request.replaceAll("#temps_hors_gel_label#", tempsHorsGelLabel);
+
         return request;
     }
 
-    static public String buildRequestProductOut(Context context, String qrCode, String date, String storedSince, String currentLength, String totalHorsGel)
+    static public String buildRequestProductOut(Context context, String qrCode, String date, String storedSince, String currentLength, String totalHorsGel,
+                                                String eventLabel, String enStockDepuisLabel, String longueurActuelleLabel, String stringTotalHorsGelLabel)
     {
         String request;
         if (ConfigurationActivity.configuration.localDb)
@@ -122,11 +132,15 @@ public class DbProduct
         else
             request = context.getString(R.string.request_product_out);
 
-        request = request.replaceAll("#qr_code", qrCode);
-        request = request.replaceAll("#date", date);
-        request = request.replaceAll("#en_stock_depuis", storedSince);
-        request = request.replaceAll("#longueur_actuelle", currentLength);
-        request = request.replaceAll("#total_hors_gel", totalHorsGel);
+        request = request.replaceAll("#qr_code#", qrCode);
+        request = request.replaceAll("#date#", date);
+        request = request.replaceAll("#en_stock_depuis#", storedSince);
+        request = request.replaceAll("#longueur_actuelle#", currentLength);
+        request = request.replaceAll("#total_hors_gel#", totalHorsGel);
+        request = request.replaceAll("#event_label#", eventLabel);
+        request = request.replaceAll("#en_stock_depuis_label#", enStockDepuisLabel);
+        request = request.replaceAll("#longueur_actuelle_label#", longueurActuelleLabel);
+        request = request.replaceAll("#string_total_hors_gel_label#", stringTotalHorsGelLabel);
 
         return request;
     }
@@ -135,7 +149,7 @@ public class DbProduct
                                                 String name, String fournisseur, String refFournisseur,
                                                 String longueurInitiale, String largeur, String grammage,
                                                 String typeDeTissus, String dateArrivee, String transportFrigo,
-                                                String lieuActuel)
+                                                String lieuActuel, String event_label, String name_label)
     {
         String request;
         if (ConfigurationActivity.configuration.localDb)
@@ -143,18 +157,20 @@ public class DbProduct
         else
             request = context.getString(R.string.request_product_add);
 
-        request = request.replaceAll("#qr_code", qrCode);
-        request = request.replaceAll("#date", date);
-        request = request.replaceAll("#name", name);
-        request = request.replaceAll("#fournisseur", fournisseur);
-        request = request.replaceAll("#ref_fournisseur", refFournisseur);
-        request = request.replaceAll("#longueur_initiale", longueurInitiale);
-        request = request.replaceAll("#largeur", largeur);
-        request = request.replaceAll("#grammage", grammage);
-        request = request.replaceAll("#type_de_tissus", typeDeTissus);
-        request = request.replaceAll("#datarrivee", dateArrivee);
-        request = request.replaceAll("#transport_frigo", transportFrigo);
-        request = request.replaceAll("#lieu_actuel", lieuActuel);
+        request = request.replaceAll("#qr_code#", qrCode);
+        request = request.replaceAll("#date#", date);
+        request = request.replaceAll("#name#", name);
+        request = request.replaceAll("#fournisseur#", fournisseur);
+        request = request.replaceAll("#ref_fournisseur#", refFournisseur);
+        request = request.replaceAll("#longueur_initiale#", longueurInitiale);
+        request = request.replaceAll("#largeur#", largeur);
+        request = request.replaceAll("#grammage#", grammage);
+        request = request.replaceAll("#type_de_tissus#", typeDeTissus);
+        request = request.replaceAll("#datarrivee#", dateArrivee);
+        request = request.replaceAll("#transport_frigo#", transportFrigo);
+        request = request.replaceAll("#lieu_actuel#", lieuActuel);
+        request = request.replaceAll("#event_label#", event_label);
+        request = request.replaceAll("#name_label#", name_label);
         return request;
     }
 
@@ -162,7 +178,7 @@ public class DbProduct
                                                 String name, String fournisseur, String refFournisseur,
                                                 String longueurInitiale, String largeur, String grammage,
                                                 String typeDeTissus, String dateArrivee, String transportFrigo,
-                                                String lieuActuel)
+                                                String lieuActuel, String eventLabel)
     {
         String request;
         if (ConfigurationActivity.configuration.localDb)
@@ -170,22 +186,23 @@ public class DbProduct
         else
             request = context.getString(R.string.request_product_update);
 
-        request = request.replaceAll("#qr_code", qrCode);
-        request = request.replaceAll("#date", date);
-        request = request.replaceAll("#name", name);
-        request = request.replaceAll("#fournisseur", fournisseur);
-        request = request.replaceAll("#ref_fournisseur", refFournisseur);
-        request = request.replaceAll("#longueur_initiale", longueurInitiale);
-        request = request.replaceAll("#largeur", largeur);
-        request = request.replaceAll("#grammage", grammage);
-        request = request.replaceAll("#type_de_tissus", typeDeTissus);
-        request = request.replaceAll("#datarrivee", dateArrivee);
-        request = request.replaceAll("#transport_frigo", transportFrigo);
-        request = request.replaceAll("#lieu_actuel", lieuActuel);
+        request = request.replaceAll("#qr_code#", qrCode);
+        request = request.replaceAll("#date#", date);
+        request = request.replaceAll("#name#", name);
+        request = request.replaceAll("#fournisseur#", fournisseur);
+        request = request.replaceAll("#ref_fournisseur#", refFournisseur);
+        request = request.replaceAll("#longueur_initiale#", longueurInitiale);
+        request = request.replaceAll("#largeur#", largeur);
+        request = request.replaceAll("#grammage#", grammage);
+        request = request.replaceAll("#type_de_tissus#", typeDeTissus);
+        request = request.replaceAll("#datarrivee#", dateArrivee);
+        request = request.replaceAll("#transport_frigo#", transportFrigo);
+        request = request.replaceAll("#lieu_actuel#", lieuActuel);
+        request = request.replaceAll("#event_label#", eventLabel);
         return request;
     }
 
-    static public String buildRequestProductUpdateNote(Context context, String qrCode, String date, String note)
+    static public String buildRequestProductUpdateNote(Context context, String qrCode, String date, String note, String eventLabel)
     {
         String request;
         if (ConfigurationActivity.configuration.localDb)
@@ -193,9 +210,10 @@ public class DbProduct
         else
             request = context.getString(R.string.request_product_update_note);
 
-        request = request.replaceAll("#qr_code", qrCode);
-        request = request.replaceAll("#date", date);
-        request = request.replaceAll("#note", note);
+        request = request.replaceAll("#qr_code#", qrCode);
+        request = request.replaceAll("#date#", date);
+        request = request.replaceAll("#note#", note);
+        request = request.replaceAll("#event_label#", eventLabel);
         return request;
     }
 

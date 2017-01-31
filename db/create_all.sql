@@ -36,7 +36,7 @@ CREATE TABLE `event` (
   `champ3` varchar(45) DEFAULT NULL,
   `valeur3` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idevent`,`qr_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,7 +224,9 @@ CREATE DEFINER=`workshape`@`%` PROCEDURE `product_add`(in qr_code_ nvarchar(45),
     in type_de_tissus_ nvarchar(45),
     in date_arrivee_ nvarchar(45),
     in transport_frigo_ nvarchar(45),
-    in lieu_actuel_ nvarchar(45))
+    in lieu_actuel_ nvarchar(45),
+	in event_label_ nvarchar(45),
+	in name_label_ nvarchar(45))
 BEGIN
 	declare date_now_dt_ DateTime;
 	declare date_arrivee_dt_ DateTime;
@@ -255,7 +257,7 @@ BEGIN
 		values(qr_code_, name_, date_now_dt_, fournisseur_, ref_fournisseur_, longueur_initiale_dec_, longueur_initiale_dec_, largeur_dec_, grammage_, type_de_tissus_, date_arrivee_dt_, transport_frigo_, lieu_actuel_, date_now_dt_, 0);
 
 	# then record an event
-    insert into event(qr_code, event, date, champ1, valeur1) values(qr_code_, "new", date_now_dt_, "Nom", name_);
+    insert into event(qr_code, event, date, champ1, valeur1) values(qr_code_, event_label_, date_now_dt_, name_label_, name_);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -277,7 +279,11 @@ CREATE DEFINER=`workshape`@`%` PROCEDURE `product_in`(in qr_code_ nvarchar(45),
     in longueur_consommee_ nvarchar(45),
     in temps_hors_gel_ int(11),
     in string_temps_hors_gel_ nvarchar(45),
-    in lieu_actuel_ nvarchar(45))
+    in lieu_actuel_ nvarchar(45),
+	in event_label_ nvarchar(45),
+	in lieu_actuel_label_ nvarchar(45),
+	in longueur_consommee_label_ nvarchar(45),
+	in temps_hors_gel_label_ nvarchar(45))
 BEGIN
 	declare date_now_dt_ DateTime;
     declare longueur_consommee_dec_ decimal(10,2);
@@ -304,10 +310,10 @@ BEGIN
 
 	# then record an event
     insert into event(qr_code, event, date, champ1, valeur1, champ2, valeur2, champ3, valeur3)
-		values(qr_code_, "in", date_now_dt_,
-				"Lieu de stockage", lieu_actuel_,
-                "Longueur consommée (m)", longueur_consommee_dec_,
-                "Temps hors gel (hh:mm)", string_temps_hors_gel_);
+		values(qr_code_, event_label_, date_now_dt_,
+				lieu_actuel_label_, lieu_actuel_,
+                longueur_consommee_label_, longueur_consommee_,
+                temps_hors_gel_label_, string_temps_hors_gel_);
 
 END ;;
 DELIMITER ;
@@ -330,7 +336,11 @@ CREATE DEFINER=`workshape`@`%` PROCEDURE `product_out`(in qr_code_ nvarchar(45),
 	in lieu_actuel_ nvarchar(45),
     in en_stock_depuis_ nvarchar(45),
     in longueur_actuelle_ nvarchar(45),
-    in string_total_hors_gel_ nvarchar(45))
+    in string_total_hors_gel_ nvarchar(45),
+    in event_label_ nvarchar(45),
+    in en_stock_depuis_label_ nvarchar(45),
+    in longueur_actuelle_label_ nvarchar(45),
+    in string_total_hors_gel_label_ nvarchar(45))
 begin
 	declare date_now_dt_ DateTime;
 
@@ -347,14 +357,11 @@ begin
 	where qr_code=qr_code_;
 
 	# then record an event
-    # stocké depuis
-    # longueur actuelle
-    # Total hors gel
     insert into event(qr_code, event, date, champ1, valeur1, champ2, valeur2, champ3, valeur3)
-		values(qr_code_, "out", date_now_dt_,
-				"En stock depuis", en_stock_depuis_,
-                "Longueur restante (m)", longueur_actuelle_,
-                "Total hors gel (hh:mm)", string_total_hors_gel_);
+		values(qr_code_, event_label_, date_now_dt_,
+				en_stock_depuis_label_, en_stock_depuis_,
+                longueur_actuelle_label_, longueur_actuelle_,
+                string_total_hors_gel_label_, string_total_hors_gel_);
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -382,7 +389,8 @@ CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update`(in qr_code_ nvarchar(4
     in type_de_tissus_ nvarchar(45),
     in date_arrivee_ nvarchar(45),
     in transport_frigo_ nvarchar(10),
-    in lieu_actuel_ nvarchar(45))
+    in lieu_actuel_ nvarchar(45),
+    in event_label_ nvarchar(45))
 BEGIN
 	declare date_now_dt_ DateTime;
 	declare date_arrivee_dt_ DateTime;
@@ -427,7 +435,7 @@ BEGIN
 	SET SQL_SAFE_UPDATES = 1;
 	
     # then record an event
-    insert into event(qr_code, event, date) values(qr_code_, "update", date_now_dt_);
+    insert into event(qr_code, event, date) values(qr_code_, event_label_, date_now_dt_);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -444,7 +452,11 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update_note`(in qr_code_ nvarchar(45), in date_now_ nvarchar(45), in note_ text)
+CREATE DEFINER=`workshape`@`%` PROCEDURE `product_update_note`(
+	in qr_code_ nvarchar(45),
+    in date_now_ nvarchar(45),
+    in note_ text,
+	in event_label_ nvarchar(45))
 BEGIN
 	declare date_now_dt_ DateTime;
 
@@ -455,7 +467,7 @@ BEGIN
     update product set note = note_ where qr_code = qr_code_;
 
 	# then record an event
-    insert into event(qr_code, event, date) values(qr_code_, "update note", date_now_dt_);
+    insert into event(qr_code, event, date) values(qr_code_, event_label_, date_now_dt_);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -526,4 +538,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-24 22:42:21
+-- Dump completed on 2017-01-31 22:42:00
