@@ -1,7 +1,7 @@
 # Installation et configuration du smartphone BlackView BV6000
 
 ## 1. Préparation du BV6000
-Après réception du smartphone dans sa configuration d'orrigine :
+Après réception du smartphone dans sa configuration d'origine :
 - __Désinstaller__ les applications suivantes:
     - Xender, Twitter
 - __Configurer__
