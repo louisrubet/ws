@@ -45,6 +45,7 @@
     <string name="lieu_actuel_in">Entrer dans</string>
     <string name="date_application">Date d\'application</string>
     <string name="type_de_tissus">Type de tissus</string>
+    <string name="finished">Rouleau terminé</string>
     <string name="date_d_arrivee">Date d\'arrivée</string>
     <string name="transport_frigo">Transport frigo</string>
     <string name="decongele">Nb décongélation</string>
@@ -90,8 +91,8 @@
     <string name="conf_lieu_par_defaut">Lieu par défaut</string>
     <string name="conf_database_local">Local DB</string>
     <string name="conf_flash_par_defaut">Flash par défaut</string>
-    <string name="conf_flash_oui">I</string>
-    <string name="conf_flash_non">O</string>
+    <string name="conf_flash_oui">1</string>
+    <string name="conf_flash_non">0</string>
     <string name="conf_password">Mot de passe conf</string>
     <string name="conf_dbg_no_db">DEBUG pas de db</string>
     <string name="conf_dbg_simulate_product_new">DEBUG simul new</string>

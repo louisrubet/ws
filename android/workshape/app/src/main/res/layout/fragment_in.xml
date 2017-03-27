@@ -87,6 +87,16 @@
                 <TableRow style="@style/CommonTableRow">
 
                     <TextView style="@style/TextViewForTableRow"
+                              android:text="@string/finished" />
+
+                    <Switch style="@style/SwitchForTableRow"
+                            android:id="@+id/switchFinishedIn" />
+
+                </TableRow>
+
+                <TableRow style="@style/CommonTableRow">
+
+                    <TextView style="@style/TextViewForTableRow"
                               android:text="@string/hors_gel" />
 
                     <EditText style="@style/EditTextForTableRow"

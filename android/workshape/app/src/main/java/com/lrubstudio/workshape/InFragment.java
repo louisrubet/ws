@@ -2,12 +2,15 @@ package com.lrubstudio.workshape;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -19,7 +22,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InFragment extends Fragment implements View.OnClickListener, DbRequest.AsyncResponse
+public class InFragment extends Fragment implements View.OnClickListener, DbRequest.AsyncResponse, TextWatcher
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -65,10 +68,10 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         // fill MMI views from db fields
         int[] edits = new int [] {
                 R.id.editInQRCode, R.id.editInReference, R.id.editInLongueurInitiale,
-                R.id.editInLongueurActuelle, R.id.buttonInLieuDepuis };
+                R.id.editInLongueurActuelle, R.id.buttonInLieuDepuis, R.id.switchFinishedIn };
         String[] dbfields = new String [] {
                 DbProduct.qrCode, DbProduct.name, DbProduct.longueurInitiale,
-                DbProduct.longueurActuelle, DbProduct.lieuDepuis };
+                DbProduct.longueurActuelle, DbProduct.lieuDepuis, DbProduct.finished };
         MainActivity.getLastRequestedProduct().fillFragmentFromFields(view, edits, dbfields);
 
         // fill lieu from global configuration
@@ -79,6 +82,9 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
 
         // fill hors gel time duration
         ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setText(DbProduct.timeDiffToString(getActivity(), ((Button)view.findViewById(R.id.buttonInLieuDepuis)).getText().toString(), new Date(System.currentTimeMillis())));
+
+        //
+        ((EditText)getView().findViewById(R.id.editInLongueurConsommee)).addTextChangedListener(this);
 
         super.onActivityCreated(savedInstanceState);
     }
@@ -95,6 +101,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
             String longueurConsommee = ((EditText)getView().findViewById(R.id.editInLongueurConsommee)).getText().toString();
             String lieuActuel= ((EditText)getView().findViewById(R.id.editInLieuActuel)).getText().toString();
+            String finished = ((Switch) getView().findViewById(R.id.switchFinishedIn)).isChecked() ? "1":"0";
 
             // "hh:mm" -> total time in seconds
             String string_temps_hors_gel = ((EditText)getView().findViewById(R.id.editInTempsHorsGel)).getText().toString();
@@ -102,7 +109,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
 
             if (temps_hors_gel != null)
                 DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductIn(getActivity(), qrCode, date,
-                        longueurConsommee, temps_hors_gel, string_temps_hors_gel,
+                        longueurConsommee, finished, temps_hors_gel, string_temps_hors_gel,
                         lieuActuel, getResources().getString(R.string.event_label_in), getResources().getString(R.string.lieu_actuel_label_in),
                         getResources().getString(R.string.longueur_consommee_label_in), getResources().getString(R.string.temps_hors_gel_label_in)));
             else
@@ -125,6 +132,27 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         {
             // toast db error
             Toast.makeText(getActivity(), dbErrorString, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+    @Override
+    public void afterTextChanged(Editable s)
+    {
+        try
+        {
+            // auto-set switch 'finished' if no more length
+            Float longueurActuelle = Float.parseFloat(((EditText)getView().findViewById(R.id.editInLongueurActuelle)).getText().toString());
+            Float longueurConsommee = Float.parseFloat(s.toString());
+            ((Switch)getView().findViewById(R.id.switchFinishedIn)).setChecked( longueurActuelle - longueurConsommee <= 0.0 );
+        }
+        catch(Exception e)
+        {
         }
     }
 }

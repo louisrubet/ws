@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -26,14 +27,14 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
     int[] _ids = new int [] {
             R.id.editName, R.id.editFournisseur, R.id.editRefFournisseur,
             R.id.editTransportFrigo, R.id.editLongueurInitiale, R.id.buttonDateArrivee,
-            R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus, R.id.editLieuActuel
+            R.id.editLargeur, R.id.editGrammage, R.id.editTypeDeTissus, R.id.editLieuActuel, R.id.switchFinished
     };
 
     // db fields to populate widgets
     String[] _fields = new String [] {
             DbProduct.name, DbProduct.fournisseur, DbProduct.refFournisseur,
             DbProduct.transportFrigo, DbProduct.longueurInitiale, DbProduct.dateArrivee,
-            DbProduct.largeur, DbProduct.grammage, DbProduct.typeDeTissus, DbProduct.lieuActuel
+            DbProduct.largeur, DbProduct.grammage, DbProduct.typeDeTissus, DbProduct.lieuActuel, DbProduct.finished
     };
 
     @Override
@@ -96,6 +97,7 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
             String dateArrivee = ((Button) getView().findViewById(R.id.buttonDateArrivee)).getText().toString();
             String transportFrigo = ((EditText) getView().findViewById(R.id.editTransportFrigo)).getText().toString();
             String lieuActuel = ((EditText) getView().findViewById(R.id.editLieuActuel)).getText().toString();
+            String finished = ((Switch) getView().findViewById(R.id.switchFinished)).isChecked() ? "1":"0";
 
             // new product: create it
             if (MainActivity.getLastRequestedProduct().isNewQrCode())
@@ -103,7 +105,7 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
                 DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductAdd(getActivity(),
                         qrCode, date, name, fournisseur, refFournisseur,
                         longueurInitiale, largeur, grammage,
-                        typeDeTissus, dateArrivee, transportFrigo, lieuActuel,
+                        typeDeTissus, dateArrivee, transportFrigo, lieuActuel, finished,
                         getResources().getString(R.string.event_label_add), getResources().getString(R.string.name_label_add)));
                 // product to update: update it
             else
@@ -111,7 +113,7 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
                 DbRequest.createCommand(this, null).execute(DbProduct.buildRequestProductUpdate(getActivity(),
                         qrCode, date, name, fournisseur, refFournisseur,
                         longueurInitiale, largeur, grammage,
-                        typeDeTissus, dateArrivee, transportFrigo, lieuActuel,
+                        typeDeTissus, dateArrivee, transportFrigo, lieuActuel, finished,
                         getResources().getString(R.string.event_label_update)));
         }
         else if(view.getId() == R.id.buttonDateArrivee)

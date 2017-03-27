@@ -1,9 +1,11 @@
 package com.lrubstudio.workshape;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class DbProduct
     public static final String lieuActuel = "lieu_actuel";
     public static final String lieuDepuis = "lieu_depuis";
     public static final String tempsHorsGelTotal = "temps_hors_gel_total";
+    public static final String finished = "finished";
     public static final String note = "note";
 
     // product key column
@@ -98,7 +101,7 @@ public class DbProduct
     }
 
     static public String buildRequestProductIn(Context context, String qrCode, String date,
-                                               String longueurConsommee, String temps_hors_gel,
+                                               String longueurConsommee, String finished, String temps_hors_gel,
                                                String string_temps_hors_gel, String lieuActuel,
                                                String event_label, String lieuActuelLabel,
                                                String LongueurConsommeeLabel, String tempsHorsGelLabel)
@@ -112,6 +115,7 @@ public class DbProduct
         request = request.replaceAll("#qr_code#", qrCode);
         request = request.replaceAll("#date#", date);
         request = request.replaceAll("#longueur_consommee#", longueurConsommee);
+        request = request.replaceAll("#finished#", finished);
         request = request.replaceAll("#temps_hors_gel#", temps_hors_gel);
         request = request.replaceAll("#string_temps_hors_gel#", string_temps_hors_gel);
         request = request.replaceAll("#lieu_actuel#", lieuActuel);
@@ -149,7 +153,7 @@ public class DbProduct
                                                 String name, String fournisseur, String refFournisseur,
                                                 String longueurInitiale, String largeur, String grammage,
                                                 String typeDeTissus, String dateArrivee, String transportFrigo,
-                                                String lieuActuel, String event_label, String name_label)
+                                                String lieuActuel, String finished, String event_label, String name_label)
     {
         String request;
         if (ConfigurationActivity.configuration.localDb)
@@ -169,6 +173,7 @@ public class DbProduct
         request = request.replaceAll("#datarrivee#", dateArrivee);
         request = request.replaceAll("#transport_frigo#", transportFrigo);
         request = request.replaceAll("#lieu_actuel#", lieuActuel);
+        request = request.replaceAll("#finished#", finished);
         request = request.replaceAll("#event_label#", event_label);
         request = request.replaceAll("#name_label#", name_label);
         return request;
@@ -178,7 +183,7 @@ public class DbProduct
                                                 String name, String fournisseur, String refFournisseur,
                                                 String longueurInitiale, String largeur, String grammage,
                                                 String typeDeTissus, String dateArrivee, String transportFrigo,
-                                                String lieuActuel, String eventLabel)
+                                                String lieuActuel, String finished, String eventLabel)
     {
         String request;
         if (ConfigurationActivity.configuration.localDb)
@@ -198,6 +203,7 @@ public class DbProduct
         request = request.replaceAll("#datarrivee#", dateArrivee);
         request = request.replaceAll("#transport_frigo#", transportFrigo);
         request = request.replaceAll("#lieu_actuel#", lieuActuel);
+        request = request.replaceAll("#finished#", finished);
         request = request.replaceAll("#event_label#", eventLabel);
         return request;
     }
@@ -304,6 +310,8 @@ public class DbProduct
                 View view = fragment.findViewById(id);
                 if (view instanceof EditText)
                     ((EditText)view).setText(value);
+                else if (view instanceof Switch)
+                    ((Switch)view).setChecked(value.equals("1"));
                 else if (view instanceof Button)
                     ((Button)view).setText(value);
             }
@@ -327,6 +335,8 @@ public class DbProduct
                 View view = fragment.findViewById(id);
                 if (view instanceof EditText)
                     value = ((EditText)view).getText().toString();
+                else if (view instanceof Switch)
+                    value = ((Switch)view).isChecked() ? "1" : "";
                 else if (view instanceof Button)
                     value = ((Button)view).getText().toString();
 
