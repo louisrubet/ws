@@ -28,8 +28,8 @@ public class EditAddActivity extends AppCompatActivity
     {
         in_out,
         detailed,
-        note,
-        histo
+        histo,
+        note
     }
     private static final EditPage editDefaultPage = EditPage.in_out;
 
