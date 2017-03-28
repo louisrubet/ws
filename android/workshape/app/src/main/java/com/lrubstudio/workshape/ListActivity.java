@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -156,10 +157,10 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
 
     public class ListItem implements Item
     {
-        private final String qrCode;
-        private final String name;
-        private final String longueur;
-        private final int type;
+        final String qrCode;
+        final String name;
+        final String longueur;
+        final int type;
 
         public ListItem(int type, String qrCode, String name, String longueur)
         {
@@ -189,6 +190,7 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
             else
             {
                 view = convertView;
+                Log.d("DEBUG", "convertView.id = " + convertView.getId());
             }
 
             if (view != null)
@@ -234,47 +236,37 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
             return getItem(position).getViewType();
         }
 
-        /*
         @Override
         public View getView(int position, View convertView, ViewGroup parent)
         {
-            return getItem(position).getView(inflater, convertView);
-        }
-        */
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            ViewHolder holder = null;
             int rowType = getItemViewType(position);
-            View View;
 
-            if (convertView == null)
+            if ((convertView == null) || (convertView.getTag() != (Integer)rowType))
             {
-                holder = new ViewHolder();
+                // inflate view
                 switch (rowType)
                 {
                     case LIST_ITEM:
                         convertView = inflater.inflate(R.layout.layout_list_item, null);
-                        holder.View=getItem(position).getView(inflater, convertView);
+                        convertView.setTag(Integer.valueOf(rowType));
                         break;
                     case HEADER_ITEM:
                         convertView = inflater.inflate(R.layout.layout_list_header_item, null);
-                        holder.View=getItem(position).getView(inflater, convertView);
+                        convertView.setTag(Integer.valueOf(rowType));
                         break;
                 }
-                convertView.setTag(holder);
             }
-            else
-            {
-                holder = (ViewHolder)convertView.getTag();
-            }
-            return convertView;
-        }
 
-        public class ViewHolder
-        {
-            public  View View;
+            if (convertView != null)
+            {
+                TextView text = (TextView) convertView.findViewById(R.id.textListContent2);
+                text.setText(((ListItem)getItem(position)).name);
+
+                text = (TextView) convertView.findViewById(R.id.textListContent1);
+                text.setText(((ListItem)getItem(position)).longueur);
+            }
+
+            return convertView;
         }
     }
 }
