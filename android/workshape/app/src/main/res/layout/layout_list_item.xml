@@ -6,10 +6,10 @@
 
     <TableRow style="@style/CommonTableRow">
 
-        <TextView style="@style/TextViewForTableRowHistoLeft"
+        <TextView style="@style/TextViewForTableRowListLeft"
                   android:id="@+id/textListContent2" />
 
-        <TextView style="@style/TextViewForTableRowHistoRight"
+        <TextView style="@style/TextViewForTableRowListRight"
                   android:id="@+id/textListContent1" />
 
     </TableRow>

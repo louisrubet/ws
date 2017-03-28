@@ -141,28 +141,50 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!-- TextView: left side of TableRows (30% weight) -->
+    <!-- TextView: left side of TableRows (70% weight) -->
     <style name="TextViewForListHeaderLeft" parent="android:Widget.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_weight">0.30</item>
+        <item name="android:layout_weight">0.70</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorToolbarItem</item>
     </style>
 
-    <!-- TextView: left side of TableRows (70% weight) -->
+    <!-- TextView: left side of TableRows (30% weight) -->
     <style name="TextViewForListHeaderRight" parent="android:Widget.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_weight">0.70</item>
+        <item name="android:gravity">right</item>
+        <item name="android:layout_weight">0.30</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorToolbarItem</item>
+    </style>
+
+    <!-- TextView: list, left side of TableRows -->
+    <style name="TextViewForTableRowListLeft" parent="android:Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_weight">0.70</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+    <!-- TextView: list, right side of TableRows -->
+    <style name="TextViewForTableRowListRight" parent="android:Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">right</item>
+        <item name="android:layout_weight">0.30</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
     <!-- TextView: for note -->

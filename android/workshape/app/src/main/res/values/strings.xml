@@ -36,6 +36,7 @@
     <string name="ref_fourn">Ref. fourn.</string>
     <string name="longueur_initiale">Longueur initiale (m)</string>
     <string name="longueur_actuelle">Longueur actuelle (m)</string>
+    <string name="longueur_actuelle_short">Longueur</string>
     <string name="longueur_consommee">Consommé (m)</string>
     <string name="largeur">Largeur (m)</string>
     <string name="grammage">Grammage</string>s

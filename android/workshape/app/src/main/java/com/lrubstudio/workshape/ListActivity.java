@@ -73,7 +73,7 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                     {
                         // make a string list for the product listView
                         valuesArray = new ArrayList<Item>();
-                        valuesArray.add(new ListItem(ListAdapterDb.HEADER_ITEM, getString(R.string.qr_code), getString(R.string.name)));
+                        valuesArray.add(new ListItem(ListAdapterDb.HEADER_ITEM, getString(R.string.qr_code), getString(R.string.name), getString(R.string.longueur_actuelle_short)));
                         try
                         {
                             for (int i = 0; i < mapArrayList.size(); i++)
@@ -81,11 +81,12 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                                 Map map = mapArrayList.get(i);
 
                                 // find field named "name" in request result
-                                if (map.containsKey(DbProduct.qrCode) && map.containsKey(DbProduct.name))
+                                if (map.containsKey(DbProduct.qrCode) && map.containsKey(DbProduct.name) && map.containsKey(DbProduct.longueurActuelle))
                                 {
                                     String qrCode = (String) map.get(DbProduct.qrCode);
                                     String name = (String) map.get(DbProduct.name);
-                                    valuesArray.add(new ListItem(ListAdapterDb.LIST_ITEM, qrCode, name));
+                                    String longueur = (String) map.get(DbProduct.longueurActuelle);
+                                    valuesArray.add(new ListItem(ListAdapterDb.LIST_ITEM, qrCode, name, longueur));
                                 }
                             }
                         } catch (Exception e)
@@ -157,12 +158,14 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
     {
         private final String qrCode;
         private final String name;
+        private final String longueur;
         private final int type;
 
-        public ListItem(int type, String qrCode, String name)
+        public ListItem(int type, String qrCode, String name, String longueur)
         {
             this.qrCode = qrCode;
             this.name = name;
+            this.longueur = longueur;
             this.type = type;
         }
 
@@ -190,12 +193,11 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
 
             if (view != null)
             {
-
-                TextView text = (TextView) view.findViewById(R.id.textListContent1);
-                text.setText(qrCode);
-
-                text = (TextView) view.findViewById(R.id.textListContent2);
+                TextView text = (TextView) view.findViewById(R.id.textListContent2);
                 text.setText(name);
+
+                text = (TextView) view.findViewById(R.id.textListContent1);
+                text.setText(longueur);
             }
 
             return view;
