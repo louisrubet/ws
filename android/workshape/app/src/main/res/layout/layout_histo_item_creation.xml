@@ -18,20 +18,20 @@
 
         <TableRow style="@style/CommonTableRow">
 
-            <TextView style="@style/TextViewForTableRowHistoLeft"
+            <TextView style="@style/TextViewForTableRowHistoLeft60p"
                       android:text="@string/qr_code" />
 
-            <TextView style="@style/TextViewForTableRowHistoRight"
+            <TextView style="@style/TextViewForTableRowHistoRight40p"
                       android:id="@+id/textListQrCode"/>
 
         </TableRow>
 
         <TableRow style="@style/CommonTableRow">
 
-            <TextView style="@style/TextViewForTableRowHistoLeft"
+            <TextView style="@style/TextViewForTableRowHistoLeft60p"
                       android:id="@+id/textListContent1" />
 
-            <TextView style="@style/TextViewForTableRowHistoRight"
+            <TextView style="@style/TextViewForTableRowHistoRight40p"
                       android:id="@+id/textListValue1" />
 
         </TableRow>
