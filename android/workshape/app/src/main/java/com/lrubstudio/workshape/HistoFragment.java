@@ -5,6 +5,7 @@ package com.lrubstudio.workshape;
  */
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,6 +29,18 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
     // result of db request for products
     private ArrayList<Map> mapArrayList;
 
+    // ListAdapter item types and names
+    public enum ListItemType
+    {
+        creation,
+        update,
+        update_note,
+        in,
+        out;
+    }
+    public static final String[] listItemTypes = { "", "", "", "", "" };
+    public static final String[] listItemTypesNames = { "", "", "", "", "" };
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -49,14 +62,18 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
         ListView list = (ListView)view.findViewById(R.id.listEvent);
         list.setEmptyView(empty);
 
-        // populate ListItemType names
-        Map map = new HashMap<String, String>();
-        map.put(ListItemType.creation.name(), getActivity().getString(R.string.histo_list_creation));
-        map.put(ListItemType.update.name(), getActivity().getString(R.string.histo_list_update));
-        map.put(ListItemType.update_note.name(), getActivity().getString(R.string.histo_list_update_note));
-        map.put(ListItemType.in.name(), getActivity().getString(R.string.histo_list_in));
-        map.put(ListItemType.out.name(), getActivity().getString(R.string.histo_list_out));
-        ListItemType.setNames(map);
+        // fill strings for events
+        listItemTypesNames[ListItemType.creation.ordinal()] = getActivity().getString(R.string.histo_list_creation);
+        listItemTypesNames[ListItemType.update.ordinal()] = getActivity().getString(R.string.histo_list_update);
+        listItemTypesNames[ListItemType.update_note.ordinal()] = getActivity().getString(R.string.histo_list_update_note);
+        listItemTypesNames[ListItemType.in.ordinal()] = getActivity().getString(R.string.histo_list_in);
+        listItemTypesNames[ListItemType.out.ordinal()] = getActivity().getString(R.string.histo_list_out);
+
+        listItemTypes[ListItemType.creation.ordinal()] = getActivity().getString(R.string.event_label_add);
+        listItemTypes[ListItemType.update.ordinal()] = getActivity().getString(R.string.event_label_update);
+        listItemTypes[ListItemType.update_note.ordinal()] = getActivity().getString(R.string.event_label_update_note);
+        listItemTypes[ListItemType.in.ordinal()] = getActivity().getString(R.string.event_label_in);
+        listItemTypes[ListItemType.out.ordinal()] = getActivity().getString(R.string.event_label_out);
 
         // run asynchronous request to get products list
         DbRequest.createRequest(this, null).execute(DbProduct.buildRequestEventList(getActivity(), MainActivity.getLastRequestedProduct().getQrCode()));
@@ -128,26 +145,6 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
         }
     }
 
-    // ListAdapter item
-    public enum ListItemType
-    {
-        creation,
-        update,
-        update_note,
-        in,
-        out;
-
-        private static Map names;
-        public static void setNames(Map names)
-        {
-            ListItemType.names = names;
-        }
-        public String getName()
-        {
-            return (String)names.get(name());
-        }
-    }
-
     public interface Item
     {
         public ListItemType getViewType();
@@ -179,16 +176,16 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
             this.champ3 = champ3;
             this.valeur3 = valeur3;
 
-            switch(event)
-            {
-                // TODO no hardcoded string here (performance ?)
-                case "new": this.type = ListItemType.creation; break;
-                case "update": this.type = ListItemType.update; break;
-                case "update note": this.type = ListItemType.update_note; break;
-                case "in": this.type = ListItemType.in; break;
-                case "out": this.type = ListItemType.out; break;
-                default: this.type = ListItemType.update; break;
-            }
+            if (event.equals(HistoFragment.listItemTypes[ListItemType.in.ordinal()]))
+                this.type = ListItemType.in;
+            else if (event.equals(HistoFragment.listItemTypes[ListItemType.out.ordinal()]))
+                this.type = ListItemType.out;
+            else if (event.equals(HistoFragment.listItemTypes[ListItemType.creation.ordinal()]))
+                this.type = ListItemType.creation;
+            else if (event.equals(HistoFragment.listItemTypes[ListItemType.update_note.ordinal()]))
+                this.type = ListItemType.update_note;
+            else
+                this.type = ListItemType.update;
         }
 
         public ListItemType getViewType()
@@ -227,7 +224,7 @@ public class HistoFragment extends Fragment implements DbRequest.AsyncResponse
                 // event
                 text = (TextView)view.findViewById(R.id.textTitle);
                 if (text != null)
-                    text.setText(type.getName());
+                    text.setText(HistoFragment.listItemTypesNames[type.ordinal()]);
 
                 switch(type)
                 {
