@@ -1,6 +1,7 @@
 package com.lrubstudio.workshape;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -76,7 +77,28 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
         // manage dates
         view.findViewById(R.id.buttonDateArrivee).setOnClickListener(this);
 
+        // dimm all for now
+        enableMMI(view, false);
+
+        // manage floating edit button
+        view.findViewById(R.id.buttonEdit).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                enableMMI(getView(), true);
+                ((FloatingActionButton)view).hide();
+            }
+        });
+
         return view;
+    }
+
+    void enableMMI(View view, boolean enable)
+    {
+        if (view != null)
+            for (int id : _ids)
+                view.findViewById(id).setEnabled(enable);
     }
 
     @Override
@@ -175,6 +197,10 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
 
                 // record Edits to watch for modification
                 ViewWatcher.AddMultipleWidgetsToWatcher(this, getView(), _ids);
+
+                // disable MMI again
+                enableMMI(getView(), false);
+                ((FloatingActionButton)getView().findViewById(R.id.buttonEdit)).show();
             }
         }
         else
