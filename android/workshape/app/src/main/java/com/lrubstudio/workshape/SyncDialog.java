@@ -3,9 +3,6 @@ package com.lrubstudio.workshape;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 
 
 /**
@@ -31,7 +28,6 @@ public class SyncDialog
         // message
         builder.setTitle(title);
         builder.setMessage(message);
-        //builder.setCancelable(false);
 
         // at least one button
         builder.setPositiveButton(true_message, new DialogInterface.OnClickListener()

@@ -1,14 +1,11 @@
 package com.lrubstudio.workshape;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteCursorDriver;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQuery;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -156,7 +153,6 @@ public class DbRequestSQLite extends DbRequest implements SQLiteDatabase.CursorF
                         String columnName = cursor.getColumnName(i);
                         if (columnName.length() > 0)
                             mapList.get(row).put(columnName, cursor.getString(i));
-                        Log.e("DbRequest", "field:" + columnName + " : " + cursor.getString(i));
                     }
 
                     row++;

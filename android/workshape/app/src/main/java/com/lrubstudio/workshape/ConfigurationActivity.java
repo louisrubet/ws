@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -50,14 +49,13 @@ public class ConfigurationActivity extends AppCompatActivity
             {
                 try
                 {
-                    // TODO suppr valeurs par defaut
-                    configuration.serverIp = sharedPref.getString(context.getString(R.string.conf_server_hostname), "192.168.1.13");
-                    configuration.serverPort = sharedPref.getString(context.getString(R.string.conf_server_port), "3306");
-                    configuration.database = sharedPref.getString(context.getString(R.string.conf_database_name), "workshapedb");
-                    configuration.user = sharedPref.getString(context.getString(R.string.conf_database_user), "workshape");
-                    configuration.password = sharedPref.getString(context.getString(R.string.conf_database_password), "workshape");
-                    configuration.connectionTimeoutS = sharedPref.getString(context.getString(R.string.conf_database_timeout), "5");
-                    configuration.lieuParDefaut = sharedPref.getString(context.getString(R.string.conf_lieu_par_defaut), "frigo");
+                    configuration.serverIp = sharedPref.getString(context.getString(R.string.conf_server_hostname), "");
+                    configuration.serverPort = sharedPref.getString(context.getString(R.string.conf_server_port), "");
+                    configuration.database = sharedPref.getString(context.getString(R.string.conf_database_name), "");
+                    configuration.user = sharedPref.getString(context.getString(R.string.conf_database_user), "");
+                    configuration.password = sharedPref.getString(context.getString(R.string.conf_database_password), "");
+                    configuration.connectionTimeoutS = sharedPref.getString(context.getString(R.string.conf_database_timeout), "");
+                    configuration.lieuParDefaut = sharedPref.getString(context.getString(R.string.conf_lieu_par_defaut), "");
                     configuration.flashParDefaut = sharedPref.getBoolean(context.getString(R.string.conf_flash_par_defaut), true);
                     configuration.confPassword = sharedPref.getString(context.getString(R.string.conf_password), "");
                     configuration.localDb = sharedPref.getBoolean(context.getString(R.string.conf_database_local), false);

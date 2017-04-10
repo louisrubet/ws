@@ -11,17 +11,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -41,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements DbRequest.AsyncRe
         // toolbar and title
         Toolbar myToolbar = (Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        //myToolbar.setLogo(R.drawable.ic_action_barcode_2);
 
         // hide floating button
         ((FloatingActionButton)findViewById(R.id.fab)).hide();

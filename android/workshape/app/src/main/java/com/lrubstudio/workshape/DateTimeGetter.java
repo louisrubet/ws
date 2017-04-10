@@ -3,9 +3,7 @@ package com.lrubstudio.workshape;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.util.Log;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -34,18 +32,6 @@ public class DateTimeGetter implements DatePickerDialog.OnDateSetListener, TimeP
     private int day;
     private int hour;
     private int minute;
-
-    public DateTimeGetter(Context context, onDateTimeGetter dateTimeGetter, int id, int year, int month, int day, int hour, int minute)
-    {
-        this.context = context;
-        this.dateTimeGetter = dateTimeGetter;
-        this.id = id;
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.hour = hour;
-        this.minute = minute;
-    }
 
     public DateTimeGetter(Context context, onDateTimeGetter dateTimeGetter, int id, String dateTime)
     {

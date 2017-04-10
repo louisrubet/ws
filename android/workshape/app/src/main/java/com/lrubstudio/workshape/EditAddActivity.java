@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 public class EditAddActivity extends AppCompatActivity
@@ -121,7 +120,6 @@ public class EditAddActivity extends AppCompatActivity
         // hide keyboard if shown
         if (state == ViewPager.SCROLL_STATE_IDLE)
         {
-            int page = viewPager.getCurrentItem();
             if (mode == Mode.edit_out || mode == Mode.edit_in)
             {
                 // Hide the keyboard.
@@ -224,7 +222,6 @@ public class EditAddActivity extends AppCompatActivity
     {
         EditAddActivity parentActivity =  null;
 
-
         //
         public CollectionPagerAdapter(FragmentManager fm, EditAddActivity parentActivity)
         {
@@ -318,7 +315,6 @@ public class EditAddActivity extends AppCompatActivity
         @Override
         public CharSequence getPageTitle(int position)
         {
-            Log.i("getPageTitle", "" + position);
             return "page " + position;
         }
     }

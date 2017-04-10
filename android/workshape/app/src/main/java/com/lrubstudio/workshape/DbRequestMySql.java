@@ -1,7 +1,5 @@
 package com.lrubstudio.workshape;
 
-import android.util.Log;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -61,9 +59,9 @@ public class DbRequestMySql extends DbRequest
     @Override
     protected ArrayList<Map> doInBackground(String... request)
     {
-        ResultSet set = null;
+        ResultSet set;
         ArrayList<Map> mapList = null;
-        int columnsCount = 0;
+        int columnsCount;
 
         if (connect())
         {
@@ -106,9 +104,6 @@ public class DbRequestMySql extends DbRequest
 
                     row++;
                 }
-
-                //TODO
-                // clear des objets créés
             }
             catch(DbRequestException e)
             {

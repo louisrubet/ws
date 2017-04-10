@@ -1,16 +1,13 @@
 package com.lrubstudio.workshape;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -240,7 +237,7 @@ public class DbProduct
     {
         String[] parts = hhmmString.split(":");
         String seconds = null;
-        int secondsInt = -1;
+        int secondsInt;
 
         try
         {
@@ -350,14 +347,6 @@ public class DbProduct
             }
             text_id += 1;
         }
-    }
-
-    public int getRows()
-    {
-        int rows = 0;
-        if (mapArray != null && mapArray.get(0) != null)
-            rows = mapArray.size();
-        return rows;
     }
 
     public String get(String fieldName)

@@ -1,8 +1,6 @@
 package com.lrubstudio.workshape;
 
-import android.content.Context;
 import android.widget.EditText;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
