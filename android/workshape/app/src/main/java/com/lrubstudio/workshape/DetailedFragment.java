@@ -44,6 +44,12 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_detailed, container, false);
 
+        // manage button
+        view.findViewById(R.id.buttonAddModify).setOnClickListener(this);
+
+        // manage dates
+        view.findViewById(R.id.buttonDateArrivee).setOnClickListener(this);
+
         // see if product is added
         if(! MainActivity.getLastRequestedProduct().isNewQrCode())
         {
@@ -58,6 +64,9 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
                 view.findViewById(R.id.buttonAddModify).setVisibility(View.VISIBLE);
             else
                 view.findViewById(R.id.buttonAddModify).setVisibility(View.GONE);
+
+            // dimm all for now
+            enableMMI(view, false);
         }
         else
         {
@@ -69,16 +78,10 @@ public class DetailedFragment extends DataFragment implements View.OnClickListen
             String date = new SimpleDateFormat(getActivity().getString(R.string.date_format_to_mysql)).format(new Date());
             ((Button)view.findViewById(R.id.buttonDateArrivee)).setText(date);
             ((EditText)view.findViewById(R.id.editLieuActuel)).setText(ConfigurationActivity.configuration.lieuParDefaut);
+
+            // all widgets enabled
+            enableMMI(view, true);
         }
-
-        // manage button
-        view.findViewById(R.id.buttonAddModify).setOnClickListener(this);
-
-        // manage dates
-        view.findViewById(R.id.buttonDateArrivee).setOnClickListener(this);
-
-        // dimm all for now
-        enableMMI(view, false);
 
         // manage floating edit button
         view.findViewById(R.id.buttonEdit).setOnClickListener(new View.OnClickListener()
