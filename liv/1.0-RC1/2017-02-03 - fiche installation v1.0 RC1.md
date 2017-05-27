@@ -6,7 +6,7 @@ Date d'installation : __03/02/2017__
 
 ## 1. Infrastructure matérielle
 
-Serveur WORKSHAPE-PC, IP 192.168.0.15, 60 04 6A 61 FA 2A
+Serveur WORKSHAPE-PC, IP 192.168.0.15, 60 04 6A 61 FA 2A, port 3306
 
 Smartphone BlackView BV6000, préinstallé avec le logiciel
 
