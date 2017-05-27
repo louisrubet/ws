@@ -1,8 +1,8 @@
 # Fiche d'installation
 
-Logiciel installé : __Gestion de stock des rouleaux pré-imprégnés v1.0 RC2__
+Logiciel installé : __Gestion de stock des rouleaux pré-imprégnés v1.0__
 
-Date d'installation : __ (renseigner) __
+Date d'installation : __27/05/2017__
 
 ## 1. Modifications de la db
 
