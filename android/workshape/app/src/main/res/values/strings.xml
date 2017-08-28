@@ -38,7 +38,7 @@
     <string name="longueur_actuelle">Longueur actuelle (m)</string>
     <string name="longueur_actuelle_short">Longueur</string>
     <string name="longueur_consommee">Consommé (m)</string>
-    <string name="largeur">Largeur (m)</string>
+    <string name="largeur">Largeur (mm)</string>
     <string name="grammage">Grammage</string>s
     <string name="lieu_actuel">Lieu de stockage</string>
     <string name="lieu_depuis_out">depuis</string>
