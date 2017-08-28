@@ -19,7 +19,7 @@
     <string name="event_label_out">out</string>
     <string name="en_stock_depuis_label_out">En stock depuis</string>
     <string name="longueur_actuelle_label_out">Longueur restante (m)</string>
-    <string name="string_total_hors_gel_label_out">Total hors gel (hh:mm)</string>
+    <string name="string_total_hors_gel_label_out">Temps total décongelé</string>
 
     <string name="event_label_update">update</string>
 
