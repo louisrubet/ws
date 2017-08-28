@@ -233,6 +233,36 @@ public class DbProduct
         return hhmm;
     }
 
+    static public String secondsToDaysHours(Context context, String secondsString)
+    {
+        int seconds = Integer.parseInt(secondsString);
+        int days = seconds / 3600 / 24;
+        int hours =  (int)Math.abs( ((double)seconds - (double)days * 3600.0 * 24.0) / 3600.0 + 0.5 );
+        if (hours == 24)
+        {
+            days = days + 1;
+            hours = 0;
+        }
+
+        String dayshours = context.getString(R.string.days_hours_format_to_android);
+        String daysString = String.format("%d", days);
+        String hoursString = String.format("%d", hours);
+
+        dayshours = dayshours.replaceAll("DD", daysString);
+        if (days == 1)
+            dayshours = dayshours.replaceAll("SSJ", "");
+        else
+            dayshours = dayshours.replaceAll("SSJ", "s");
+
+        dayshours = dayshours.replaceAll("HH", hoursString);
+        if (hours == 1)
+            dayshours = dayshours.replaceAll("SSH", "");
+        else
+            dayshours = dayshours.replaceAll("SSH", "s");
+
+        return dayshours;
+    }
+
     static public String HHMMToSeconds(Context context, String hhmmString)
     {
         String[] parts = hhmmString.split(":");

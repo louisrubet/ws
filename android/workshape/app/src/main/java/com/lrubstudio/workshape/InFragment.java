@@ -76,8 +76,8 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         // fill lieu from global configuration
         ((EditText)view.findViewById(R.id.editInLieuActuel)).setText(ConfigurationActivity.configuration.lieuParDefaut);
 
-        // total time in seconds -> "hh:mm"
-        ((EditText)view.findViewById(R.id.editInHorsGelTotal)).setText(DbProduct.secondsToHHMM(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));
+        // total time in seconds -> "DD jours HH heures"
+        ((EditText)view.findViewById(R.id.editInHorsGelTotal)).setText(DbProduct.secondsToDaysHours(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));
 
         // fill hors gel time duration
         ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setText(DbProduct.timeDiffToString(getActivity(), ((Button)view.findViewById(R.id.buttonInLieuDepuis)).getText().toString(), new Date(System.currentTimeMillis())));

@@ -69,8 +69,8 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
                 DbProduct.longueurActuelle, DbProduct.lieuActuel, DbProduct.lieuDepuis };
         MainActivity.getLastRequestedProduct().fillFragmentFromFields(view, edits, dbfields);
 
-        // total time in seconds -> "hh:mm"
-        ((EditText)view.findViewById(R.id.editOutHorsGelTotal)).setText(DbProduct.secondsToHHMM(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));
+        // total time in seconds -> "DD jours HH heures"
+        ((EditText)view.findViewById(R.id.editOutHorsGelTotal)).setText(DbProduct.secondsToDaysHours(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));
 
         super.onActivityCreated(savedInstanceState);
     }
