@@ -1,5 +1,6 @@
 package com.lrubstudio.workshape;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -47,6 +49,7 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
             view.findViewById(R.id.editOutLongueurInitiale).setEnabled(false);
             view.findViewById(R.id.editOutLongueurActuelle).setEnabled(false);
             view.findViewById(R.id.editOutHorsGelTotal).setEnabled(false);
+            view.findViewById(R.id.editOutTempsTotalCongele).setEnabled(false);
             view.findViewById(R.id.editOutLieuActuel).setEnabled(false);
             view.findViewById(R.id.buttonOutLieuDepuis).setEnabled(false);
 
@@ -71,6 +74,19 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
 
         // total time in seconds -> "DD jours HH heures"
         ((EditText)view.findViewById(R.id.editOutHorsGelTotal)).setText(DbProduct.secondsToDaysHours(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));
+
+        // temps total congele = age du rouleau - temps de vie décongelé
+        try
+        {
+            String finished = MainActivity.getLastRequestedProduct().get(DbProduct.finished);
+            if (finished == null || finished != "1")
+                ((EditText) view.findViewById(R.id.editOutTempsTotalCongele)).setText(DbProduct.timeDiffToStringInDays(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis())));
+            else
+                ((EditText) view.findViewById(R.id.editOutTempsTotalCongele)).setText("-");
+        }
+        catch(Exception e)
+        {
+        }
 
         super.onActivityCreated(savedInstanceState);
     }

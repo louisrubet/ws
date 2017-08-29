@@ -309,6 +309,25 @@ public class DbProduct
         return diffString;
     }
 
+    static public String timeDiffToStringInDays(Context context, String dateFrom, Date dateTo)
+    {
+        String days = null;
+        try
+        {
+            // time diff
+            SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString(R.string.date_format_to_android));
+            Date dateLieu = dateFormat.parse(dateFrom);
+
+            // building hours
+            long diffS = (dateTo.getTime() - dateLieu.getTime()) / 1000;
+            days = secondsToDaysHours(context, Integer.toString((int)diffS));
+        }
+        catch(Exception e)
+        {
+        }
+        return days;
+    }
+
     static public String timeNowToString(Context context)
     {
         return new SimpleDateFormat(context.getString(R.string.date_format_to_mysql)).format(new Date());

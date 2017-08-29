@@ -76,6 +76,16 @@
                 <TableRow style="@style/CommonTableRow">
 
                     <TextView style="@style/TextViewForTableRow"
+                              android:text="@string/temps_total_congele" />
+
+                    <EditText style="@style/EditTextForTableRow"
+                              android:id="@+id/editInTempsTotalCongele"
+                              android:inputType="time" />
+                </TableRow>
+
+                <TableRow style="@style/CommonTableRow">
+
+                    <TextView style="@style/TextViewForTableRow"
                               android:text="@string/longueur_consommee" />
 
                     <EditText style="@style/EditTextForTableRow"

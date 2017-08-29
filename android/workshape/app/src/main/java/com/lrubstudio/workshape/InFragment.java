@@ -52,6 +52,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             view.findViewById(R.id.editInLongueurInitiale).setEnabled(false);
             view.findViewById(R.id.editInLongueurActuelle).setEnabled(false);
             view.findViewById(R.id.editInHorsGelTotal).setEnabled(false);
+            view.findViewById(R.id.editInTempsTotalCongele).setEnabled(false);
             view.findViewById(R.id.buttonInLieuDepuis).setEnabled(false);
 
             // manage button
@@ -81,6 +82,19 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
 
         // fill hors gel time duration
         ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setText(DbProduct.timeDiffToString(getActivity(), ((Button)view.findViewById(R.id.buttonInLieuDepuis)).getText().toString(), new Date(System.currentTimeMillis())));
+
+        // temps total congele = age du rouleau - temps de vie décongelé
+        try
+        {
+            String finished = MainActivity.getLastRequestedProduct().get(DbProduct.finished);
+            if (finished == null || finished != "1")
+                ((EditText) view.findViewById(R.id.editInTempsTotalCongele)).setText(DbProduct.timeDiffToStringInDays(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis())));
+            else
+                ((EditText) view.findViewById(R.id.editInTempsTotalCongele)).setText("-");
+        }
+        catch(Exception e)
+        {
+        }
 
         //
         ((EditText)getView().findViewById(R.id.editInLongueurConsommee)).addTextChangedListener(this);

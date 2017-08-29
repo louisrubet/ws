@@ -51,6 +51,7 @@
     <string name="transport_frigo">Transport frigo</string>
     <string name="decongele">Nb décongélation</string>
     <string name="temps_hors_gel_total">Temps total décongelé</string>
+    <string name="temps_total_congele">Temps total congelé</string>
     <string name="hors_gel">Temps décongelé (hh:mm)</string>
     <string name="produit_sorti">Produit sorti</string>
     <string name="produit_entre">Produit entré</string>
