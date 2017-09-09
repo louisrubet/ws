@@ -89,9 +89,15 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         {
             String finished = MainActivity.getLastRequestedProduct().get(DbProduct.finished);
             if (finished == null || finished != "1")
-                ((EditText) view.findViewById(R.id.editInTempsTotalCongele)).setText(DbProduct.timeDiffToStringInDays(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis())));
+                ((EditText) view.findViewById(R.id.editInTempsTotalCongele)).setText(DbProduct.timeDiffToStringInDaysHours(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis())));
             else
                 ((EditText) view.findViewById(R.id.editInTempsTotalCongele)).setText("-");
+
+            // in red if greater than "durée de vie à -18°"
+            double duree_de_vie = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVieMoins18));
+            double temps = DbProduct.timeDiffToDays(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis()));
+            if (temps >= duree_de_vie)
+                ((EditText)view.findViewById(R.id.editInTempsTotalCongele)).setTextColor(Color.RED);
         }
         catch(Exception e)
         {
@@ -103,7 +109,7 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
             double duree_de_vie = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVie20));
             double temps = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal));
             if (temps >= duree_de_vie)
-                ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setTextColor(Color.RED);
+                ((EditText)view.findViewById(R.id.editInHorsGelTotal)).setTextColor(Color.RED);
         }
         catch(Exception e)
         {

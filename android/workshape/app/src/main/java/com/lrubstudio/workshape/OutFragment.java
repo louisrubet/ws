@@ -81,9 +81,15 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
         {
             String finished = MainActivity.getLastRequestedProduct().get(DbProduct.finished);
             if (finished == null || finished != "1")
-                ((EditText) view.findViewById(R.id.editOutTempsTotalCongele)).setText(DbProduct.timeDiffToStringInDays(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis())));
+                ((EditText) view.findViewById(R.id.editOutTempsTotalCongele)).setText(DbProduct.timeDiffToStringInDaysHours(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis())));
             else
                 ((EditText) view.findViewById(R.id.editOutTempsTotalCongele)).setText("-");
+
+            // in red if greater than "durée de vie à -18°"
+            double duree_de_vie = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVieMoins18));
+            double temps = DbProduct.timeDiffToDays(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis()));
+            if (temps >= duree_de_vie)
+                ((EditText)view.findViewById(R.id.editOutTempsTotalCongele)).setTextColor(Color.RED);
         }
         catch(Exception e)
         {

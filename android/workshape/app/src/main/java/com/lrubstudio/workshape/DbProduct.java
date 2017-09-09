@@ -318,7 +318,7 @@ public class DbProduct
         return diffString;
     }
 
-    static public String timeDiffToStringInDays(Context context, String dateFrom, Date dateTo)
+    static public String timeDiffToStringInDaysHours(Context context, String dateFrom, Date dateTo)
     {
         String days = null;
         try
@@ -334,6 +334,26 @@ public class DbProduct
         catch(Exception e)
         {
         }
+        return days;
+    }
+
+    static public double timeDiffToDays(Context context, String dateFrom, Date dateTo)
+    {
+        double days = 0;
+        try
+        {
+            // time diff
+            SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString(R.string.date_format_to_android));
+            Date dateLieu = dateFormat.parse(dateFrom);
+
+            // building hours
+            long diffs = ((dateTo.getTime() - dateLieu.getTime()) / 1000) / 3600;
+            days = (double)diffs;
+        }
+        catch(Exception e)
+        {
+        }
+
         return days;
     }
 
