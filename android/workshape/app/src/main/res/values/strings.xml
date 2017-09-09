@@ -52,8 +52,8 @@
     <string name="decongele">Nb décongélation</string>
     <string name="temps_hors_gel_total">Temps total décongelé</string>
     <string name="temps_total_congele">Temps total congelé</string>
-    <string name="duree_de_vie_20_deg">Durée de vie à 20° (jours)</string>
-    <string name="duree_de_vie_moins_18_deg">Durée de vie à -18° (jours)</string>
+    <string name="duree_de_vie_20_deg">Durée de vie à 20° (j)</string>
+    <string name="duree_de_vie_moins_18_deg">Durée de vie à -18° (j)</string>
     <string name="hors_gel">Temps décongelé (hh:mm)</string>
     <string name="produit_sorti">Produit sorti</string>
     <string name="produit_entre">Produit entré</string>
