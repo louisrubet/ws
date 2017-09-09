@@ -1,6 +1,7 @@
 package com.lrubstudio.workshape;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -83,6 +84,18 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
                 ((EditText) view.findViewById(R.id.editOutTempsTotalCongele)).setText(DbProduct.timeDiffToStringInDays(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis())));
             else
                 ((EditText) view.findViewById(R.id.editOutTempsTotalCongele)).setText("-");
+        }
+        catch(Exception e)
+        {
+        }
+
+        // field temps total decongele in red
+        try
+        {
+            double duree_de_vie = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVie20));
+            double temps = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal));
+            if (temps >= duree_de_vie)
+                ((EditText)view.findViewById(R.id.editOutHorsGelTotal)).setTextColor(Color.RED);
         }
         catch(Exception e)
         {

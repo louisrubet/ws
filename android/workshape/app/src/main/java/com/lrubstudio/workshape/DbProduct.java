@@ -32,6 +32,8 @@ public class DbProduct
     public static final String lieuDepuis = "lieu_depuis";
     public static final String tempsHorsGelTotal = "temps_hors_gel_total";
     public static final String finished = "finished";
+    public static final String dureeDeVie20 = "duree_de_vie_20";
+    public static final String dureeDeVieMoins18 = "duree_de_vie_moins_18";
     public static final String note = "note";
 
     // product key column
@@ -150,7 +152,9 @@ public class DbProduct
                                                 String name, String fournisseur, String refFournisseur,
                                                 String longueurInitiale, String largeur, String grammage,
                                                 String typeDeTissus, String dateArrivee, String transportFrigo,
-                                                String lieuActuel, String finished, String event_label, String name_label)
+                                                String lieuActuel, String finished,
+                                                String duree_de_vie_20, String duree_de_vie_moins_18,
+                                                String event_label, String name_label)
     {
         String request;
         if (ConfigurationActivity.configuration.localDb)
@@ -171,6 +175,8 @@ public class DbProduct
         request = request.replaceAll("#transport_frigo#", transportFrigo);
         request = request.replaceAll("#lieu_actuel#", lieuActuel);
         request = request.replaceAll("#finished#", finished);
+        request = request.replaceAll("#duree_de_vie_20#", duree_de_vie_20);
+        request = request.replaceAll("#duree_de_vie_moins_18#", duree_de_vie_moins_18);
         request = request.replaceAll("#event_label#", event_label);
         request = request.replaceAll("#name_label#", name_label);
         return request;
@@ -180,7 +186,8 @@ public class DbProduct
                                                 String name, String fournisseur, String refFournisseur,
                                                 String longueurInitiale, String largeur, String grammage,
                                                 String typeDeTissus, String dateArrivee, String transportFrigo,
-                                                String lieuActuel, String finished, String eventLabel)
+                                                String lieuActuel, String finished, String duree_de_vie_20, String duree_de_vie_moins_18,
+                                                String eventLabel)
     {
         String request;
         if (ConfigurationActivity.configuration.localDb)
@@ -201,6 +208,8 @@ public class DbProduct
         request = request.replaceAll("#transport_frigo#", transportFrigo);
         request = request.replaceAll("#lieu_actuel#", lieuActuel);
         request = request.replaceAll("#finished#", finished);
+        request = request.replaceAll("#duree_de_vie_20#", duree_de_vie_20);
+        request = request.replaceAll("#duree_de_vie_moins_18#", duree_de_vie_moins_18);
         request = request.replaceAll("#event_label#", eventLabel);
         return request;
     }

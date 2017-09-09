@@ -131,6 +131,28 @@
                         <TableRow style="@style/CommonTableRow">
 
                             <TextView style="@style/TextViewForTableRow"
+                                      android:text="@string/duree_de_vie_20_deg" />
+
+                            <EditText style="@style/EditTextForTableRow"
+                                      android:id="@+id/editDureeDeVie20"
+                                      android:inputType="numberDecimal" />
+
+                        </TableRow>
+
+                        <TableRow style="@style/CommonTableRow">
+
+                            <TextView style="@style/TextViewForTableRow"
+                                      android:text="@string/duree_de_vie_moins_18_deg" />
+
+                            <EditText style="@style/EditTextForTableRow"
+                                      android:id="@+id/editDureeDeVieMoins18"
+                                      android:inputType="numberDecimal" />
+
+                        </TableRow>
+
+                        <TableRow style="@style/CommonTableRow">
+
+                            <TextView style="@style/TextViewForTableRow"
                                       android:text="@string/finished" />
 
                             <Switch style="@style/SwitchForTableRow"

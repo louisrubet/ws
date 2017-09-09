@@ -1,5 +1,6 @@
 package com.lrubstudio.workshape;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -91,6 +92,18 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
                 ((EditText) view.findViewById(R.id.editInTempsTotalCongele)).setText(DbProduct.timeDiffToStringInDays(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis())));
             else
                 ((EditText) view.findViewById(R.id.editInTempsTotalCongele)).setText("-");
+        }
+        catch(Exception e)
+        {
+        }
+
+        // field temps total decongele in red
+        try
+        {
+            double duree_de_vie = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVie20));
+            double temps = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal));
+            if (temps >= duree_de_vie)
+                ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setTextColor(Color.RED);
         }
         catch(Exception e)
         {
