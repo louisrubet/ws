@@ -71,10 +71,19 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
         String[] dbfields = new String [] {
                 DbProduct.qrCode, DbProduct.name, DbProduct.longueurInitiale,
                 DbProduct.longueurActuelle, DbProduct.lieuActuel, DbProduct.lieuDepuis };
-        MainActivity.getLastRequestedProduct().fillFragmentFromFields(view, edits, dbfields);
 
-        // total time in seconds -> "DD jours HH heures"
-        ((EditText)view.findViewById(R.id.editOutHorsGelTotal)).setText(DbProduct.secondsToDaysHours(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));
+        try
+        {
+            MainActivity.getLastRequestedProduct().fillFragmentFromFields(view, edits, dbfields);
+
+            // total time in seconds -> "DD jours HH heures"
+            ((EditText)view.findViewById(R.id.editOutHorsGelTotal)).setText(DbProduct.secondsToDaysHours(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));
+        }
+        catch(Exception e)
+        {
+            Toast.makeText(getActivity(), getResources().getString(R.string.data_problem), Toast.LENGTH_LONG).show();
+            getActivity().finish();
+        }
 
         // temps total congele = age du rouleau - temps de vie décongelé
         try
@@ -86,9 +95,9 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
                 ((EditText) view.findViewById(R.id.editOutTempsTotalCongele)).setText("-");
 
             // in red if greater than "durée de vie à -18°"
-            double duree_de_vie = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVieMoins18));
-            double temps = DbProduct.timeDiffToDays(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis()));
-            if (temps >= duree_de_vie)
+            double duree_de_vie_s = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVieMoins18)) * 24 * 3600;
+            double temps_s = DbProduct.timeDiffToSeconds(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis()));
+            if ( (temps_s - duree_de_vie_s) >= 0)
                 ((EditText)view.findViewById(R.id.editOutTempsTotalCongele)).setTextColor(Color.RED);
         }
         catch(Exception e)
@@ -98,9 +107,9 @@ public class OutFragment extends Fragment implements View.OnClickListener, DbReq
         // field temps total decongele in red
         try
         {
-            double duree_de_vie = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVie20));
-            double temps = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal));
-            if (temps >= duree_de_vie)
+            double duree_de_vie_s = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVie20)) * 24 * 3600;
+            double temps_s = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal));
+            if (temps_s >= duree_de_vie_s)
                 ((EditText)view.findViewById(R.id.editOutHorsGelTotal)).setTextColor(Color.RED);
         }
         catch(Exception e)

@@ -71,6 +71,7 @@
     <string name="sauver_produit">Sauver le produit</string>
     <string name="buttonHistoCongel">Historique</string>
     <string name="internal_problem">Problème interne du logiciel</string>
+    <string name="data_problem">Le logiciel ne trouve pas les données demandées</string>
     <string name="sortir_le_produit">Sortir le produit</string>
     <string name="entrer_le_produit">Entrer le produit</string>
     <string name="sauver_la_note">Sauver la note</string>

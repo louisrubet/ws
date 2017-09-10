@@ -73,16 +73,25 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         String[] dbfields = new String [] {
                 DbProduct.qrCode, DbProduct.name, DbProduct.longueurInitiale,
                 DbProduct.longueurActuelle, DbProduct.lieuDepuis, DbProduct.finished };
-        MainActivity.getLastRequestedProduct().fillFragmentFromFields(view, edits, dbfields);
 
-        // fill lieu from global configuration
-        ((EditText)view.findViewById(R.id.editInLieuActuel)).setText(ConfigurationActivity.configuration.lieuParDefaut);
+        try
+        {
+            MainActivity.getLastRequestedProduct().fillFragmentFromFields(view, edits, dbfields);
 
-        // total time in seconds -> "DD jours HH heures"
-        ((EditText)view.findViewById(R.id.editInHorsGelTotal)).setText(DbProduct.secondsToDaysHours(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));
+            // fill lieu from global configuration
+            ((EditText) view.findViewById(R.id.editInLieuActuel)).setText(ConfigurationActivity.configuration.lieuParDefaut);
 
-        // fill hors gel time duration
-        ((EditText)view.findViewById(R.id.editInTempsHorsGel)).setText(DbProduct.timeDiffToString(getActivity(), ((Button)view.findViewById(R.id.buttonInLieuDepuis)).getText().toString(), new Date(System.currentTimeMillis())));
+            // total time in seconds -> "DD jours HH heures"
+            ((EditText) view.findViewById(R.id.editInHorsGelTotal)).setText(DbProduct.secondsToDaysHours(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal)));
+
+            // fill hors gel time duration
+            ((EditText) view.findViewById(R.id.editInTempsHorsGel)).setText(DbProduct.timeDiffToString(getActivity(), ((Button) view.findViewById(R.id.buttonInLieuDepuis)).getText().toString(), new Date(System.currentTimeMillis())));
+        }
+        catch(Exception e)
+        {
+            Toast.makeText(getActivity(), getResources().getString(R.string.data_problem), Toast.LENGTH_LONG).show();
+            getActivity().finish();
+        }
 
         // temps total congele = age du rouleau - temps de vie décongelé
         try
@@ -94,9 +103,9 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
                 ((EditText) view.findViewById(R.id.editInTempsTotalCongele)).setText("-");
 
             // in red if greater than "durée de vie à -18°"
-            double duree_de_vie = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVieMoins18));
-            double temps = DbProduct.timeDiffToDays(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis()));
-            if (temps >= duree_de_vie)
+            double duree_de_vie_s = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVieMoins18)) * 24 * 3600;
+            double temps_s = DbProduct.timeDiffToSeconds(getActivity(), MainActivity.getLastRequestedProduct().get(DbProduct.dateArrivee), new Date(System.currentTimeMillis()));
+            if (temps_s >= duree_de_vie_s)
                 ((EditText)view.findViewById(R.id.editInTempsTotalCongele)).setTextColor(Color.RED);
         }
         catch(Exception e)
@@ -106,9 +115,9 @@ public class InFragment extends Fragment implements View.OnClickListener, DbRequ
         // field temps total decongele in red
         try
         {
-            double duree_de_vie = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVie20));
-            double temps = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal));
-            if (temps >= duree_de_vie)
+            double duree_de_vie_s = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.dureeDeVie20)) * 24 * 3600;
+            double temps_s = Double.parseDouble(MainActivity.getLastRequestedProduct().get(DbProduct.tempsHorsGelTotal));
+            if (temps_s >= duree_de_vie_s)
                 ((EditText)view.findViewById(R.id.editInHorsGelTotal)).setTextColor(Color.RED);
         }
         catch(Exception e)

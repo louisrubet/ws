@@ -337,9 +337,9 @@ public class DbProduct
         return days;
     }
 
-    static public double timeDiffToDays(Context context, String dateFrom, Date dateTo)
+    static public double timeDiffToSeconds(Context context, String dateFrom, Date dateTo)
     {
-        double days = 0;
+        double seconds = 0;
         try
         {
             // time diff
@@ -347,14 +347,14 @@ public class DbProduct
             Date dateLieu = dateFormat.parse(dateFrom);
 
             // building hours
-            long diffs = ((dateTo.getTime() - dateLieu.getTime()) / 1000) / 3600;
-            days = (double)diffs;
+            long diffs = ((dateTo.getTime() - dateLieu.getTime()) / 1000);
+            seconds = (double)diffs;
         }
         catch(Exception e)
         {
         }
 
-        return days;
+        return seconds;
     }
 
     static public String timeNowToString(Context context)
