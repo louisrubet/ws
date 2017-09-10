@@ -2,6 +2,7 @@ package com.lrubstudio.workshape;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -35,6 +36,14 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.activity_list_title);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        // refresh list each time activity comes in front
 
         // empty list management
         View empty = findViewById(R.id.textEmpty);
@@ -72,7 +81,7 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                     {
                         // make a string list for the product listView
                         valuesArray = new ArrayList<Item>();
-                        valuesArray.add(new ListItem(ListAdapterDb.HEADER_ITEM, getString(R.string.qr_code), getString(R.string.name), getString(R.string.longueur_actuelle_short)));
+                        valuesArray.add(new ListItem(ListAdapterDb.HEADER_ITEM, "", getString(R.string.name), getString(R.string.longueur_actuelle_short), ""));
                         try
                         {
                             for (int i = 0; i < mapArrayList.size(); i++)
@@ -85,7 +94,8 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                                     String qrCode = (String) map.get(DbProduct.qrCode);
                                     String name = (String) map.get(DbProduct.name);
                                     String longueur = (String) map.get(DbProduct.longueurActuelle);
-                                    valuesArray.add(new ListItem(ListAdapterDb.LIST_ITEM, qrCode, name, longueur));
+                                    String lieu_actuel = (String) map.get(DbProduct.lieuActuel);
+                                    valuesArray.add(new ListItem(ListAdapterDb.LIST_ITEM, qrCode, name, longueur, lieu_actuel));
                                 }
                             }
                         } catch (Exception e)
@@ -102,7 +112,8 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                         // manage click
                         listView.setOnItemClickListener(this);
                     }
-                } else
+                }
+                else
                 {
                     // toast db error
                     Toast.makeText(this, DbRequest.errorCategory(this, dbError), Toast.LENGTH_LONG).show();
@@ -158,13 +169,15 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
         final String qrCode;
         final String name;
         final String longueur;
+        final String lieu_actuel;
         final int type;
 
-        public ListItem(int type, String qrCode, String name, String longueur)
+        public ListItem(int type, String qrCode, String name, String longueur, String lieu_actuel)
         {
             this.qrCode = qrCode;
             this.name = name;
             this.longueur = longueur;
+            this.lieu_actuel = lieu_actuel;
             this.type = type;
         }
 
@@ -192,11 +205,17 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
 
             if (view != null)
             {
+                // in red if out
+                boolean red = (qrCode != null && qrCode != "") && (lieu_actuel == null || lieu_actuel == "");
                 TextView text = (TextView) view.findViewById(R.id.textListContent2);
                 text.setText(name);
+                if (red)
+                    text.setTextColor(Color.RED);
 
                 text = (TextView) view.findViewById(R.id.textListContent1);
                 text.setText(longueur);
+                if (red)
+                    text.setTextColor(Color.RED);
             }
 
             return view;
@@ -256,11 +275,18 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
 
             if (convertView != null)
             {
+                // in red if out
+                ListItem item = (ListItem)getItem(position);
+                boolean red = (item.qrCode != null && item.qrCode != "") && (item.lieu_actuel == null || item.lieu_actuel == "");
                 TextView text = (TextView) convertView.findViewById(R.id.textListContent2);
-                text.setText(((ListItem)getItem(position)).name);
+                text.setText(item.name);
+                if (red)
+                    text.setTextColor(Color.RED);
 
                 text = (TextView) convertView.findViewById(R.id.textListContent1);
-                text.setText(((ListItem)getItem(position)).longueur);
+                text.setText(item.longueur);
+                if (red)
+                    text.setTextColor(Color.RED);
             }
 
             return convertView;
