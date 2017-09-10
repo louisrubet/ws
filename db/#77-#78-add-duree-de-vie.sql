@@ -1,10 +1,10 @@
 USE workshapedb;
 
-#ALTER TABLE `workshapedb`.`product`
-#ADD COLUMN `duree_de_vie_moins_18` DECIMAL(10,2) NULL DEFAULT NULL AFTER `finished`;
+ALTER TABLE `workshapedb`.`product`
+ADD COLUMN `duree_de_vie_moins_18` DECIMAL(10,2) NULL DEFAULT NULL AFTER `finished`;
 
-#ALTER TABLE `workshapedb`.`product`
-#ADD COLUMN `duree_de_vie_20` DECIMAL(10,2) NULL DEFAULT NULL AFTER `finished`;
+ALTER TABLE `workshapedb`.`product`
+ADD COLUMN `duree_de_vie_20` DECIMAL(10,2) NULL DEFAULT NULL AFTER `finished`;
 
 # product_view
 DROP VIEW IF EXISTS `product_view`;
