@@ -3,6 +3,8 @@ USE `workshapedb`;
 ALTER TABLE `workshapedb`.`product`
 ADD COLUMN `finished` INT(11) NULL DEFAULT NULL AFTER `nb_decongelation`;
 
+DROP view IF EXISTS `product_view`;
+
 CREATE
     ALGORITHM = UNDEFINED
     DEFINER = `workshape`@`%`
@@ -29,8 +31,12 @@ VIEW `workshapedb`.`product_view` AS
         `workshapedb`.`product`.`finished` AS `finished`,
         `workshapedb`.`product`.`note` AS `note`
     FROM
-        `workshapedb`.`product`
+        `workshapedb`.`product`;
 
+DROP function IF EXISTS `inner_str_to_int`;
+
+DELIMITER $$
+USE `workshapedb`$$
 CREATE FUNCTION `inner_str_to_int` (str_int_ nvarchar(45))
 RETURNS INTEGER
 BEGIN
@@ -42,7 +48,9 @@ BEGIN
 	end if;
 	return ret_dec_;
 
-END
+END$$
+
+DELIMITER ;
 
 DROP procedure IF EXISTS `product_add`;
 
