@@ -1,4 +1,5 @@
 USE `workshapedb`;
+DROP VIEW IF EXISTS `product_list`;
 CREATE 
      OR REPLACE ALGORITHM = UNDEFINED 
     DEFINER = `workshape`@`%` 
