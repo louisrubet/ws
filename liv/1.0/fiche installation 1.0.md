@@ -31,3 +31,6 @@ Notes d'installation:
 - branchement du smartphone par USB après validation des options développeur,
 - ! le fichier workshape.apk initialement poussé ne fonctionne pas avec adb. Une nouvelle génération produit un fichier qui fonctionne. Cause indéterminée
 _
+
+_Ajout 10/09/2017:
+- les fichiers script ont été renommés de façon à être descriptif, ordonnés et liés à une version

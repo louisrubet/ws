@@ -44,3 +44,5 @@ Setup new connection: workshape, Standard TCP/IP, 127.0.0.1, 3306, workshape
 ## 3. Installation du Smartphone
 
 Logiciel v1.0 RC1 pré-installé par Louis via Android Studio sur le Smartphone BV6000
+
+_Ajout 10/09/2017: le fichier script de création de db a été renommé 1.0-RC1-0001-create_all.sql_
