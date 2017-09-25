@@ -2,20 +2,14 @@
 
 Logiciel installé : __Gestion de stock des rouleaux pré-imprégnés v1.1__
 
-Date d'installation : __xx/xx/2017__
+Date d'installation : __25/09/2017__
 
 ## 1. Modifications de la db
-
-Appliquer les patchs de db scripts dans l'ordre de numération 1.1-000x-#...
-
-_Notes d'installation:
-_
+Patchs de db appliqués:
+- 1.1-0001-#81-largeur-in-mm.sql
+- 1.1-0002-#77-#78-add-duree-de-vie.sql
+- 1.1-0003-#87-add-lieu-actuel-in-list-view.sql
 
 ## 2. Installation de l'application sur le mobile
-
-_
-Notes d'installation:
-- téléchargement des Android platform tools pour Windows contenant adb,
-- branchement du smartphone par USB après validation des options développeur,
-- ! le fichier workshape.apk initialement poussé ne fonctionne pas avec adb. Une nouvelle génération produit un fichier qui fonctionne. Cause indéterminée
-_
+- désinstallation préalable de l'app précédente
+- utilisation d'adb sur smartphone par USB après validation des options développeur
