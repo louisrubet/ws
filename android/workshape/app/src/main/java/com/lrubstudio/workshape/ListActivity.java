@@ -2,6 +2,7 @@ package com.lrubstudio.workshape;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -209,13 +210,25 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 boolean red = (qrCode != null && qrCode != "") && (lieu_actuel == null || lieu_actuel == "");
                 TextView text = (TextView) view.findViewById(R.id.textListContent2);
                 text.setText(name);
-                if (red)
-                    text.setTextColor(Color.RED);
+
+                if (type == ListAdapterDb.LIST_ITEM)
+                {
+                    if (red)
+                        text.setTextColor(getResources().getColor(R.color.colorAccent));
+                    else
+                        text.setTextColor(getResources().getColor(R.color.colorListTextView));
+                }
 
                 text = (TextView) view.findViewById(R.id.textListContent1);
                 text.setText(longueur);
-                if (red)
-                    text.setTextColor(Color.RED);
+
+                if (type == ListAdapterDb.LIST_ITEM)
+                {
+                    if (red)
+                        text.setTextColor(getResources().getColor(R.color.colorAccent));
+                    else
+                        text.setTextColor(getResources().getColor(R.color.colorListTextView));
+                }
             }
 
             return view;
@@ -280,13 +293,24 @@ public class ListActivity extends AppCompatActivity implements DbRequest.AsyncRe
                 boolean red = (item.qrCode != null && item.qrCode != "") && (item.lieu_actuel == null || item.lieu_actuel == "");
                 TextView text = (TextView) convertView.findViewById(R.id.textListContent2);
                 text.setText(item.name);
-                if (red)
-                    text.setTextColor(Color.RED);
+
+                if (rowType == LIST_ITEM)
+                {
+                    if (red)
+                        text.setTextColor(getResources().getColor(R.color.colorAccent));
+                    else
+                        text.setTextColor(getResources().getColor(R.color.colorListTextView));
+                }
 
                 text = (TextView) convertView.findViewById(R.id.textListContent1);
                 text.setText(item.longueur);
-                if (red)
-                    text.setTextColor(Color.RED);
+                if (rowType == LIST_ITEM)
+                {
+                    if (red)
+                        text.setTextColor(getResources().getColor(R.color.colorAccent));
+                    else
+                        text.setTextColor(getResources().getColor(R.color.colorListTextView));
+                }
             }
 
             return convertView;
