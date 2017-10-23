@@ -2,7 +2,7 @@
 
 Logiciel installé : __Gestion de stock des rouleaux pré-imprégnés v1.2__
 
-Date d'installation : __xx/xx/2017__
+Date d'installation : __23/10/2017__
 
 ## 1. Modifications de la db
 Aucune
