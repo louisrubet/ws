@@ -58,6 +58,16 @@
                         <TableRow style="@style/CommonTableRow">
 
                             <TextView style="@style/TextViewForTableRow"
+                                      android:text="@string/numero_de_serie" />
+
+                            <EditText style="@style/EditTextForTableRow"
+                                      android:id="@+id/editNumeroDeSerie" />
+
+                        </TableRow>
+
+                        <TableRow style="@style/CommonTableRow">
+
+                            <TextView style="@style/TextViewForTableRow"
                                       android:text="@string/date_d_arrivee" />
 
                             <Button style="@style/TimeButtonForTableRow"

@@ -34,6 +34,7 @@ public class DbProduct
     public static final String finished = "finished";
     public static final String dureeDeVie20 = "duree_de_vie_20";
     public static final String dureeDeVieMoins18 = "duree_de_vie_moins_18";
+    public static final String numeroDeSerie = "numero_de_serie";
     public static final String note = "note";
 
     // product key column
@@ -153,7 +154,7 @@ public class DbProduct
                                                 String longueurInitiale, String largeur, String grammage,
                                                 String typeDeTissus, String dateArrivee, String transportFrigo,
                                                 String lieuActuel, String finished,
-                                                String duree_de_vie_20, String duree_de_vie_moins_18,
+                                                String duree_de_vie_20, String duree_de_vie_moins_18, String numero_de_serie,
                                                 String event_label, String name_label)
     {
         String request;
@@ -177,6 +178,7 @@ public class DbProduct
         request = request.replaceAll("#finished#", finished);
         request = request.replaceAll("#duree_de_vie_20#", duree_de_vie_20);
         request = request.replaceAll("#duree_de_vie_moins_18#", duree_de_vie_moins_18);
+        request = request.replaceAll("#numero_de_serie#", numero_de_serie);
         request = request.replaceAll("#event_label#", event_label);
         request = request.replaceAll("#name_label#", name_label);
         return request;
@@ -187,7 +189,7 @@ public class DbProduct
                                                 String longueurInitiale, String largeur, String grammage,
                                                 String typeDeTissus, String dateArrivee, String transportFrigo,
                                                 String lieuActuel, String finished, String duree_de_vie_20, String duree_de_vie_moins_18,
-                                                String eventLabel)
+                                                String numero_de_serie, String eventLabel)
     {
         String request;
         if (ConfigurationActivity.configuration.localDb)
@@ -210,6 +212,7 @@ public class DbProduct
         request = request.replaceAll("#finished#", finished);
         request = request.replaceAll("#duree_de_vie_20#", duree_de_vie_20);
         request = request.replaceAll("#duree_de_vie_moins_18#", duree_de_vie_moins_18);
+        request = request.replaceAll("#numero_de_serie#", numero_de_serie);
         request = request.replaceAll("#event_label#", eventLabel);
         return request;
     }

@@ -34,6 +34,7 @@
     <string name="qr_code">QR code</string>
     <string name="fournisseur">Fournisseur</string>
     <string name="ref_fourn">Ref. fourn.</string>
+    <string name="numero_de_serie">N° de série</string>
     <string name="longueur_initiale">Longueur initiale (m)</string>
     <string name="longueur_actuelle">Longueur actuelle (m)</string>
     <string name="longueur_actuelle_short">Longueur</string>
