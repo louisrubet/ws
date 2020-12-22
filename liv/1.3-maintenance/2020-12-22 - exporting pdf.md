@@ -24,6 +24,10 @@ pandoc -H format.sty -o exp.pdf exp.csv
 ```sql
 CREATE DEFINER=`workshape`@`%` PROCEDURE `show_product_events`(in qr_code_ nvarchar(45))
 BEGIN
+    Declare temps_hors_gel_total_ Int;
+    Declare days_ Int;
+    Declare hours_ Int;
+
 	DROP TEMPORARY TABLE if exists temp;
     create temporary table temp(date text, event text, descr text, info1 text, info2 text);
     
@@ -37,8 +41,8 @@ BEGIN
 
     insert into temp
 		select '' as 'date', '' as 'event', ''  as 'descr',
-			concat(inner_concat('Duree de vie à 20°C: ', cast(duree_de_vie_20 as char(32))),' h') as 'info1',
-            concat(inner_concat('Duree de vie à -18°C: ', cast(duree_de_vie_moins_18 as char(32))), ' h') as 'info2'
+			concat(inner_concat('Duree de vie à 20°C: ', cast(duree_de_vie_20 as char(32))),' jours') as 'info1',
+            concat(inner_concat('Duree de vie à -18°C: ', cast(duree_de_vie_moins_18 as char(32))), ' jours') as 'info2'
             from product where qr_code = qr_code_;
 
 	insert into temp
@@ -55,10 +59,15 @@ BEGIN
 	insert into temp
 		select '' as 'date', '' as 'event', ''  as 'descr', '' as 'info1', '' as 'info2';
 
+	Set @temps_hors_gel_total = (select ifnull(temps_hors_gel_total,0) from product where qr_code = qr_code_);
+	Set @days = cast(@temps_hors_gel_total / 3600 / 24 as Decimal(10,0));
+	Set @hours = cast((@temps_hors_gel_total - @days * 3600 * 24) / 3600 as decimal(10,0));
+    Set @days = concat(cast(@days as char), ' jours ');
+	Set @hours = concat(cast(@hours as char), ' heures');
     insert into temp
 		select '' as 'date', '' as 'event', ''  as 'descr',
 			'' as 'info1',
-            inner_concat('Temps hors gel total (hh:mm:ss): ', sec_to_time(temps_hors_gel_total)) as 'info2'
+            concat(concat('Temps hors gel total: ', @days), @hours) as 'info2'
             from product where qr_code = qr_code_;
 
 	select * from temp;
